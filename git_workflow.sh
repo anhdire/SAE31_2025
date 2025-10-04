@@ -488,6 +488,16 @@ show_help() {
     printf "      - Ou directement ${CYAN}option 10${RESET} pour faire les deux.\n"
     printf "      - Les autres font ${CYAN}option 2${RESET} pour récupérer dev à jour.\n\n"
 
+    printf "${BOLD}${YELLOW}4) Schéma visuel${RESET}\n\n"
+    printf "   ${GREEN}main (stable)${RESET} <───────────── ${YELLOW}(fusion finale)${RESET}\n"
+    printf "      ▲\n"
+    printf "      │\n"
+    printf "      │\n"
+    printf "      │────────── ${CYAN}dev (intégration)${RESET}\n"
+    printf "                  ▲     ▲      ▲\n"
+    printf "                  │     │      │\n"
+    printf "   ${MAGENTA}feature/rappel${RESET}   ${MAGENTA}feature/db${RESET}   ${MAGENTA}feature/ui${RESET}\n\n"
+
     printf "${BOLD}${YELLOW}4) Conseil final${RESET}\n"
     printf "   Enregistre (${CYAN}commit${RESET}) souvent.\n"
     printf "   Sauvegarde (${CYAN}push${RESET}) toujours à la ${BOLD}fin de ta séance de codage${RESET}.\n"
@@ -516,8 +526,10 @@ while true; do
     printf "\t${YELLOW}11)${RESET} Vérifier sur quelle ${BOLD}branche${RESET} je suis\n"
     printf "\t${YELLOW}12)${RESET} Voir l'${BOLD}historique récent${RESET}\n"
     printf "\t${YELLOW}13)${RESET} Voir l'${BOLD}état actuel${RESET} (${CYAN}status${RESET})\n"
+    printf "\t${YELLOW}13)${RESET} Dont forget main et dev fusion{RESET})\n"
     printf "\t${YELLOW}14)${RESET} ${CYAN}Aide / Rappel des commandes${RESET}\n"
     printf "\t${YELLOW}15)${RESET} ${RED}Quitter${RESET}\n\n"
+
     printf "\t${BOLD}Choix : ${RESET}"
     read -r choix
 
