@@ -136,7 +136,7 @@ update_dev() {
 start_new_task() {
     printf "\n${BOLD}${CYAN}=== Commencer une nouvelle tâche ===${RESET}\n\n"
 
-    run_with_spinner "${YELLOW}Mise à jour de ${BOLD}dev${RESET}" git checkout dev
+    run_with_spinner "${YELLOW}Je me place sur ${BOLD}dev${RESET}" git checkout dev
     run_with_spinner "${CYAN}Synchronisation de ${BOLD}dev${RESET}" git pull origin dev
 
     # Demande le nom de la tâche
@@ -263,6 +263,118 @@ push_work() {
     fi
 }
 
+# == Fonction 7 ==
+commit_and_push() {
+    printf "\n${BOLD}${CYAN}=== Fin de journée : commit + push ===${RESET}\n\n"
+
+    # Étape 1 : Commit
+    commit_work
+    if [ $? -ne 0 ]; then
+        printf "\t${RED}❌ Commit annulé → Push non exécuté.${RESET}\n\n"
+        return 1
+    fi
+
+    # Étape 2 : Push
+    push_work
+}
+
+#Fonction 8
+merge_feature_into_dev() {
+    printf "\n${BOLD}${CYAN}=== Terminer une tâche (fusionner dans dev) ===${RESET}\n\n"
+
+    printf "\t${BOLD}Nom de la tâche à terminer${RESET} (sans 'feature/') : "
+    read -r task_name
+    branch="feature/$task_name"
+
+    if [ -z "$task_name" ]; then
+        printf "\n\t${RED}Nom vide, annulation.${RESET}\n\n"
+        return 1
+    fi
+
+    if ! git show-ref --verify --quiet refs/heads/$branch; then
+        printf "\n\t${RED}La branche ${BOLD}$branch${RESET}${RED} n'existe pas.${RESET}\n\n"
+        return 1
+    fi
+
+    # Mettre dev à jour
+    run_with_spinner "${CYAN}Bascule sur${RESET} ${BOLD}dev${RESET}" git checkout dev
+    run_with_spinner "${CYAN}Mise à jour de dev${RESET}" git pull origin dev
+
+    # Fusionner
+    run_with_spinner "${YELLOW}Fusion de${RESET} ${BOLD}$branch${RESET} ${YELLOW}dans dev${RESET}" git merge --no-ff "$branch"
+
+    printf "\n\t${GREEN}Tâche terminée et mergée dans dev.${RESET}\n\n"
+}
+
+# == Fonction 9 ==
+delete_branch() {
+    printf "\n${BOLD}${CYAN}=== Ranger une tâche finie (supprimer une branche) ===${RESET}\n\n"
+
+    printf "\t${BOLD}Nom de la tâche à supprimer${RESET} (sans 'feature/') : "
+    read -r task_name
+
+    if [ -z "$task_name" ]; then
+        printf "\n\t${RED} Nom vide, annulation.${RESET}\n\n"
+        return 1
+    fi
+
+    branch="feature/$task_name"
+
+    # Vérifie si la branche existe en local
+    if ! git show-ref --verify --quiet refs/heads/$branch; then
+        printf "\n\t${RED}La branche ${BOLD}%s${RESET}${RED} n'existe pas en local.${RESET}\n\n" "$branch"
+        return 1
+    fi
+
+    # Suppression locale
+    run_with_spinner "${YELLOW}Suppression locale de${RESET} ${BOLD}$branch${RESET}" git branch -d "$branch"
+
+    # Suppression distante
+    run_with_spinner "${CYAN}Suppression distante de${RESET} ${BOLD}$branch${RESET}" git push origin --delete "$branch"
+    printf "\n\t${GREEN}Branche ${BOLD}%s${RESET}${GREEN} supprimée (locale + distante).${RESET}\n\n" "$branch"
+}
+
+# Fonction 10
+check_branch() {
+    current_branch=$(git branch --show-current)
+    printf "\n\tVous êtes actuellement sur : ${BOLD}${CYAN}%s${RESET}\n\n" "$current_branch"
+}
+
+
+# Fonction 11
+show_log() {
+    printf "\n${BOLD}${CYAN}=== Historique des derniers commits ===${RESET}\n\n"
+    printf "\t${BOLD}Limite ${RESET} (par defaut 10) : "
+    read -r lmite
+    loading_timer 3
+    git --no-pager log --oneline -n 10 --graph --decorate
+    printf "\n"
+}
+
+#Fonction 12
+show_status() {
+    printf "\n${BOLD}${CYAN}=== État actuel du dépôt ===${RESET}\n\n"
+    loading_timer 2
+    git status
+    printf "\n"
+}
+
+#Fontiton 13
+clean_branches() {
+    printf "\n${BOLD}${CYAN}=== Nettoyage des branches locales obsolètes ===${RESET}\n\n"
+    run_with_spinner "${YELLOW}Suppression des branches locales non suivies${RESET}" git fetch --prune
+    git branch -vv | grep ": gone]" | awk '{print $1}' | xargs -r git branch -d
+    printf "\n\t${GREEN}Nettoyage terminé.${RESET}\n\n"
+}
+
+quit_script() {
+    printf "\n\t${RED}Bye${RESET}\n\n"
+    exit 0
+}
+
+
+
+
 
 # Menu principal
 while true; do
@@ -272,14 +384,15 @@ while true; do
     printf "\t${YELLOW}3)${RESET}  Commencer une ${BOLD}nouvelle tâche${RESET}\n"
     printf "\t${YELLOW}4)${RESET}  Continuer une ${BOLD}tâche en cours${RESET}\n"
     printf "\t${YELLOW}5)${RESET}  Enregistrer mon travail (${CYAN}add + commit${RESET})\n"
-    printf "\t${YELLOW}6)${RESET}  Sauvegarder mon travail (${CYAN}push${RESET})\n"
-    printf "\t${YELLOW}7)${RESET}  Terminer une tâche (${GREEN}fusionner dans dev${RESET})\n"
-    printf "\t${YELLOW}8)${RESET}  Ranger une tâche finie (${RED}supprimer la branche${RESET})\n"
-    printf "\t${YELLOW}9)${RESET}  Vérifier sur quelle ${BOLD}branche${RESET} je suis\n"
-    printf "\t${YELLOW}10)${RESET} Voir l'${BOLD}historique récent${RESET}\n"
-    printf "\t${YELLOW}11)${RESET} Voir l'${BOLD}état actuel${RESET} (${CYAN}status${RESET})\n"
-    printf "\t${YELLOW}12)${RESET} Nettoyer les ${RED}branches locales obsolètes${RESET}\n"
-    printf "\t${YELLOW}13)${RESET} ${RED}Quitter${RESET}\n\n"
+    printf "\t${YELLOW}6)${RESET}  Securiser mon travail (${CYAN}push${RESET})\n"
+    printf "\t${YELLOW}7)${RESET}  Fin de journée ${CYAN}COMBO de 5 et 6 (commit + push)${RESET}\n"
+    printf "\t${YELLOW}8)${RESET}  Terminer une tâche (${GREEN}fusionner dans dev${RESET})\n"
+    printf "\t${YELLOW}9)${RESET}  Ranger une tâche finie (${RED}supprimer la branche${RESET})\n"
+    printf "\t${YELLOW}10)${RESET} Vérifier sur quelle ${BOLD}branche${RESET} je suis\n"
+    printf "\t${YELLOW}11)${RESET} Voir l'${BOLD}historique récent${RESET}\n"
+    printf "\t${YELLOW}12)${RESET} Voir l'${BOLD}état actuel${RESET} (${CYAN}status${RESET})\n"
+    printf "\t${YELLOW}13)${RESET} Nettoyer les ${RED}branches locales obsolètes${RESET}\n"
+    printf "\t${YELLOW}14)${RESET} ${RED}Quitter${RESET}\n\n"
     printf "\t${BOLD}Choix : ${RESET}"
     read -r choix
 
@@ -288,15 +401,16 @@ while true; do
         2) update_dev ;;
         3) start_new_task ;;
         4) continue_task ;;
-        5) printf "\n\t${YELLOW}TODO:${RESET} commit\n\n" ;;
-        6) printf "\n\t${YELLOW}TODO:${RESET} push\n\n" ;;
-        7) printf "\n\t${YELLOW}TODO:${RESET} merge\n\n" ;;
-        8) printf "\n\t${YELLOW}TODO:${RESET} delete branch\n\n" ;;
-        9) printf "\n\t${YELLOW}TODO:${RESET} vérifier branche\n\n" ;;
-        10) printf "\n\t${YELLOW}TODO:${RESET} log\n\n" ;;
-        11) printf "\n\t${YELLOW}TODO:${RESET} status\n\n" ;;
-        12) printf "\n\t${YELLOW}TODO:${RESET} prune\n\n" ;;
-        13) printf "\n\t${RED}Bye${RESET}\n\n"; exit 0 ;;
+        5) commit_work ;;
+        6) push_work ;;
+        7) commit_and_push;;
+        8) merge_feature_into_dev;;
+        9) delete_branch ;;
+        10) check_branch;;
+        11) show_log ;;
+        12) show_status ;;
+        13) clean_branches ;;
+        14) quit_script ;;
         *) printf "\n\t${RED}Option invalide${RESET}\n\n" ;;
     esac
 
