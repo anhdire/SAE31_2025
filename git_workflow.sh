@@ -323,8 +323,12 @@ merge_feature_into_dev() {
             run_with_spinner "${CYAN}Bascule sur${RESET} ${BOLD}dev${RESET}" git checkout dev || return 1
             run_with_spinner "${CYAN}Mise à jour de dev${RESET}" git pull origin dev
             run_with_spinner "${YELLOW}Fusion de${RESET} ${BOLD}$branch${RESET} ${YELLOW}dans dev${RESET}" git merge --no-ff "$branch"
-
             printf "\n\t${GREEN}Tâche $branch fusionnée avec succès dans dev.${RESET}\n\n"
+
+            # Nouveau : push dev pour synchroniser le serveur
+            run_with_spinner "${CYAN}Mise à jour du dépôt distant dev${RESET}" git push origin dev
+            printf "\n\t${GREEN}✔ Tâche $branch fusionnée et dev synchronisé avec succès.${RESET}\n\n"
+
             # On renvoie le nom de la branche fusionnée pour l’utiliser dans le combo
             LAST_MERGED_BRANCH="$branch"
             return 0
@@ -436,9 +440,62 @@ quit_script() {
 }
 
 
-# show_help(){
+show_help() {
+    clear
+    printf "\n${BOLD}${BLUE}=== AIDE / RAPPEL DU WORKFLOW PAPILLON ===${RESET}\n\n"
 
-# }
+    printf "${BOLD}${CYAN}Pourquoi on fait ça ?${RESET}\n"
+    printf "Pour travailler à plusieurs sans se marcher dessus, en utilisant des branches.\n"
+    printf "Avec ce menu, tu n’as qu’à suivre les numéros : pas besoin de retenir toutes les commandes Git.\n\n"
+
+    printf "${BOLD}${YELLOW}1) Le cycle normal de travail${RESET}\n"
+    printf "   - ${CYAN}1) Préparer le projet${RESET} : première fois (crée dev/main en local).\n"
+    printf "   - ${CYAN}3) Commencer une nouvelle tâche${RESET} : crée ta branche feature/...\n"
+    printf "   - ${CYAN}4) Continuer une tâche${RESET} : reprendre une branche déjà commencée.\n"
+    printf "   - ${CYAN}5) Enregistrer mon travail${RESET} : commit = sauvegarde locale.\n"
+    printf "   - ${CYAN}6) Sécuriser mon travail${RESET} : push = envoi sur le serveur.\n"
+    printf "   - ${CYAN}7) Fin de séance${RESET} : commit + push en un seul coup (toujours à faire quand tu arrêtes de coder).\n"
+    printf "   - ${CYAN}8) Terminer une tâche${RESET} : fusionne ta feature dans dev (et push dev).\n"
+    printf "   - ${CYAN}9) Ranger une tâche${RESET} : supprime ta feature (locale + serveur).\n"
+    printf "   - ${CYAN}10) Terminer + Ranger${RESET} : fusion + suppression d’un coup.\n\n"
+
+    printf "${BOLD}${YELLOW}2) Les règles d’or${RESET}\n"
+    printf "   Ne code JAMAIS directement sur ${RED}main${RESET} ou ${GREEN}dev${RESET}.\n"
+    printf "   Toujours coder dans une branche ${CYAN}feature/ta_tache${RESET}.\n"
+    printf "   Toujours faire un ${GREEN}pull${RESET} avant de commencer (option 2 ou inclus dans 3/4).\n"
+    printf "   Fais des ${BOLD}commits réguliers${RESET} : à chaque étape importante, pas à chaque ligne.\n"
+    printf "   Fais un ${BOLD}push en fin de séance${RESET} -> pour ne rien perdre et que les autres voient ton travail.\n\n"
+
+    printf "${BOLD}${YELLOW}3) Exemple concret à 3 personnes${RESET}\n"
+    printf "   ${BOLD}Alice${RESET} commence une tâche 'rappel'.\n"
+    printf "      - Elle fait ${CYAN}option 3${RESET} → crée feature/rappel.\n"
+    printf "      - Elle code, puis commit (${CYAN}option 5${RESET} : \"Ajout de la classe Rappel\").\n"
+    printf "      - Fin de séance -> ${CYAN}option 7${RESET} (commit + push).\n\n"
+
+    printf "   ${BOLD}Bob${RESET} bosse sur la base de données.\n"
+    printf "      - Il crée ${CYAN}feature/db${RESET}.\n"
+    printf "      - Il commit plusieurs fois pendant son travail (${CYAN}option 5${RESET}).\n"
+    printf "      - Fin de séance -> ${CYAN}option 7${RESET} pour tout envoyer.\n\n"
+
+    printf "   ${BOLD}Chloé${RESET} fait l’interface.\n"
+    printf "      - Elle crée ${CYAN}feature/ui${RESET}.\n"
+    printf "      - Elle commit après chaque grosse étape (création fenêtre, ajout boutons…).\n"
+    printf "      - Fin de séance -> ${CYAN}option 7${RESET} pour sécuriser son travail.\n\n"
+
+    printf "   ➡ Quand une tâche est finie :\n"
+    printf "      - L’élève fusionne sa feature dans dev (${CYAN}option 8${RESET}).\n"
+    printf "      - Puis il supprime la branche (${CYAN}option 9${RESET}),\n"
+    printf "      - Ou directement ${CYAN}option 10${RESET} pour faire les deux.\n"
+    printf "      - Les autres font ${CYAN}option 2${RESET} pour récupérer dev à jour.\n\n"
+
+    printf "${BOLD}${YELLOW}4) Conseil final${RESET}\n"
+    printf "   Enregistre (${CYAN}commit${RESET}) souvent.\n"
+    printf "   Sauvegarde (${CYAN}push${RESET}) toujours à la ${BOLD}fin de ta séance de codage${RESET}.\n"
+    printf "   Termine proprement une tâche (fusion + suppression) avant d’en attaquer une autre.\n\n"
+
+    printf "${GREEN}Avec ça, vous évitez les conflits et le prof verra un dépôt bien organisé.${RESET}\n\n"
+}
+
 
 
 
