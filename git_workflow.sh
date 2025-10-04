@@ -182,6 +182,8 @@ continue_task() {
         if git show-ref --verify --quiet refs/heads/feature/"$task_name"; then
             # Bascule sur la branche feature/task_name
             run_with_spinner "${YELLOW}Bascule sur${RESET} feature/$task_name" git checkout feature/"$task_name"
+            # Faire un pull 
+            run_with_spinner "${CYAN}Synchronisation de ${BOLD}feature/"$task_name"${RESET}" git pull origin feature/"$task_name"
             printf "\n\t${GREEN}Vous êtes maintenant sur ${BOLD}feature/%s${RESET}. Bon travail !\n\n" "$task_name"
             break
         else
@@ -207,8 +209,8 @@ commit_work() {
     run_with_spinner "${YELLOW}Ajout de tous les fichiers du projet${RESET}" git add -A
     # Affiche les fichiers ajoutés
     printf "\n\t${BOLD}Fichiers ajoutés au commit :${RESET}\n\n"
-    loading_timer 2
-    echo "\t\t" ; git status --short
+    printf "\t";loading_timer 2
+    printf "\t";git status --short
     printf "\n"
 
     # Demande un message de commit
