@@ -199,6 +199,9 @@ continue_task() {
 commit_work() {
     printf "\n${BOLD}${CYAN}=== Enregistrer mon travail (commit) ===${RESET}\n\n"
 
+    printf "\t${RED} Liste de changement.${RESET}\n\n"
+    git status --short
+
     # Vérifie si des changements(non pris et deja pris) existent (par rapport au dernier commit)
     if git diff --quiet && git diff --cached --quiet; then
         printf "\t${YELLOW}Aucun changement détecté, rien à enregistrer.${RESET}\n\n"
