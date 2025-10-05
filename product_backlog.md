@@ -73,7 +73,8 @@ Ce planning répartit les User Stories du projet **Papillon** sur 3 semaines de 
 
 **Livrable de fin de Sprint 2 :**
 - Application complète et testée (fichier `.jar`).  
-- Rapport PDF propre et complet prêt à être déposé sur Gitea.  
+- Rapposrt PDF propre et complet prêt à être déposé sur Gitea.  
 - Démonstration fonctionnelle du projet **Papillon**.
 
 ---
+
