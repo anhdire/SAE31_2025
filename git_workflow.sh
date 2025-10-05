@@ -225,7 +225,7 @@ commit_work() {
         return 1
     fi
 
-    run_with_spinner "${CYAN}\nCréation du commit${RESET}" git commit -m "$commit_message"
+    run_with_spinner "${CYAN}\n\tCréation du commit${RESET}" git commit -m "$commit_message"
 
     printf "\n\t${GREEN}Travail enregistré avec succès !${RESET}\n"
     printf "\tMessage : ${BOLD}%s${RESET}\n" "$commit_message"
