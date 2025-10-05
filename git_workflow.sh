@@ -208,7 +208,7 @@ commit_work() {
     if git diff --quiet && git diff --cached --quiet; then
         printf "\n\t${GREEN}Aucun changement détecté, rien à enregistrer.${RESET}\n"
         printf "\tTu peux continuer à coder tranquillement.\n\n"
-        return 1
+        return 0
     fi
 
     run_with_spinner "${YELLOW}\t  Ajout des fichiers au commit${RESET} (add)" git add -A
