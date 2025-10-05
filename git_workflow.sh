@@ -211,8 +211,7 @@ commit_work() {
         return 1
     fi
 
-    printf "\n\t${CYAN}Ajout des fichiers au commit...${RESET}\n"
-    run_with_spinner "${YELLOW}Ajout de tous les fichiers du projet${RESET}" git add -A
+    run_with_spinner "${YELLOW}Ajout des fichiers au commit${RESET}" git add -A
 
     printf "\n\t${BOLD}Fichiers ajoutés au commit :${RESET}\n\n"
     git status --short | sed 's/^/\t   /'
