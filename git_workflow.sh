@@ -199,24 +199,25 @@ continue_task() {
 commit_work() {
     printf "\n${BOLD}${CYAN}=== Enregistrer mon travail (commit) ===${RESET}\n\n"
 
-    printf "\t${RED} Liste de changement.${RESET}\n\n"
-    git status --short
+    printf "\t${YELLOW}Liste des fichiers modifiés :${RESET}\n\n"
 
-    # Vérifie si des changements(non pris et deja pris) existent (par rapport au dernier commit)
+    # Affiche et met à jour en même temps (évite un 2e appel)
+    git status --short | sed 's/^/\t   /'
+
+    # Vérifie s’il y a des changements (non pris + déjà pris)
     if git diff --quiet && git diff --cached --quiet; then
-        printf "\t${YELLOW}Aucun changement détecté, rien à enregistrer.${RESET}\n\n"
+        printf "\n\t${GREEN}Aucun changement détecté, rien à enregistrer.${RESET}\n"
+        printf "\tTu peux continuer à coder tranquillement.\n\n"
         return 1
     fi
 
-    # Ajoute tout le projet (modifs, suppressions, renommages)
+    printf "\n\t${CYAN}Ajout des fichiers au commit...${RESET}\n"
     run_with_spinner "${YELLOW}Ajout de tous les fichiers du projet${RESET}" git add -A
-    # Affiche les fichiers ajoutés
+
     printf "\n\t${BOLD}Fichiers ajoutés au commit :${RESET}\n\n"
-    printf "\t";loading_timer 2
-    printf "\t";git status --short
+    git status --short | sed 's/^/\t   /'
     printf "\n"
 
-    # Demande un message de commit
     printf "\t${BOLD}Message du commit :${RESET} "
     read -r commit_message
 
@@ -225,12 +226,14 @@ commit_work() {
         return 1
     fi
 
-    # Exécute le commit
-    run_with_spinner "${CYAN}Création du commit ${RESET} > ${BOLD}$commit_message${RESETs}" git commit -m "$commit_message"
+    run_with_spinner "${CYAN}Création du commit${RESET}" git commit -m "$commit_message"
 
     printf "\n\t${GREEN}Travail enregistré avec succès !${RESET}\n"
-    printf "\tMessage : ${BOLD}%s${RESET}\n\n" "$commit_message"
-}   
+    printf "\tMessage : ${BOLD}%s${RESET}\n" "$commit_message"
+    printf "\tBranche actuelle : ${BOLD}$(git branch --show-current)${RESET}\n"
+    printf "\tProchaine étape : ${CYAN}option 6 (push)${RESET} ou ${YELLOW}option 7 (fin de séance)${RESET}\n\n"
+}
+
 
 # === Fonction 6 ===
 # Verifie la branche courante (interdit sur dev et main)
