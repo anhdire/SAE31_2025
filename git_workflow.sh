@@ -199,7 +199,7 @@ continue_task() {
 commit_work() {
     printf "\n${BOLD}${CYAN}=== Enregistrer mon travail (commit) ===${RESET}\n\n"
 
-    printf "\t${YELLOW}Liste des fichiers modifiés :${RESET}\n\n"
+    printf "\t${YELLOW}${BOLD}Liste des fichiers modifiés :${RESET}\n\n"
 
     # Affiche et met à jour en même temps (évite un 2e appel)
     git status --short | sed 's/^/\t   /'
@@ -211,13 +211,13 @@ commit_work() {
         return 1
     fi
 
-    run_with_spinner "${YELLOW}Ajout des fichiers au commit${RESET}" git add -A
+    run_with_spinner "${YELLOW}\t  Ajout des fichiers au commit${RESET} (add)" git add -A
 
-    printf "\n\t${BOLD}Fichiers ajoutés au commit :${RESET}\n\n"
+    printf "\n\t${YELLOW}${BOLD}Fichiers ajoutés au commit :${RESET}\n\n"
     git status --short | sed 's/^/\t   /'
     printf "\n"
 
-    printf "\t${BOLD}Message du commit :${RESET} "
+    printf "\t${BOLD}Message du commit :) ${RESET} "
     read -r commit_message
 
     if [ -z "$commit_message" ]; then
@@ -225,7 +225,7 @@ commit_work() {
         return 1
     fi
 
-    run_with_spinner "${CYAN}Création du commit${RESET}" git commit -m "$commit_message"
+    run_with_spinner "${CYAN}\nCréation du commit${RESET}" git commit -m "$commit_message"
 
     printf "\n\t${GREEN}Travail enregistré avec succès !${RESET}\n"
     printf "\tMessage : ${BOLD}%s${RESET}\n" "$commit_message"
