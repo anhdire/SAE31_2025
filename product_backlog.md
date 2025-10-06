@@ -7,7 +7,7 @@ Ce tableau récapitule les User Stories du projet **Papillon**, leur priorité e
 
 | ID | En tant que | Description | Fichier(s) | Priorité | Statut |
 |----|--------------|--------------|-------------|-----------|---------|
-| **US1** | Équipe | Mettre en place la structure MVC et le Makefile pour disposer d’une base claire et compilable. |  | Haute | 🟥 |
+| **US1** | Équipe | Mettre en place la structure MVC et le Makefile pour disposer d’une base claire et compilable. | ceartion de fichier | Haute | 🟥 |
 | **US2** | Équipe | Concevoir le wireframe (maquette) de l’application Papillon, simuler les actions et comportements, et définir une charte graphique cohérente. |  | Haute | 🟥 |
 | **US3** | Développeur | Créer la classe de connexion à la base de données pour préparer les futures opérations CRUD. |  | Haute | 🟥 |
 | **US4** | Utilisateur | Voir une petite fenêtre “Papillon” toujours au premier plan, même vide, pour confirmer le bon lancement du logiciel. |  | Haute | 🟥 |
@@ -31,10 +31,12 @@ Ce planning répartit les User Stories du projet **Papillon** sur 3 semaines de 
 
 | ID | Description | Priorité | Statut |
 |----|--------------|-----------|---------|
-| **US1** | Mettre en place la structure MVC et le Makefile. | Haute | 🟥 |
+| **US1** | Mettre en place la structure MVC et le Makefile. | Haute |  🟨  |
 | **US2** | Concevoir le wireframe (maquette) de l’application, simuler les actions et comportements, et définir la charte graphique. | Haute | 🟥 |
 | **US3** | Créer la classe de connexion à la base de données (connexion simulée ou réelle). | Haute | 🟥 |
 | **US4** | Afficher une petite fenêtre “Papillon” toujours au premier plan (fenêtre test). | Haute | 🟥 |
+| **US5** | Ajouter un rappel (titre, contenu, thème, rang). | Haute | 🟥 |
+| **US6** | Afficher la liste de mes rappels de façon claire et triable. | Haute | 🟥 |
 
 **Livrable de fin de Sprint 0 :**
 - Projet qui compile (`make all` fonctionne).  
@@ -49,8 +51,6 @@ Ce planning répartit les User Stories du projet **Papillon** sur 3 semaines de 
 
 | ID | Description | Priorité | Statut |
 |----|--------------|-----------|---------|
-| **US5** | Ajouter un rappel (titre, contenu, thème, rang). | Haute | 🟥 |
-| **US6** | Afficher la liste de mes rappels de façon claire et triable. | Haute | 🟥 |
 | **US7** | Modifier un rappel existant. | Moyenne | 🟥 |
 | **US8** | Supprimer un rappel. | Moyenne | 🟥 |
 | **US9** | Voir des messages visuels en cas d’erreur (connexion BD, suppression, etc.). | Haute | 🟥 |
