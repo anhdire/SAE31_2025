@@ -7,7 +7,7 @@ Ce tableau récapitule les User Stories du projet **Papillon**, leur priorité e
 
 | ID | En tant que | Description | Fichier(s) | Priorité | Statut |
 |----|--------------|--------------|-------------|-----------|---------|
-| **US1** | Équipe | Mettre en place la structure MVC et le Makefile pour disposer d’une base claire et compilable. | ceartion de fichier | Haute | 🟥 |
+| **US1** | Équipe | Mettre en place la structure MVC et le Makefile pour disposer d’une base claire et compilable. | création de fichier | Haute | 🟥 |
 | **US2** | Équipe | Concevoir le wireframe (maquette) de l’application Papillon, simuler les actions et comportements, et définir une charte graphique cohérente. |  | Haute | 🟥 |
 | **US3** | Développeur | Créer la classe de connexion à la base de données pour préparer les futures opérations CRUD. | DBManager.java | Haute | 🟥 |
 | **US4** | Utilisateur | Voir une petite fenêtre “Papillon” toujours au premier plan, même vide, pour confirmer le bon lancement du logiciel. | App.java, VueMainFrame.java | Haute | 🟥 |
