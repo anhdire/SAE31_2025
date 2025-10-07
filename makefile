@@ -90,4 +90,4 @@ run: jar
 clean:
 	rm -rf $(BIN)/*
 	rm -f Papillon.jar
-	@echo "🧹 Dossier build et jar nettoyés."
+	@echo "Dossier build et jar nettoyés."

@@ -1,3 +1,5 @@
+package fr.iutfbleau.example;
+
 import java.awt.event.*;
 
 public class SauvegarderRappelListener implements ActionListener {

@@ -1,3 +1,5 @@
+package fr.iutfbleau.example;
+
 import javax.swing.*;
 
 public class VueRappelAddPanel extends JPanel {

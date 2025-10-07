@@ -1,4 +1,4 @@
-package dialloa.
+package fr.iutfbleau.example;
 public class DBManager {
 
     private static final String URL = "jdbc:mysql://";
