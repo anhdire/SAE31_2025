@@ -11,7 +11,7 @@ Ce tableau récapitule les User Stories du projet **Papillon**, leur priorité e
 | **US2** | Équipe | Concevoir le wireframe (maquette) de l’application Papillon, simuler les actions et comportements, et définir une charte graphique cohérente. |  | Haute | 🟥 |
 | **US3** | Développeur | Créer la classe de connexion à la base de données pour préparer les futures opérations CRUD. | DBManager.java | Haute | 🟥 |
 | **US4** | Utilisateur | Voir une petite fenêtre “Papillon” toujours au premier plan, même vide, pour confirmer le bon lancement du logiciel. | App.java, VueMainFrame.java | Haute | 🟥 |
-| **US5** | Utilisateur | Ajouter un rappel (titre, contenu, thème, rang) afin de noter mes tâches. |  | Haute | 🟥 |
+| **US5** | Utilisateur | Ajouter un rappel (titre, contenu, thème, rang) afin de noter mes tâches. | VueRappelAdd.java | Haute | 🟥 |
 | **US6** | Utilisateur | Afficher la liste de mes rappels de façon claire et triable. |  | Haute | 🟥 |
 | **US7** | Utilisateur | Modifier un rappel existant pour corriger mes informations. |  | Moyenne | 🟥 |
 | **US8** | Utilisateur | Supprimer un rappel pour garder ma liste propre. |  | Moyenne | 🟥 |
