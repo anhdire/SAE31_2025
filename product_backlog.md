@@ -34,8 +34,8 @@ Ce planning répartit les User Stories du projet **Papillon** sur 3 semaines de 
 | **US1** | Mettre en place la structure MVC et le Makefile. | Haute |  🟨  |
 | **US2** | Concevoir le wireframe (maquette) de l’application, simuler les actions et comportements, et définir la charte graphique. | Haute | 🟥 |
 | **US3** | Créer la classe de connexion à la base de données (connexion simulée ou réelle). | Haute | 🟥 |
-| **US4** | Afficher une petite fenêtre “Papillon” toujours au premier plan (fenêtre test). | Haute | 🟥 |
-| **US5** | Ajouter un rappel (titre, contenu, thème, rang). | Haute | 🟥 |
+| **US4** | Afficher une petite fenêtre “Papillon” toujours au premier plan (fenêtre test). | Haute | 🟨 |
+| **US5** | Ajouter un rappel (titre, contenu, thème, rang). | Haute | 🟨 |
 | **US6** | Afficher la liste de mes rappels de façon claire et triable. | Haute | 🟥 |
 
 **Livrable de fin de Sprint 0 :**
