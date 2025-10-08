@@ -1,9 +1,11 @@
+package fr.iutfbleau.example;
+
 import java.awt.event.*;
 
 public class AjouterRappelListener implements ActionListener {
-    private ControlRappel controller;
+    private ControleurRappel controller;
 
-    public AjouterRappelListener(ControlRappel c) { this.controller = c; }
+    public AjouterRappelListener(ControleurRappel c) { this.controller = c; }
 
     public void actionPerformed(ActionEvent e) { controller.afficherForm(null); }
 }

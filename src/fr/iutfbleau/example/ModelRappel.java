@@ -1,3 +1,5 @@
+package fr.iutfbleau.example;
+
 public class ModelRappel {
     private int id;
     private String titre;

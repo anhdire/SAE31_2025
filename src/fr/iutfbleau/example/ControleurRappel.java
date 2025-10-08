@@ -1,11 +1,13 @@
-import java.awt.event.*;
-import java.util.*;
+package fr.iutfbleau.example;
 
-public class ControlRappel implements ActionListener {
+import java.awt.event.*;
+
+
+public class ControleurRappel implements ActionListener {
     private VueMainFrame vue;
     private ModelRappelDataBase db;
 
-    public ControlRappel(ModelRappelDataBase dao, VueMainFrame vue) {
+    public ControleurRappel(ModelRappelDataBase dao, VueMainFrame vue) {
         this.db = dao;
         this.vue = vue;
     }

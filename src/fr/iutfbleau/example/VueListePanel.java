@@ -1,3 +1,5 @@
+package fr.iutfbleau.example;
+
 import javax.swing.*;
 import java.util.*;
 
