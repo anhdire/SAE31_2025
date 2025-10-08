@@ -5,7 +5,7 @@ JAR   = jar
 SRC   = src
 BIN   = build
 
-# --- Nom du package et classe principale ---
+LIB   = lib/mariadb-java-client-3.5.6.jar  
 PKG_PATH = fr/iutfbleau/example
 MAIN_PKG = fr.iutfbleau.example.App
 
@@ -21,26 +21,26 @@ $(BIN):
 
 # Classes sans dépendances
 $(BIN)/$(PKG_PATH)/DBManager.class: $(SRC)/$(PKG_PATH)/DBManager.java | $(BIN)
-	$(JAVAC) -d $(BIN) $<
+	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 $(BIN)/$(PKG_PATH)/ModelRappel.class: $(SRC)/$(PKG_PATH)/ModelRappel.java | $(BIN)
-	$(JAVAC) -d $(BIN) $<
+	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 # Classes Vue
 $(BIN)/$(PKG_PATH)/VueListePanel.class: $(SRC)/$(PKG_PATH)/VueListePanel.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp $(BIN) $<
+	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 $(BIN)/$(PKG_PATH)/VueDetailPanel.class: $(SRC)/$(PKG_PATH)/VueDetailPanel.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp $(BIN) $<
+	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 $(BIN)/$(PKG_PATH)/VueRappelAddPanel.class: $(SRC)/$(PKG_PATH)/VueRappelAddPanel.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp $(BIN) $<
+	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 $(BIN)/$(PKG_PATH)/VueMainFrame.class: $(SRC)/$(PKG_PATH)/VueMainFrame.java \
 		$(BIN)/$(PKG_PATH)/VueListePanel.class \
 		$(BIN)/$(PKG_PATH)/VueDetailPanel.class \
 		$(BIN)/$(PKG_PATH)/VueRappelAddPanel.class | $(BIN)
-	$(JAVAC) -d $(BIN) -cp $(BIN) $<
+	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 # Listeners
 # $(BIN)/$(PKG_PATH)/SauvegarderRappelListener.class: $(SRC)/$(PKG_PATH)/SauvegarderRappelListener.java | $(BIN)
@@ -53,7 +53,7 @@ $(BIN)/$(PKG_PATH)/VueMainFrame.class: $(SRC)/$(PKG_PATH)/VueMainFrame.java \
 $(BIN)/$(PKG_PATH)/ModelRappelDataBase.class: $(SRC)/$(PKG_PATH)/ModelRappelDataBase.java \
 		$(BIN)/$(PKG_PATH)/ModelRappel.class \
 		$(BIN)/$(PKG_PATH)/DBManager.class | $(BIN)
-	$(JAVAC) -d $(BIN) -cp $(BIN) $<
+	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 # Contrôleur
 # $(BIN)/$(PKG_PATH)/ControleurRappel.class: $(SRC)/$(PKG_PATH)/ControleurRappel.java \
@@ -71,7 +71,7 @@ $(BIN)/$(PKG_PATH)/SauvegarderRappelListener.class: \
 $(SRC)/$(PKG_PATH)/ControleurRappel.java \
 $(SRC)/$(PKG_PATH)/AjouterRappelListener.java \
 $(SRC)/$(PKG_PATH)/SauvegarderRappelListener.java | $(BIN)
-	$(JAVAC) -implicit:none -d $(BIN) -cp $(BIN) $^
+	$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $^
 
 
 
@@ -81,19 +81,19 @@ $(BIN)/$(PKG_PATH)/App.class: $(SRC)/$(PKG_PATH)/App.java \
 		$(BIN)/$(PKG_PATH)/ModelRappelDataBase.class \
 		$(BIN)/$(PKG_PATH)/VueMainFrame.class \
 		$(BIN)/$(PKG_PATH)/ControleurRappel.class | $(BIN)
-	$(JAVAC) -implicit:none -d $(BIN) -cp $(BIN) $<
+	$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 
 # Création du JAR (sans fichier manifest externe)
 jar: all
 	$(JAR) cvfe Papillon.jar $(MAIN_PKG) -C $(BIN) .
-	@echo "Papillon.jar créé avec succès."
+	@echo "Papillon.jar cree avec succes."
 
 
 run: jar
-	$(JAVA) -jar Papillon.jar
+	$(JAVA) -cp "Papillon.jar;$(LIB)" $(MAIN_PKG)
 
 clean:
 	rm -rf $(BIN)/*
 	rm -f Papillon.jar
-	@echo "Dossier build et jar nettoyés."
+	@echo "Dossier build et jar nettoyes."

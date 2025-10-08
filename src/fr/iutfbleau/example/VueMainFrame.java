@@ -10,7 +10,9 @@ public class VueMainFrame extends JFrame {
     private CardLayout cardLayout;
     private JPanel container;
 
-    public VueMainFrame() {}
+    public VueMainFrame() {
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
 
     public void showPanel(String name) {}
     public VueDetailPanel getDetailPanel() { return detailPanel; }
