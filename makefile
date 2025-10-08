@@ -57,13 +57,13 @@ $(BIN)/$(PKG_PATH)/ModelRappelDataBase.class: $(SRC)/$(PKG_PATH)/ModelRappelData
 
 # Compilation groupée (contrôleur + listeners) 
 # Ces classes se réfèrent mutuellement, donc on les compile ensemble.
-$(BIN)/$(PKG_PATH)/ControleurRappel.class \
-$(BIN)/$(PKG_PATH)/AjouterRappelListener.class \
-$(BIN)/$(PKG_PATH)/SauvegarderRappelListener.class: \
-$(SRC)/$(PKG_PATH)/ControleurRappel.java \
-$(SRC)/$(PKG_PATH)/AjouterRappelListener.java \
-$(SRC)/$(PKG_PATH)/SauvegarderRappelListener.java | $(BIN)
-	$(JAVAC) -implicit:none -d $(BIN) -cp $(BIN) $^
+# $(BIN)/$(PKG_PATH)/ControleurRappel.class \
+# $(BIN)/$(PKG_PATH)/AjouterRappelListener.class \
+# $(BIN)/$(PKG_PATH)/SauvegarderRappelListener.class: \
+# $(SRC)/$(PKG_PATH)/ControleurRappel.java \
+# $(SRC)/$(PKG_PATH)/AjouterRappelListener.java \
+# $(SRC)/$(PKG_PATH)/SauvegarderRappelListener.java | $(BIN)
+# 	$(JAVAC) -implicit:none -d $(BIN) -cp $(BIN) $^
 
 # Contrôleur
 $(BIN)/$(PKG_PATH)/ControleurRappel.class: $(SRC)/$(PKG_PATH)/ControleurRappel.java \
