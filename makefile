@@ -9,10 +9,10 @@ BIN   = build
 PKG_PATH = fr/iutfbleau/example
 MAIN_PKG = fr.iutfbleau.example.App
 
+# Compilation complète je met ici car c'est la regle par defaut
+all: $(BIN)/$(PKG_PATH)/App.class
 
-#         BUILD BASE
-
-
+#BUILD dosier creqtion
 $(BIN):
 	@mkdir -p $(BIN)
 
@@ -72,10 +72,6 @@ $(BIN)/$(PKG_PATH)/App.class: $(SRC)/$(PKG_PATH)/App.java \
 	$(JAVAC) -d $(BIN) -cp $(BIN) $<
 
 
-#         BUILD FINAL
-
-# Compilation complète
-all: $(BIN)/$(PKG_PATH)/App.class
 
 # Création du JAR (sans fichier manifest externe)
 jar: all
