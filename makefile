@@ -75,7 +75,6 @@ $(BIN)/$(PKG_PATH)/App.class: $(SRC)/$(PKG_PATH)/App.java \
 
 # Création du JAR (sans fichier manifest externe)
 jar: all
-#$(JAR) --create --file=Papillon.jar --main-class=$(MAIN_PKG) -C $(BIN) .
 	$(JAR) cvfe Papillon.jar $(MAIN_PKG) -C $(BIN) .
 	@echo "Papillon.jar créé avec succès."
 

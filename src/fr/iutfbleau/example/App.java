@@ -5,7 +5,7 @@ public class App {
         DBManager db = new DBManager();
         ModelRappelDataBase rdb = new ModelRappelDataBase(db.getConnection());
         VueMainFrame vue = new VueMainFrame();
-        ControlRappel controller = new ControlRappel(rdb, vue);
+        ControleurRappel controller = new ControleurRappel(rdb, vue);
         vue.setVisible(true);
     }
 }
