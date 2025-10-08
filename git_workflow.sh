@@ -333,7 +333,7 @@ merge_feature_into_dev() {
 
         # Gestion des cas d’erreur
         if [ $merge_status -ne 0 ]; then
-            printf "\n\t${RED}❌ Conflits détectés pendant la fusion.${RESET}\n"
+            printf "\n\t${RED}Conflits détectés pendant la fusion.${RESET}\n"
             printf "\tRésous les conflits à la main puis fais :\n"
             printf "\t   ${CYAN}git add . && git merge --continue${RESET}\n\n"
             printf "\tQuand tout est propre, tu pourras relancer cette fonction.\n\n"
@@ -344,7 +344,7 @@ merge_feature_into_dev() {
         # Si fusion OK, push le dev
         run_with_spinner "${CYAN}Envoi de dev mis à jour vers le dépôt distant${RESET}" git push origin dev
 
-        printf "\n\t${GREEN}✅ Tâche ${BOLD}$branch${RESET}${GREEN} fusionnée avec succès dans dev.${RESET}\n\n"
+        printf "\n\t${GREEN} Tâche ${BOLD}$branch${RESET}${GREEN} fusionnée avec succès dans dev.${RESET}\n\n"
         LAST_MERGED_BRANCH="$branch"
         return 0
     done

@@ -9,7 +9,7 @@ LIB   = lib/mariadb-java-client-3.5.6.jar
 PKG_PATH = fr/iutfbleau/example
 MAIN_PKG = fr.iutfbleau.example.App
 
-# Compilation complète je met ici car c'est la regle par defaut
+# Compilation complète je met ici car c'est la regle par defaut (teste)
 all: $(BIN)/$(PKG_PATH)/App.class
 
 #BUILD dosier creqtion
