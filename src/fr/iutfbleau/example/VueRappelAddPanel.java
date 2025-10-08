@@ -9,7 +9,9 @@ public class VueRappelAddPanel extends JPanel {
     private JTextField rang;
     private JButton bouton_add;
 
-    public Vue_Rappel_Add() {}
+    public VueRappelAddPanel() {
+
+    }
 
     public ModelRappel getRappelFromForm() { return null; }
     public void remplirChamps(ModelRappel r) {}
