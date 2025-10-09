@@ -39,6 +39,8 @@ CREATE TABLE `SAE31_2025_Rappel` (
 -- Déchargement des données de la table `SAE31_2025_Rappel`
 --
 
+-- Donne de teste
+
 INSERT INTO `SAE31_2025_Rappel` (`Id`, `Titre`, `Contenu`, `Theme`, `Rang`) VALUES
 (1, 'Test', 'Ceci est un test', 1, 1),
 (2, 'Acheter du lait', 'Avant 18h', 2, 2),
