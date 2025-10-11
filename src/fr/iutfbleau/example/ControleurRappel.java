@@ -10,11 +10,13 @@ public class ControleurRappel implements ActionListener {
     public ControleurRappel(ModelRappelDAO dao, VueMainFrame vue) {
         this.db = dao;
         this.vue = vue;
+        this.afficherListe();
     }
 
     public void actionPerformed(ActionEvent e) {}
 
     public void afficherListe() {
+        System.out.println("Debug");
         vue.getListePanel().rafraichirListe(db.getAllRappels());
         vue.showPanel("Liste");
     }

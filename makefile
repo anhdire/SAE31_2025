@@ -21,26 +21,32 @@ $(BIN):
 
 # Classes sans dépendances
 $(BIN)/$(PKG_PATH)/DBManager.class: $(SRC)/$(PKG_PATH)/DBManager.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
+
+$(BIN)/$(PKG_PATH)/ComparateurRang.class: $(SRC)/$(PKG_PATH)/ComparateurRang.java | $(BIN)
+	@$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 $(BIN)/$(PKG_PATH)/ModelRappel.class: $(SRC)/$(PKG_PATH)/ModelRappel.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 # Classes Vue
-$(BIN)/$(PKG_PATH)/VueListePanel.class: $(SRC)/$(PKG_PATH)/VueListePanel.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
+$(BIN)/$(PKG_PATH)/VueListePanel.class: \
+	$(SRC)/$(PKG_PATH)/VueListePanel.java \
+	$(BIN)/$(PKG_PATH)/ComparateurRang.class | $(BIN)
+	@$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
+
 
 $(BIN)/$(PKG_PATH)/VueDetailPanel.class: $(SRC)/$(PKG_PATH)/VueDetailPanel.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 $(BIN)/$(PKG_PATH)/VueRappelAddPanel.class: $(SRC)/$(PKG_PATH)/VueRappelAddPanel.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 $(BIN)/$(PKG_PATH)/VueMainFrame.class: $(SRC)/$(PKG_PATH)/VueMainFrame.java \
 		$(BIN)/$(PKG_PATH)/VueListePanel.class \
 		$(BIN)/$(PKG_PATH)/VueDetailPanel.class \
 		$(BIN)/$(PKG_PATH)/VueRappelAddPanel.class | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 # Listeners
 # $(BIN)/$(PKG_PATH)/SauvegarderRappelListener.class: $(SRC)/$(PKG_PATH)/SauvegarderRappelListener.java | $(BIN)
@@ -53,7 +59,7 @@ $(BIN)/$(PKG_PATH)/VueMainFrame.class: $(SRC)/$(PKG_PATH)/VueMainFrame.java \
 $(BIN)/$(PKG_PATH)/ModelRappelDAO.class: $(SRC)/$(PKG_PATH)/ModelRappelDAO.java \
 		$(BIN)/$(PKG_PATH)/ModelRappel.class \
 		$(BIN)/$(PKG_PATH)/DBManager.class | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 # Contrôleur
 # $(BIN)/$(PKG_PATH)/ControleurRappel.class: $(SRC)/$(PKG_PATH)/ControleurRappel.java \
@@ -71,7 +77,7 @@ $(BIN)/$(PKG_PATH)/SauvegarderRappelListener.class: \
 $(SRC)/$(PKG_PATH)/ControleurRappel.java \
 $(SRC)/$(PKG_PATH)/AjouterRappelListener.java \
 $(SRC)/$(PKG_PATH)/SauvegarderRappelListener.java | $(BIN)
-	$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $^
+	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $^
 
 
 
@@ -81,17 +87,21 @@ $(BIN)/$(PKG_PATH)/App.class: $(SRC)/$(PKG_PATH)/App.java \
 		$(BIN)/$(PKG_PATH)/ModelRappelDAO.class \
 		$(BIN)/$(PKG_PATH)/VueMainFrame.class \
 		$(BIN)/$(PKG_PATH)/ControleurRappel.class | $(BIN)
-	$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
+	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 
 # Création du JAR (sans fichier manifest externe)
 jar: all
-	$(JAR) cvfe Papillon.jar $(MAIN_PKG) -C $(BIN) .
+	@$(JAR) cvfe Papillon.jar $(MAIN_PKG) -C $(BIN) .
 	@echo "Papillon.jar cree avec succes."
 
+# Exécution de l'application avec le JAR
+# run: jar
+# 	$(JAVA) -cp "Papillon.jar;$(LIB)" $(MAIN_PKG)
 
-run: jar
-	$(JAVA) -cp "Papillon.jar;$(LIB)" $(MAIN_PKG)
+# Exécution de l'application sans le JAR
+run: all
+	$(JAVA) -cp "$(BIN);$(LIB)" $(MAIN_PKG)
 
 clean:
 	rm -rf $(BIN)/*

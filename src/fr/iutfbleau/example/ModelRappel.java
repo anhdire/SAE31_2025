@@ -22,6 +22,9 @@ public class ModelRappel {
         return titre;
     }
     public String getContenu() {
+        if (contenu == null) {
+            return "";
+        }
         return contenu;
     }
     public int getTheme() { 

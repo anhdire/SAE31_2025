@@ -14,7 +14,7 @@ public class ModelRappelDAO {
     public List<ModelRappel> getAllRappels() { 
         List<ModelRappel> rappels = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Rappel";
+            String sql = "SELECT * FROM " + DBManager.TABLE_NAME;
             PreparedStatement pst = this.connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()){

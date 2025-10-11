@@ -24,8 +24,7 @@ public class VueMainFrame extends JFrame {
         this.container.add(formPanel, "Form");
         this.container.add(detailPanel, "Detail");
         this.add(container);
-        this.setVisible(true);
-        this.getListePanel().rafraichirListe(null);
+        //this.setVisible(true);
     }
 
     public void showPanel(String name) {
