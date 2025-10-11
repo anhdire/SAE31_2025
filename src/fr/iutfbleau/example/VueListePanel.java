@@ -62,8 +62,9 @@ public class VueListePanel extends JPanel {
 
                 // Contenu tronqué et voir +
                 String contenu = r.getContenu();
-                if (contenu.length() > 70) {
-                    contenu = contenu.substring(0, 70) + "...";
+                int longueurTronquee = 40;
+                if (contenu.length() > longueurTronquee) {
+                    contenu = contenu.substring(0, longueurTronquee) + "...";
                 }
 
                 JLabel contenuLabel = new JLabel(contenu);

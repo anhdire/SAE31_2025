@@ -15,15 +15,20 @@ public class VueMainFrame extends JFrame {
         super.setSize(500,500);
         super.setLocation(0,0);
         super.setAlwaysOnTop(true);
+        super.setResizable(false);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         this.formPanel = new VueRappelAddPanel();
         this.listePanel = new VueListePanel();
         this.detailPanel = new VueDetailPanel();
+
         this.cardLayout = new CardLayout();
         this.container = new JPanel(cardLayout);
+
         container.add(listePanel, "Liste");
         container.add(formPanel, "Form");
         container.add(detailPanel, "Detail");
+
         this.add(container);
     }
 
