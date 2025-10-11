@@ -39,6 +39,7 @@ Ce planning répartit les User Stories du projet **Papillon** sur 3 semaines de 
 | **US4** | Afficher une petite fenêtre “Papillon” toujours au premier plan (fenêtre test). | Haute | 🟨 |Ayoub|
 | **US5** | Ajouter un rappel (titre, contenu, thème, rang) avec sauvegarde dans la base de données. | Haute | 🟨 |Ayoub|
 | **US6** | Afficher la liste de mes rappels de façon claire et triable. | Haute | 🟨 | Algassimou|
+| **US7** |Mise en relation et mise a jour de la branch main| Moyenne | 🟥 | Algassimou|
 
 **Livrable de fin de Sprint 0 :**
 - Projet qui compile (`make all` fonctionne).  
@@ -55,9 +56,9 @@ Ce planning répartit les User Stories du projet **Papillon** sur 3 semaines de 
 
 | ID | Description | Priorité | Statut | Dev |
 |----|--------------|-----------|---------|---------|
-| **US7** | Modifier un rappel existant et enregistrer les modifications dans la base de données. | Moyenne | 🟥 ||
-| **US8** | Supprimer un rappel (avec suppression dans la base). | Moyenne | 🟥 |Youness|
-| **US9** | Ajouter des messages visuels d’erreur (connexion BD, suppression impossible, etc.). | Haute | 🟥 ||
+| **US8** | Modifier un rappel existant et enregistrer les modifications dans la base de données. | Moyenne | 🟥 ||
+| **US9** | Supprimer un rappel (avec suppression dans la base). | Moyenne | 🟥 |Youness|
+| **US10** | Ajouter des messages visuels d’erreur (connexion BD, suppression impossible, etc.). | Haute | 🟥 ||
 
 **Livrable de fin de Sprint 1 :**
 - CRUD complet et fonctionnel.  
@@ -72,8 +73,8 @@ Ce planning répartit les User Stories du projet **Papillon** sur 3 semaines de 
 
 | ID | Description | Priorité | Statut |
 |----|--------------|-----------|---------|
-| **US10** | Générer une archive `.jar` exécutable du projet. | Haute | 🟥 |
-| **US11** | Rédiger le rapport PDF complet (introduction, UML, captures, ergonomie, conclusions). | Haute | 🟥 |
+| **US11** | Générer une archive `.jar` exécutable du projet. | Haute | 🟥 |
+| **US12** | Rédiger le rapport PDF complet (introduction, UML, captures, ergonomie, conclusions). | Haute | 🟥 |
 
 **Livrable de fin de Sprint 2 :**
 - Application complète et testée (fichier `.jar`).  

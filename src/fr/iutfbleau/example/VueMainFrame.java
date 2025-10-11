@@ -12,6 +12,21 @@ public class VueMainFrame extends JFrame {
 
     public VueMainFrame() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setSize(600, 400);
+        this.setTitle("Gestion des rappels");
+        this.setLocationRelativeTo(null);
+        this.cardLayout = new CardLayout();
+        this.container = new JPanel(cardLayout);
+        this.listePanel = new VueListePanel();
+        this.formPanel = new VueRappelAddPanel();
+        this.detailPanel = new VueDetailPanel();
+        this.container.add(listePanel, "Liste");
+        this.container.add(formPanel, "Form");
+        this.container.add(detailPanel, "Detail");
+        this.add(container);
+        this.setVisible(true);
+        this.showPanel("Liste");
+        this.getListePanel().rafraichirListe(null);
     }
 
     public void showPanel(String name) {}

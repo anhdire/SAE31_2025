@@ -7,7 +7,13 @@ public class ModelRappel {
     private int theme;
     private int rang;
 
-    public ModelRappel(String t, String c, int th, int r) {}
+    public ModelRappel(int id, String t, String c, int th, int r) {
+        this.id = id;
+        this.titre = t;
+        this.contenu = c;
+        this.theme = th;
+        this.rang = r;
+    }
 
     public String getTitre() { return titre; }
     public String getContenu() { return contenu; }
