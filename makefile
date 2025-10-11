@@ -50,7 +50,7 @@ $(BIN)/$(PKG_PATH)/VueMainFrame.class: $(SRC)/$(PKG_PATH)/VueMainFrame.java \
 # 	$(JAVAC) -d $(BIN) -cp $(BIN) $<
 
 # Modèle & Base de données
-$(BIN)/$(PKG_PATH)/ModelRappelDataBase.class: $(SRC)/$(PKG_PATH)/ModelRappelDataBase.java \
+$(BIN)/$(PKG_PATH)/ModelRappelDAO.class: $(SRC)/$(PKG_PATH)/ModelRappelDAO.java \
 		$(BIN)/$(PKG_PATH)/ModelRappel.class \
 		$(BIN)/$(PKG_PATH)/DBManager.class | $(BIN)
 	$(JAVAC) -d $(BIN) -cp "$(BIN);$(LIB)" $<
@@ -78,7 +78,7 @@ $(SRC)/$(PKG_PATH)/SauvegarderRappelListener.java | $(BIN)
 # Application principale 
 $(BIN)/$(PKG_PATH)/App.class: $(SRC)/$(PKG_PATH)/App.java \
 		$(BIN)/$(PKG_PATH)/DBManager.class \
-		$(BIN)/$(PKG_PATH)/ModelRappelDataBase.class \
+		$(BIN)/$(PKG_PATH)/ModelRappelDAO.class \
 		$(BIN)/$(PKG_PATH)/VueMainFrame.class \
 		$(BIN)/$(PKG_PATH)/ControleurRappel.class | $(BIN)
 	$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<

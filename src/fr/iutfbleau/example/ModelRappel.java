@@ -15,9 +15,22 @@ public class ModelRappel {
         this.rang = r;
     }
 
-    public String getTitre() { return titre; }
-    public String getContenu() { return contenu; }
-    public int getTheme() { return theme; }
-    public int getRang() { return rang; }
-    public String toString() { return titre; }
+    public int getId(){
+        return id; 
+    }
+    public String getTitre(){
+        return titre;
+    }
+    public String getContenu() {
+        return contenu;
+    }
+    public int getTheme() { 
+        return theme; 
+    }
+    public int getRang() { 
+        return rang; 
+    }
+    public String toString() { 
+        return "Rappel{id=" + id + ", titre='" + titre + "', contenu='" + contenu + "', theme=" + theme + ", rang=" + rang + "}"; 
+    }
 }

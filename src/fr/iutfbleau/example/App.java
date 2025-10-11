@@ -3,9 +3,9 @@ package fr.iutfbleau.example;
 public class App {
     public static void main(String[] args) {
         DBManager db = new DBManager();
-        ModelRappelDataBase rdb = new ModelRappelDataBase(db.getConnection());
+        ModelRappelDAO modelRappelDAO = new ModelRappelDAO(db.getConnection());
         VueMainFrame vue = new VueMainFrame();
-        ControleurRappel controller = new ControleurRappel(rdb, vue);
+        ControleurRappel controller = new ControleurRappel(modelRappelDAO, vue);
         vue.setVisible(true);
     }
 }
