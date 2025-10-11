@@ -11,7 +11,14 @@ public class VueMainFrame extends JFrame {
     private JPanel container;
 
     public VueMainFrame() {
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        super("Papillon");
+        super.setSize(500,500);
+        super.setLocation(0,0);
+        super.setAlwaysOnTop(true);
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.formPanel = new VueRappelAddPanel();
+        super.add(formPanel);
+
     }
 
     public void showPanel(String name) {}
