@@ -12,7 +12,7 @@ public class VueMainFrame extends JFrame {
 
     public VueMainFrame() {
         super("Papillon");
-        super.setSize(500,500);
+        super.setSize(450,450);
         super.setLocation(0,0);
         super.setAlwaysOnTop(true);
         super.setResizable(false);
