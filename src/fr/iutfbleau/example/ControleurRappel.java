@@ -16,12 +16,22 @@ public class ControleurRappel implements ActionListener {
     public void actionPerformed(ActionEvent e) {}
 
     public void afficherListe() {
-        System.out.println("Debug");
+        //System.out.println("Debug");
         vue.getListePanel().rafraichirListe(db.getAllRappels());
         vue.showPanel("Liste");
     }
-    public void afficherForm(ModelRappel r) {}
-    public void afficherDetail(ModelRappel r) {}
+    public void afficherForm(ModelRappel r) {
+        if (r != null) {
+            vue.getFormPanel().remplirChamps(r);
+        } else {
+            vue.getFormPanel().viderChamps();
+        }
+        vue.showPanel("Form");
+    }
+    public void afficherDetail(ModelRappel r) {
+        vue.getDetailPanel().afficherRappel(r);
+        vue.showPanel("Detail");
+    }
     public void ajouterRappel(ModelRappel r) {}
     public void modifierRappel(ModelRappel r) {}
     public void supprimerRappel(int id) {}

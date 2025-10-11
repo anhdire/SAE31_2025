@@ -17,8 +17,14 @@ public class VueMainFrame extends JFrame {
         super.setAlwaysOnTop(true);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.formPanel = new VueRappelAddPanel();
-        super.add(formPanel);
-
+        this.listePanel = new VueListePanel();
+        this.detailPanel = new VueDetailPanel();
+        this.cardLayout = new CardLayout();
+        this.container = new JPanel(cardLayout);
+        container.add(listePanel, "Liste");
+        container.add(formPanel, "Form");
+        container.add(detailPanel, "Detail");
+        this.add(container);
     }
 
     public void showPanel(String name) {
@@ -32,7 +38,13 @@ public class VueMainFrame extends JFrame {
         }
 
     }
-    public VueDetailPanel getDetailPanel() { return detailPanel; }
-    public VueListePanel getListePanel() { return listePanel; }
-    public VueRappelAddPanel getFormPanel() { return formPanel; }
+    public VueDetailPanel getDetailPanel() { 
+        return detailPanel; 
+    }
+    public VueListePanel getListePanel() { 
+        return listePanel; 
+    }
+    public VueRappelAddPanel getFormPanel() { 
+        return formPanel; 
+    }
 }
