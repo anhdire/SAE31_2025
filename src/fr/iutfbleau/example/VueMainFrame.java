@@ -21,7 +21,17 @@ public class VueMainFrame extends JFrame {
 
     }
 
-    public void showPanel(String name) {}
+    public void showPanel(String name) {
+        cardLayout.show(container, name);
+        if (name.equals("Liste")) {
+            this.setTitle("Liste des rappels");
+        } else if (name.equals("Form")) {
+            this.setTitle("Ajouter/Modifier un rappel");
+        } else if (name.equals("Detail")) {
+            this.setTitle("Détails du rappel");
+        }
+
+    }
     public VueDetailPanel getDetailPanel() { return detailPanel; }
     public VueListePanel getListePanel() { return listePanel; }
     public VueRappelAddPanel getFormPanel() { return formPanel; }
