@@ -22,6 +22,7 @@ Réaction au clic / survol
 public class VueListePanel extends JPanel {
     private final JScrollPane scrollPane;
     private final JPanel listeRappel;
+    private JButton bouton_ajouter_rappel;
 
     public VueListePanel() {
         // Je configure le layout principal
@@ -31,9 +32,15 @@ public class VueListePanel extends JPanel {
         this.listeRappel = new JPanel();
         this.listeRappel.setLayout(new BoxLayout(this.listeRappel, BoxLayout.Y_AXIS));
         this.listeRappel.setBackground(new Color(0xFFFFFF)); // fond général blanc
-
+        JPanel jp = new JPanel();
+        BorderLayout bl = new BorderLayout();
+        jp.setLayout(bl);
+        this.bouton_ajouter_rappel = new JButton("Ajouter un rappel");
+        jp.add(this.bouton_ajouter_rappel,BorderLayout.CENTER);
         this.scrollPane = new JScrollPane(listeRappel);
         this.add(scrollPane);
+        this.add(jp);
+        //this.add(bouton_ajouter_rappel);
     }
 
     public void rafraichirListe(List<ModelRappel> rappels) {
@@ -68,7 +75,7 @@ public class VueListePanel extends JPanel {
                 }
 
                 JLabel contenuLabel = new JLabel(contenu);
-                JLabel voirPlus = new JLabel("Cliquer pour voir +");
+                JButton voirPlus = new JButton("Cliquer pour voir +");
                 voirPlus.setForeground(new Color(0x5555FF)); // bleu doux
                 contenuLabel.setFont(contenuLabel.getFont().deriveFont(Font.PLAIN));
 
@@ -111,5 +118,8 @@ public class VueListePanel extends JPanel {
             listeRappel.revalidate();  // disposition
             listeRappel.repaint();
         }
+    }
+    public JButton getButtonAdd(){
+        return this.bouton_ajouter_rappel;
     }
 }

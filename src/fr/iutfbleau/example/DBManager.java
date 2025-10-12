@@ -7,7 +7,7 @@ public class DBManager {
     private static final String URL = "jdbc:mariadb://dwarves.iut-fbleau.fr/boulalam";
     private static final String LOGIN = "boulalam";
     private static final String MDP = "azerty";
-    public static final String DRIVER = "org.mariadb.jdbc.Driver";
+    public static final String DRIVER = "org.mariadb.jdbc.DRIVER";
     public static final String TABLE_NAME = "SAE31_2025_Rappel";
     private Connection connection;
 

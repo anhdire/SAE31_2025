@@ -1,5 +1,4 @@
 package fr.iutfbleau.example;
-
 import java.sql.*;
 import java.util.*;
 
@@ -11,6 +10,8 @@ public class ModelRappelDAO {
     public void ajouterRappel(ModelRappel r) {}
     public void supprimerRappel(int id) {}
     public void modifierRappel(ModelRappel r) {}
+    
+
     public List<ModelRappel> getAllRappels() { 
         List<ModelRappel> rappels = new ArrayList<>();
         try {
@@ -34,5 +35,6 @@ public class ModelRappelDAO {
         }
         return rappels; 
     }
+
     public ModelRappel getOneRappel(int id) { return null; }
 }

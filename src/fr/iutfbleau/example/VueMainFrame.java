@@ -1,5 +1,4 @@
 package fr.iutfbleau.example;
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -51,5 +50,11 @@ public class VueMainFrame extends JFrame {
     }
     public VueRappelAddPanel getFormPanel() { 
         return formPanel; 
+    }
+    public CardLayout getCartes(){
+        return this.cardLayout;
+    }
+    public JPanel getPanel(){
+        return this.container;
     }
 }
