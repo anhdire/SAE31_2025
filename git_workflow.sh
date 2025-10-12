@@ -199,22 +199,25 @@ continue_task() {
 commit_work() {
     printf "\n${BOLD}${CYAN}=== Enregistrer mon travail (commit) ===${RESET}\n\n"
 
-    # Vérifie si des changements(non pris et deja pris) existent (par rapport au dernier commit)
+    printf "\t${YELLOW}${BOLD}Liste des fichiers modifiés :${RESET}\n\n"
+
+    # Affiche et met à jour en même temps (évite un 2e appel)
+    git status --short | sed 's/^/\t   /'
+
+    # Vérifie s’il y a des changements (non pris + déjà pris)
     if git diff --quiet && git diff --cached --quiet; then
-        printf "\t${YELLOW}Aucun changement détecté, rien à enregistrer.${RESET}\n\n"
-        return 1
+        printf "\n\t${GREEN}Aucun changement détecté, rien à enregistrer.${RESET}\n"
+        printf "\tTu peux continuer à coder tranquillement.\n\n"
+        return 0
     fi
 
-    # Ajoute tout le projet (modifs, suppressions, renommages)
-    run_with_spinner "${YELLOW}Ajout de tous les fichiers du projet${RESET}" git add -A
-    # Affiche les fichiers ajoutés
-    printf "\n\t${BOLD}Fichiers ajoutés au commit :${RESET}\n\n"
-    printf "\t";loading_timer 2
-    printf "\t";git status --short
+    run_with_spinner "${YELLOW}\t  Ajout des fichiers au commit${RESET} (add)" git add -A
+
+    printf "\n\t${YELLOW}${BOLD}Fichiers ajoutés au commit :${RESET}\n\n"
+    git status --short | sed 's/^/\t   /'
     printf "\n"
 
-    # Demande un message de commit
-    printf "\t${BOLD}Message du commit :${RESET} "
+    printf "\t${BOLD}Message du commit :) ${RESET} "
     read -r commit_message
 
     if [ -z "$commit_message" ]; then
@@ -222,12 +225,14 @@ commit_work() {
         return 1
     fi
 
-    # Exécute le commit
-    run_with_spinner "${CYAN}Création du commit ${RESET} > ${BOLD}$commit_message${RESETs}" git commit -m "$commit_message"
+    run_with_spinner "${CYAN}\n\tCréation du commit${RESET}" git commit -m "$commit_message"
 
     printf "\n\t${GREEN}Travail enregistré avec succès !${RESET}\n"
-    printf "\tMessage : ${BOLD}%s${RESET}\n\n" "$commit_message"
-}   
+    printf "\tMessage : ${BOLD}%s${RESET}\n" "$commit_message"
+    printf "\tBranche actuelle : ${BOLD}$(git branch --show-current)${RESET}\n"
+    printf "\tProchaine étape : ${CYAN}option 6 (push)${RESET} ou ${YELLOW}option 7 (fin de séance)${RESET}\n\n"
+}
+
 
 # === Fonction 6 ===
 # Verifie la branche courante (interdit sur dev et main)
@@ -292,13 +297,6 @@ commit_and_push() {
 merge_feature_into_dev() {
     printf "\n${BOLD}${CYAN}=== Terminer une tâche (fusionner dans dev) ===${RESET}\n\n"
 
-    # Vérifie si l’espace de travail est propre
-    if ! git diff --quiet || ! git diff --cached --quiet; then
-        printf "\n${RED}Impossible de continuer : des changements non commités existent.${RESET}\n"
-        printf "${YELLOW}Utilise l'option 5 (commit) ou 7 (fin de journée), puis recommence.${RESET}\n\n"
-        return 1
-    fi
-
     printf "\t${BOLD}Branches locales disponibles :${RESET}\n\n"
     git branch --format="%(refname:short)" | grep '^feature/' || echo "   (Aucune feature locale)"
     printf "\n"
@@ -309,32 +307,46 @@ merge_feature_into_dev() {
 
         # Annulation
         if [ "$task_name" = "q" ]; then
-            printf "\n\t${YELLOW}Fusion annulée par l'utilisateur.${RESET}\n\n"
+            printf "\n\t${YELLOW}Fusion annulée par l’utilisateur.${RESET}\n\n"
             return 1
         fi
 
-        # Nettoyage entrée
+        # Nettoyage du nom (enlève espace et *)
         task_name=$(echo "$task_name" | xargs)
         task_name=${task_name#\*}
         [[ "$task_name" == feature/* ]] && branch="$task_name" || branch="feature/$task_name"
 
         # Vérifie si la branche existe
-        if git show-ref --verify --quiet refs/heads/$branch; then
-            run_with_spinner "${CYAN}Bascule sur${RESET} ${BOLD}dev${RESET}" git checkout dev || return 1
-            run_with_spinner "${CYAN}Mise à jour de dev${RESET}" git pull origin dev
-            run_with_spinner "${YELLOW}Fusion de${RESET} ${BOLD}$branch${RESET} ${YELLOW}dans dev${RESET}" git merge --no-ff "$branch"
-            printf "\n\t${GREEN}Tâche $branch fusionnée avec succès dans dev.${RESET}\n\n"
-
-            # Nouveau : push dev pour synchroniser le serveur
-            run_with_spinner "${CYAN}Mise à jour du dépôt distant dev${RESET}" git push origin dev
-            printf "\n\t${GREEN}✔ Tâche $branch fusionnée et dev synchronisé avec succès.${RESET}\n\n"
-
-            # On renvoie le nom de la branche fusionnée pour l’utiliser dans le combo
-            LAST_MERGED_BRANCH="$branch"
-            return 0
-        else
-            printf "\n\t${RED}La branche $branch n'existe pas.${RESET}\n"
+        if ! git show-ref --verify --quiet refs/heads/$branch; then
+            printf "\n\t${RED}La branche ${BOLD}$branch${RESET}${RED} n'existe pas.${RESET}\n\n"
+            continue
         fi
+
+        # Bascule sur dev et mise à jour
+        run_with_spinner "${CYAN}Bascule sur${RESET} ${BOLD}dev${RESET}" git checkout dev
+        run_with_spinner "${CYAN}Mise à jour de dev${RESET}" git pull origin dev
+
+        # Lancement du merge
+        printf "\n\t${YELLOW}Fusion en cours...${RESET}\n\n"
+        git merge --no-ff "$branch"
+        merge_status=$?
+
+        # Gestion des cas d’erreur
+        if [ $merge_status -ne 0 ]; then
+            printf "\n\t${RED}Conflits détectés pendant la fusion.${RESET}\n"
+            printf "\tRésous les conflits à la main puis fais :\n"
+            printf "\t   ${CYAN}git add . && git merge --continue${RESET}\n\n"
+            printf "\tQuand tout est propre, tu pourras relancer cette fonction.\n\n"
+            git merge --abort 2>/dev/null
+            return 1
+        fi
+
+        # Si fusion OK, push le dev
+        run_with_spinner "${CYAN}Envoi de dev mis à jour vers le dépôt distant${RESET}" git push origin dev
+
+        printf "\n\t${GREEN} Tâche ${BOLD}$branch${RESET}${GREEN} fusionnée avec succès dans dev.${RESET}\n\n"
+        LAST_MERGED_BRANCH="$branch"
+        return 0
     done
 }
 
@@ -343,45 +355,55 @@ merge_feature_into_dev() {
 delete_branch() {
     printf "\n${BOLD}${CYAN}=== Ranger une tâche finie (supprimer une branche) ===${RESET}\n\n"
 
-    # Vérifie si l’espace de travail est propre
-    if ! git diff --quiet || ! git diff --cached --quiet; then
-        printf "\n${RED}Impossible de continuer : des changements non commités existent.${RESET}\n"
-        printf "${YELLOW}Utilise l'option 5 (commit) ou 7 (fin de journée), puis recommence.${RESET}\n\n"
+    # Si on vient juste de fusionner une branche, proposer automatiquement la dernière
+    if [ -n "$LAST_MERGED_BRANCH" ]; then
+        printf "\tDernière branche fusionnée : ${BOLD}$LAST_MERGED_BRANCH${RESET}\n"
+        printf "\tSouhaitez-vous la supprimer ? (o/n) : "
+        read -r auto_del
+        if [ "$auto_del" = "o" ]; then
+            task_name="$LAST_MERGED_BRANCH"
+        fi
+    fi
+
+    if [ -z "$task_name" ]; then
+        printf "\n\t${BOLD}Branches locales disponibles :${RESET}\n\n"
+        git branch --format="%(refname:short)" | grep '^feature/' || echo "   (Aucune feature locale)"
+        printf "\n\tNom de la tâche à supprimer (ex: git_workflow ou feature/git_workflow, q pour annuler) : "
+        read -r task_name
+    fi
+
+    # Annulation
+    if [ "$task_name" = "q" ]; then
+        printf "\n\t${YELLOW}Suppression annulée par l'utilisateur.${RESET}\n\n"
         return 1
     fi
 
-    printf "\t${BOLD}Branches locales disponibles :${RESET}\n\n"
-    git branch --format="%(refname:short)" | grep '^feature/' || echo "   (Aucune feature locale)"
-    printf "\n"
+    # Nettoie le nom
+    task_name=$(echo "$task_name" | xargs)
+    task_name=${task_name#\*}
+    [[ "$task_name" == feature/* ]] && branch="$task_name" || branch="feature/$task_name"
 
-    while true; do
-        printf "\tNom de la tâche à supprimer (ex: git_workflow ou feature/git_workflow, q pour annuler) : "
-        read -r task_name
+    # Vérifie si la branche existe
+    if ! git show-ref --verify --quiet refs/heads/$branch; then
+        printf "\n\t${RED}La branche ${BOLD}$branch${RESET}${RED} n'existe pas.${RESET}\n\n"
+        return 1
+    fi
 
-        if [ "$task_name" = "q" ]; then
-            printf "\n\t${YELLOW}Suppression annulée par l'utilisateur.${RESET}\n\n"
-            return 1
-        fi
+    printf "\n\t${YELLOW}Confirmer la suppression de ${BOLD}$branch${RESET}${YELLOW} ? (o/n) : ${RESET}"
+    read -r confirm
+    if [ "$confirm" != "o" ]; then
+        printf "\n\t${RED}Suppression annulée.${RESET}\n\n"
+        return 1
+    fi
 
-        task_name=$(echo "$task_name" | xargs)
-        task_name=${task_name#\*}
-        [[ "$task_name" == feature/* ]] && branch="$task_name" || branch="feature/$task_name"
+    # Suppression locale
+    run_with_spinner "${YELLOW}Suppression locale de${RESET} ${BOLD}$branch${RESET}" git branch -d "$branch"
+    # Suppression distante
+    run_with_spinner "${CYAN}Suppression distante de${RESET} ${BOLD}$branch${RESET}" git push origin --delete "$branch"
 
-        if git show-ref --verify --quiet refs/heads/$branch; then
-            printf "\n\t${YELLOW}Voulez-vous vraiment supprimer ${BOLD}$branch${RESET}${YELLOW} ? (o/n) ${RESET}"
-            read -r confirm
-            [ "$confirm" != "o" ] && { printf "\n${RED}Suppression annulée.${RESET}\n\n"; return 1; }
-
-            run_with_spinner "${YELLOW}Suppression locale de${RESET} ${BOLD}$branch${RESET}" git branch -d "$branch"
-            run_with_spinner "${CYAN}Suppression distante de${RESET} ${BOLD}$branch${RESET}" git push origin --delete "$branch"
-
-            printf "\n\t${GREEN}Branche $branch supprimée (locale + distante).${RESET}\n\n"
-            return 0
-        else
-            printf "\n${RED}La branche $branch n'existe pas.${RESET}\n"
-        fi
-    done
+    printf "\n\t${GREEN}✅ Branche ${BOLD}$branch${RESET}${GREEN} supprimée (locale + distante).${RESET}\n\n"
 }
+
 
 # === Fonction 10 : Fusionner puis Supprimer ===
 merge_and_clean_feature() {
@@ -438,6 +460,66 @@ quit_script() {
     printf "\n\t${RED}Bye${RESET}\n\n"
     exit 0
 }
+
+# === Fonction : Fusionner dev vers main (version stable) ===
+release_to_main() {
+    printf "\n${BOLD}${CYAN}=== Publication d’une version stable (fusion dev → main) ===${RESET}\n\n"
+
+    # Vérifie qu'on est bien dans un dépôt Git
+    if [ ! -d ".git" ]; then
+        printf "\t${RED}❌ Ce dossier n'est pas un dépôt Git.${RESET}\n\n"
+        return 1
+    fi
+
+    # Sauvegarde HEAD pour rollback si problème
+    backup_head
+
+    # Vérifie que la branche dev existe
+    if ! git show-ref --verify --quiet refs/heads/dev; then
+        printf "\t${RED}La branche dev n’existe pas.${RESET}\n\n"
+        return 1
+    fi
+
+    # Bascule sur dev et met à jour
+    run_with_spinner "${CYAN}Bascule sur${RESET} ${BOLD}dev${RESET}" git checkout dev
+    run_with_spinner "${CYAN}Mise à jour de${RESET} ${BOLD}dev${RESET}" git pull origin dev
+
+    # Test final : compilation et exécution
+    printf "\n${YELLOW}🧩 Test final de compilation (make clean + all + run)...${RESET}\n\n"
+    if make clean && make all; then
+        printf "\n\t${GREEN}✅ Compilation réussie.${RESET}\n"
+    else
+        printf "\n\t${RED}❌ Échec de compilation. Corrige avant de publier.${RESET}\n\n"
+        return 1
+    fi
+
+    # Fusion vers main
+    run_with_spinner "${CYAN}Bascule sur${RESET} ${BOLD}main${RESET}" git checkout main
+    run_with_spinner "${YELLOW}Fusion de${RESET} ${BOLD}dev${RESET} ${YELLOW}vers${RESET} ${BOLD}main${RESET}" git merge --no-ff dev
+
+    # Push sur main
+    run_with_spinner "${CYAN}Envoi de${RESET} ${BOLD}main${RESET} ${CYAN}vers le dépôt distant${RESET}" git push origin main
+
+    # 6(Optionnel) Création du JAR
+    printf "\n\tSouhaitez-vous créer le fichier .jar ? (o/n) : "
+    read -r make_jar
+    if [ "$make_jar" = "o" ]; then
+        run_with_spinner "${CYAN}Création du JAR${RESET}" make jar
+    fi
+
+    # 7(Optionnel) Tag version stable
+    printf "\n\tSouhaitez-vous taguer cette version stable ? (o/n) : "
+    read -r make_tag
+    if [ "$make_tag" = "o" ]; then
+        printf "\tNom du tag (ex: v1.0-sprint1) : "
+        read -r tag_name
+        run_with_spinner "${CYAN}Création du tag ${RESET}${BOLD}$tag_name${RESET}" git tag -a "$tag_name" -m "Version stable $(date '+%Y-%m-%d')"
+        run_with_spinner "${CYAN}Envoi du tag vers le dépôt distant${RESET}" git push origin "$tag_name"
+    fi
+
+    printf "\n\t${GREEN}✅ Version stable publiée sur main avec succès.${RESET}\n\n"
+}
+
 
 
 show_help() {
@@ -526,9 +608,9 @@ while true; do
     printf "\t${YELLOW}11)${RESET} Vérifier sur quelle ${BOLD}branche${RESET} je suis\n"
     printf "\t${YELLOW}12)${RESET} Voir l'${BOLD}historique récent${RESET}\n"
     printf "\t${YELLOW}13)${RESET} Voir l'${BOLD}état actuel${RESET} (${CYAN}status${RESET})\n"
-    printf "\t${YELLOW}13)${RESET} Dont forget main et dev fusion{RESET})\n"
-    printf "\t${YELLOW}14)${RESET} ${CYAN}Aide / Rappel des commandes${RESET}\n"
-    printf "\t${YELLOW}15)${RESET} ${RED}Quitter${RESET}\n\n"
+    printf "\t${YELLOW}14)${RESET} Publier la version stable (${CYAN}merge dev to main${RESET})\n"
+    printf "\t${YELLOW}15)${RESET} ${CYAN}Aide / Rappel des commandes${RESET}\n"
+    printf "\t${YELLOW}16)${RESET} ${RED}Quitter${RESET}\n\n"
 
     printf "\t${BOLD}Choix : ${RESET}"
     read -r choix
@@ -547,8 +629,9 @@ while true; do
         11) check_branch ;;
         12) show_log ;;
         13) show_status ;;
-        14) show_help ;;
-        15) quit_script ;;
+        14) release_to_main ;;
+        15) show_help ;;
+        16) quit_script ;;
         *) printf "\n\t${RED}Option invalide${RESET}\n\n" ;;
     esac
 
