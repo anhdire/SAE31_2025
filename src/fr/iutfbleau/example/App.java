@@ -4,7 +4,7 @@ public class App {
         DBManager db = new DBManager();
         ModelRappelDAO modelRappelDAO = new ModelRappelDAO(db.getConnection());
         VueMainFrame vue = new VueMainFrame();
-        ThemeListener th = new ThemeListener(vue.getFormPanel());
+        //ListenerTheme th = new ListenerTheme(vue.getFormPanel());
         ControleurRappel controller = new ControleurRappel(modelRappelDAO, vue);
         vue.setVisible(true);
     }

@@ -1,10 +1,9 @@
 package fr.iutfbleau.example;
 
+import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.border.*;
-import java.awt.*;
-import java.util.Comparator;
-import java.util.List;
 /*
  *  Identifier ce que chaque rappel doit montrer
  * Chaque rappel affiché doit contenir :
@@ -22,7 +21,8 @@ Réaction au clic / survol
 public class VueListePanel extends JPanel {
     private final JScrollPane scrollPane;
     private final JPanel listeRappel;
-    private JButton bouton_ajouter_rappel;
+    private final JPanel panneauBouton;
+    private final JButton bouton_ajouter_rappel;
 
     public VueListePanel() {
         // Je configure le layout principal
@@ -31,16 +31,16 @@ public class VueListePanel extends JPanel {
         // Je crée le panneau qui contiendra la liste des rappels
         this.listeRappel = new JPanel();
         this.listeRappel.setLayout(new BoxLayout(this.listeRappel, BoxLayout.Y_AXIS));
+
+        // Configuration pour le bouton d'ajout
+        this.panneauBouton = new JPanel();
+        this.bouton_ajouter_rappel = new JButton("Ajouter un rappel");    
+        this.panneauBouton.add(bouton_ajouter_rappel);
+        this.add(panneauBouton);
+
         this.listeRappel.setBackground(new Color(0xFFFFFF)); // fond général blanc
-        JPanel jp = new JPanel();
-        BorderLayout bl = new BorderLayout();
-        jp.setLayout(bl);
-        this.bouton_ajouter_rappel = new JButton("Ajouter un rappel");
-        jp.add(this.bouton_ajouter_rappel,BorderLayout.CENTER);
         this.scrollPane = new JScrollPane(listeRappel);
         this.add(scrollPane);
-        this.add(jp);
-        //this.add(bouton_ajouter_rappel);
     }
 
     public void rafraichirListe(List<ModelRappel> rappels) {
@@ -75,7 +75,7 @@ public class VueListePanel extends JPanel {
                 }
 
                 JLabel contenuLabel = new JLabel(contenu);
-                JButton voirPlus = new JButton("Cliquer pour voir +");
+                JLabel voirPlus = new JLabel("Cliquer pour voir +");
                 voirPlus.setForeground(new Color(0x5555FF)); // bleu doux
                 contenuLabel.setFont(contenuLabel.getFont().deriveFont(Font.PLAIN));
 
@@ -119,7 +119,10 @@ public class VueListePanel extends JPanel {
             listeRappel.repaint();
         }
     }
-    public JButton getButtonAdd(){
+
+
+    // Getter pour le bouton d'ajout
+    public JButton getButtonAdd() {
         return this.bouton_ajouter_rappel;
     }
 }

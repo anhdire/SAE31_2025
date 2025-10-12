@@ -23,7 +23,7 @@ public class ModelRappel {
     }
     public String getContenu() {
         if (contenu == null) {
-            return "";
+            return "Pas de contenu.";
         }
         return contenu;
     }
