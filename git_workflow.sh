@@ -461,6 +461,66 @@ quit_script() {
     exit 0
 }
 
+# === Fonction : Fusionner dev vers main (version stable) ===
+release_to_main() {
+    printf "\n${BOLD}${CYAN}=== Publication d’une version stable (fusion dev → main) ===${RESET}\n\n"
+
+    # Vérifie qu'on est bien dans un dépôt Git
+    if [ ! -d ".git" ]; then
+        printf "\t${RED}❌ Ce dossier n'est pas un dépôt Git.${RESET}\n\n"
+        return 1
+    fi
+
+    # Sauvegarde HEAD pour rollback si problème
+    backup_head
+
+    # Vérifie que la branche dev existe
+    if ! git show-ref --verify --quiet refs/heads/dev; then
+        printf "\t${RED}La branche dev n’existe pas.${RESET}\n\n"
+        return 1
+    fi
+
+    # Bascule sur dev et met à jour
+    run_with_spinner "${CYAN}Bascule sur${RESET} ${BOLD}dev${RESET}" git checkout dev
+    run_with_spinner "${CYAN}Mise à jour de${RESET} ${BOLD}dev${RESET}" git pull origin dev
+
+    # Test final : compilation et exécution
+    printf "\n${YELLOW}🧩 Test final de compilation (make clean + all + run)...${RESET}\n\n"
+    if make clean && make all; then
+        printf "\n\t${GREEN}✅ Compilation réussie.${RESET}\n"
+    else
+        printf "\n\t${RED}❌ Échec de compilation. Corrige avant de publier.${RESET}\n\n"
+        return 1
+    fi
+
+    # Fusion vers main
+    run_with_spinner "${CYAN}Bascule sur${RESET} ${BOLD}main${RESET}" git checkout main
+    run_with_spinner "${YELLOW}Fusion de${RESET} ${BOLD}dev${RESET} ${YELLOW}vers${RESET} ${BOLD}main${RESET}" git merge --no-ff dev
+
+    # Push sur main
+    run_with_spinner "${CYAN}Envoi de${RESET} ${BOLD}main${RESET} ${CYAN}vers le dépôt distant${RESET}" git push origin main
+
+    # 6(Optionnel) Création du JAR
+    printf "\n\tSouhaitez-vous créer le fichier .jar ? (o/n) : "
+    read -r make_jar
+    if [ "$make_jar" = "o" ]; then
+        run_with_spinner "${CYAN}Création du JAR${RESET}" make jar
+    fi
+
+    # 7(Optionnel) Tag version stable
+    printf "\n\tSouhaitez-vous taguer cette version stable ? (o/n) : "
+    read -r make_tag
+    if [ "$make_tag" = "o" ]; then
+        printf "\tNom du tag (ex: v1.0-sprint1) : "
+        read -r tag_name
+        run_with_spinner "${CYAN}Création du tag ${RESET}${BOLD}$tag_name${RESET}" git tag -a "$tag_name" -m "Version stable $(date '+%Y-%m-%d')"
+        run_with_spinner "${CYAN}Envoi du tag vers le dépôt distant${RESET}" git push origin "$tag_name"
+    fi
+
+    printf "\n\t${GREEN}✅ Version stable publiée sur main avec succès.${RESET}\n\n"
+}
+
+
 
 show_help() {
     clear
@@ -548,9 +608,9 @@ while true; do
     printf "\t${YELLOW}11)${RESET} Vérifier sur quelle ${BOLD}branche${RESET} je suis\n"
     printf "\t${YELLOW}12)${RESET} Voir l'${BOLD}historique récent${RESET}\n"
     printf "\t${YELLOW}13)${RESET} Voir l'${BOLD}état actuel${RESET} (${CYAN}status${RESET})\n"
-    printf "\t${YELLOW}13)${RESET} Dont forget main et dev fusion{RESET})\n"
-    printf "\t${YELLOW}14)${RESET} ${CYAN}Aide / Rappel des commandes${RESET}\n"
-    printf "\t${YELLOW}15)${RESET} ${RED}Quitter${RESET}\n\n"
+    printf "\t${YELLOW}14)${RESET} Publier la version stable (${CYAN}merge dev to main${RESET})\n"
+    printf "\t${YELLOW}15)${RESET} ${CYAN}Aide / Rappel des commandes${RESET}\n"
+    printf "\t${YELLOW}16)${RESET} ${RED}Quitter${RESET}\n\n"
 
     printf "\t${BOLD}Choix : ${RESET}"
     read -r choix
@@ -569,8 +629,9 @@ while true; do
         11) check_branch ;;
         12) show_log ;;
         13) show_status ;;
-        14) show_help ;;
-        15) quit_script ;;
+        14) release_to_main ;;
+        15) show_help ;;
+        16) quit_script ;;
         *) printf "\n\t${RED}Option invalide${RESET}\n\n" ;;
     esac
 

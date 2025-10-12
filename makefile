@@ -90,8 +90,11 @@ jar: all
 	@echo "Papillon.jar cree avec succes."
 
 
-run: all
-	$(JAVA) -cp "$(BIN);$(LIB)" $(MAIN_PKG)
+run: jar
+	@echo "Execution de l'application Papillon sur le jar..."
+	@java -cp "Papillon.jar;$(LIB)" $(MAIN_PKG)
+# 	@echo "Execution de l'application Papillon en mode developpement..."
+# 	@$(JAVA) -cp "$(BIN);$(LIB)" $(MAIN_PKG)
 
 clean:
 	-rm -rf $(BIN)/*
