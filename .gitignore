@@ -1,1 +1,4 @@
-lol.sh
+git_wokflow.sh
+build/
+Papillon.jar
+*.class
