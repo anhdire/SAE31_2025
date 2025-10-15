@@ -2,7 +2,7 @@ package fr.iutfbleau.example;
 import java.awt.event.*;
 
 public class ListenerAjouterRappel implements ActionListener {
-    public ControleurRappel controleur;
+    private ControleurRappel controleur;
 
     public ListenerAjouterRappel(ControleurRappel controleur) {
         this.controleur = controleur;
