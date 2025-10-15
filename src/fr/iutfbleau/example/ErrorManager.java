@@ -36,6 +36,6 @@ public class ErrorManager {
      */
     public static boolean confirm(String message) {
         return JOptionPane.showConfirmDialog(null, message, "Confirmation", JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION;
+                == JOptionPane.YES_OPTION; //
     }
 }
