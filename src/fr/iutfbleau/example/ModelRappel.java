@@ -6,13 +6,15 @@ public class ModelRappel {
     private String contenu;
     private int theme;
     private int rang;
+    private String date;
 
-    public ModelRappel(int id, String t, String c, int th, int r) {
+    public ModelRappel(int id, String t, String c, int th, int r, String date) {
         this.id = id;
         this.titre = t;
         this.contenu = c;
         this.theme = th;
         this.rang = r;
+        this.date = date;
     }
 
     public int getId(){
@@ -33,7 +35,11 @@ public class ModelRappel {
     public int getRang() { 
         return rang; 
     }
+    public String getDate() {
+        return date;
+    }
+    @Override
     public String toString() { 
-        return "Rappel{id=" + id + ", titre='" + titre + "', contenu='" + contenu + "', theme=" + theme + ", rang=" + rang + "}"; 
+        return "Rappel{id=" + id + ", titre='" + titre + "', contenu='" + contenu + "', theme=" + theme + ", rang=" + rang + ", date='" + date + "'}"; 
     }
 }

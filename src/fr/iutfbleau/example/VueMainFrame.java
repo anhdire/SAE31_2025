@@ -9,7 +9,7 @@ import javax.swing.*;
  * le formulaire d'ajout/modification et la vue de détail.
  *
  * @author DIALLO Algassimou Pellel, ANHDIRE Ayoub, BOULALAM Younes
- * @version 1.2
+ *
  */
 public class VueMainFrame extends JFrame {
 
@@ -43,6 +43,9 @@ public class VueMainFrame extends JFrame {
      */
     private JPanel container;
 
+    public static final int WIDTH = 420;
+    public static final int HEIGHT = 400;
+
 
     /**
      * Construit la fenêtre principale et initialise les composants graphiques.
@@ -51,7 +54,7 @@ public class VueMainFrame extends JFrame {
      */
     public VueMainFrame() {
         super("Papillon");
-        super.setSize(450,450);
+        super.setSize(WIDTH, HEIGHT);
         super.setLocation(0,0);
         super.setAlwaysOnTop(true);
         super.setResizable(false);
@@ -145,6 +148,7 @@ public class VueMainFrame extends JFrame {
      * @return JPanel conteneur
      */
     public JPanel getPanel() {
+
         return this.container;
     }
 }

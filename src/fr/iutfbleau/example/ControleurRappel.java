@@ -1,6 +1,9 @@
 package fr.iutfbleau.example;
 
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JButton;
+
 
 public class ControleurRappel {
     private VueMainFrame vue;
@@ -10,9 +13,16 @@ public class ControleurRappel {
         this.dao = d;
         this.vue = vue;
 
+
         // Ajout des ecouteurs pour les boutons
         this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerAjouterRappel(this));
         this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerRetourListe(this));
+
+
+        // Ecouteur pour les boutons de la liste des rappels
+        for (JButton btn : this.vue.getListePanel().getButtonsRappels()) {
+            btn.addActionListener(new ListenerVoirDetail(this));
+        }
 
         // Ajout des ecouteurs pour les boutons de changement de theme
         this.vue.getFormAjoutPanel().getTheme1().addActionListener(new ListenerTheme(this));
@@ -25,27 +35,33 @@ public class ControleurRappel {
         this.afficherListe();
     }
 
-    // public void actionPerformed(ActionEvent e) {
-    //    if(e.getActionCommand().equals("Ajouter un rappel")){
-    //        // System.out.println("C'est le detectewwwww");
-    //         this.vue.getCartes().next(this.vue.getPanel());
-    //    }
-
-    // }
-
-
 
     public  void afficherListe() {
-        //System.out.println("Debug");
-        vue.getListePanel().rafraichirListe(dao.getAllRappels());
+        // Gestion de erreur et communication graphique
+        try {
+            List<ModelRappel> rappels = dao.getAllRappels();
+            vue.getListePanel().rafraichirListe(rappels);
+        } catch (Exception e) {
+            String message = """
+                    Impossible de charger les rappels : 
+                    \t -Verifier la connexion à la base de données.
+                    \t -Vérifier que le serveur MySQL est démarré.
+                    \t -Vérifier les paramètres de connexion dans ModelRappelDAO.
+                    """;
+            ErrorManager.showError(message);
+            return;
+        }
         vue.showPanel("Liste");
     }
+
     public void afficherFormModification(ModelRappel r) {
         vue.showPanel("FormModif");
     }
+
     public void afficherFormAjout() {
         vue.showPanel("FormAjout");
     }
+
     public void afficherDetail(ModelRappel r) {
         vue.getDetailPanel().afficherRappel(r);
         vue.showPanel("Detail");
