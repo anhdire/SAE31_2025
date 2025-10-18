@@ -10,7 +10,8 @@ import java.awt.event.*;
 */
 
 public class ListenerTheme implements ActionListener{
-	public ControleurRappel controller;
+	private ControleurRappel controller;
+	static int i; //
 	//private VueRappelAddPanel vra;
 
 	/** 
@@ -35,21 +36,29 @@ public class ListenerTheme implements ActionListener{
 	 */
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("1(Rouge)")){
+		if(e.getActionCommand().equals("1")){
+			i=1; //
 			controller.changerTheme(1);
 		}
-		if(e.getActionCommand().equals("2(Jaune)")){
+		if(e.getActionCommand().equals("2")){
+			i=2; //
 			controller.changerTheme(2);
 		}
-		if(e.getActionCommand().equals("3(Vert)")){
+		if(e.getActionCommand().equals("3")){
+			i=3; //
 			controller.changerTheme(3);
 		}
-		if(e.getActionCommand().equals("4(Bleu)")){
+		if(e.getActionCommand().equals("4")){
+			i=4; //
 			controller.changerTheme(4);
 		}
-		if(e.getActionCommand().equals("5(Cyan)")){
+		if(e.getActionCommand().equals("5")){
+			i=5;
 			controller.changerTheme(5);
 		}
 
+	}
+	public int getI(){
+		return i;
 	}
 }

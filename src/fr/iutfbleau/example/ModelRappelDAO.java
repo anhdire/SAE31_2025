@@ -15,20 +15,19 @@ public class ModelRappelDAO {
      * @param r permet de recuper les champs que l'on veut insérer
     */
     public void ajouterRappel(ModelRappel r) {
+        int id = r.getId();
         String nom = r.getTitre();
         String contenu = r.getContenu();
         int theme = r.getTheme();
         int rang = r.getRang();
         try{
-            String sql_request = "INSERT INTO " + DBManager.TABLE_NAME+"(Titre,Contenu,Theme,Rang)" + "VALUES(?,?,?,?)";
+            String sql_request = "INSERT INTO " + DBManager.TABLE_NAME+"(Id,Titre,Contenu,Theme,Rang)" + "VALUES(?,?,?,?,?)";
             PreparedStatement requete = this.connection.prepareStatement(sql_request);
-            requete.setString(1,nom); // permet d'ajouter le nom du rappel
-            requete.executeUpdate();
-            requete.setString(2,contenu); // permet d'ajouter le nom du contenu
-            requete.executeUpdate();
-            requete.setInt(3,theme); // permet d'ajouter le theme du rappel
-            requete.executeUpdate();
-            requete.setInt(4,rang); // permet d'ajouter le rang du rappel
+            requete.setInt(1,id);
+            requete.setString(2,nom); // permet d'ajouter le nom du rappel
+            requete.setString(3,contenu); // permet d'ajouter le nom du contenu
+            requete.setInt(4,theme); // permet d'ajouter le theme du rappel
+            requete.setInt(5,rang); // permet d'ajouter le rang du rappel
             requete.executeUpdate();
             
 
