@@ -68,7 +68,11 @@ public class VueRappelAddPanel extends JPanel {
 
     public ModelRappel getRappelFromForm() { return null; }
     public void remplirChamps(ModelRappel r) {}
-    public void viderChamps() {}
+    public void viderChamps() {
+        this.titre_add.setText("");
+        this.contenu_add.setText("");
+        this.rang.setText("");
+    }
 
     public JCheckBox getTheme1(){
         return this.theme_used_1;
@@ -96,10 +100,22 @@ public class VueRappelAddPanel extends JPanel {
     public JButton getButtonBack(){
         return this.bouton_retour;
     }
+
+    public String getLabel(){
+        return titre_add.getText();
+    }
+	
+    public String getContenu(){
+	   return contenu_add.getText();
+
+    } 
+    
+    public String getRank(){
+        return rang.getText();
+    }
+
+
 }
-
-
-
 
 
 

@@ -13,6 +13,7 @@ public class ControleurRappel {
         // Ajout des ecouteurs pour les boutons
         this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerAjouterRappel(this));
         this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerRetourListe(this));
+        this.vue.getFormAjoutPanel().getButton().addActionListener(new ListenerAjoutBD(this,vue));
 
         // Ajout des ecouteurs pour les boutons de changement de theme
         this.vue.getFormAjoutPanel().getTheme1().addActionListener(new ListenerTheme(this));
