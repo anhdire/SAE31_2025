@@ -63,7 +63,7 @@
 | **US7** | Créer la vue du détail de rappel. | `VueRappelDetailPanel.java` | Moyenne | 🟥 | Algassimou |
 | **US8** | Modifier un rappel existant. | `ModifierRappelListener.java`, `RappelDAO.java` | Moyenne | 🟥 | Ayoub |
 | **US9** | Supprimer un rappel. | `SupprimerRappelListener.java`, `RappelDAO.java` | Moyenne | 🟥 | Youness |
-| **US10** | Afficher les erreurs graphiquement. | `ControleurRappel.java`, `JOptionPane` | Haute | 🟥 | Ayoub |
+| **US10** | Afficher les erreurs graphiquement. | `ControleurRappel.java`, `JOptionPane` | Haute | 🟨 | Ayoub |
 
 **Livrables de fin Sprint 1 :**
 - CRUD complet et fonctionnel.  
