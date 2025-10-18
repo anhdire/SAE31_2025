@@ -8,6 +8,7 @@ LIB   = lib/mariadb-java-client-3.5.6.jar
 PKG_PATH = fr/iutfbleau/example
 MAIN_PKG = fr.iutfbleau.example.App
 
+# pour éviter les conflits avec des fichiers du même nom
 .PHONY: all jar run clean
 
 # Compilation complète (règle par défaut)

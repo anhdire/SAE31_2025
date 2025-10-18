@@ -1,4 +1,6 @@
-git_wokflow.sh
+git_workflow.sh
+*.class
 build/
 Papillon.jar
-*.class
+
+
