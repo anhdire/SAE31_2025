@@ -10,6 +10,10 @@ public class ListenerAjouterRappel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.controleur.afficherFormAjout();
+        if(e.getActionCommand().equals("Ajouter un rappel")){
+            System.out.println("C'est le détecteur d'ajout de rappel");
+            this.controleur.afficherFormAjout();
+
+        }
     }
 }

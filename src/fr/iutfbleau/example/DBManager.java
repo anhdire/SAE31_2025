@@ -13,11 +13,11 @@ public class DBManager {
 
     public DBManager() {
         try {
-            // Ligne pas tre important sur certain environement
+            // Ligne facultative
             Class.forName("org.mariadb.jdbc.Driver");
       
             this.connection = DriverManager.getConnection(URL, LOGIN, MDP);
-            System.out.println("Connexion établie avec la base de données.");
+            //System.out.println("Connexion établie avec la base de données.");
     
         } catch (ClassNotFoundException e) {
             System.err.println("Pilote JDBC MariaDB non trouvé !");

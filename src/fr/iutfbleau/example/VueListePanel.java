@@ -4,125 +4,181 @@ import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.*;
-/*
- *  Identifier ce que chaque rappel doit montrer
- * Chaque rappel affiché doit contenir :
-    Titre: lisible, en gras (élément principal)
 
-Contenu: un aperçu tronqué sur 1–2 lignes
-
-Indication visuelle: texte “voir +” ou flèche ➜, aligné à droite
-
-Fond coloré: dépend du theme
-
-Réaction au clic / survol
- *
+/**
+ * Panel affichant la liste des rappels.
+ * Affiche des "cartes" pour chaque rappel et fournit un bouton pour ajouter un rappel.
  */
 public class VueListePanel extends JPanel {
+    /** Scroll contenant la liste de cartes. */
     private final JScrollPane scrollPane;
+    /** Panneau vertical qui contient les cartes de rappels. */
     private final JPanel listeRappel;
-    private final JPanel panneauBouton;
-    private final JButton bouton_ajouter_rappel;
+    /** Bouton pour ajouter un nouveau rappel. */
+    private final JButton boutonAjout;
+    /** Liste de boutons pour chaque rappel. */
+    private final List<JButton> boutonsRappels = new java.util.ArrayList<>();
 
+    /**
+     * Construit le panel de liste et initialise les composants graphiques.
+     */
     public VueListePanel() {
-        // Je configure le layout principal
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        // Je crée le panneau qui contiendra la liste des rappels
+        this.setLayout(new BorderLayout());
+        this.setBackground(Color.WHITE);
+
+        // Panneau contenant tous les rappels
         this.listeRappel = new JPanel();
         this.listeRappel.setLayout(new BoxLayout(this.listeRappel, BoxLayout.Y_AXIS));
+        this.listeRappel.setBackground(Color.WHITE);
 
-        // Configuration pour le bouton d'ajout
-        this.panneauBouton = new JPanel();
-        this.bouton_ajouter_rappel = new JButton("Ajouter un rappel");    
-        this.panneauBouton.add(bouton_ajouter_rappel);
-        this.add(panneauBouton);
-
-        this.listeRappel.setBackground(new Color(0xFFFFFF)); // fond général blanc
+        // ScrollPane contenant la liste
         this.scrollPane = new JScrollPane(listeRappel);
-        this.add(scrollPane);
+        this.scrollPane.setBorder(null);
+        this.scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+
+
+        // Création du bouton "Ajouter un rappel"
+        this.boutonAjout = new JButton("Ajouter un rappel");
+        boutonAjout.setActionCommand("vueajouter");
+        boutonAjout.setFocusPainted(false);
+        boutonAjout.setFont(new Font("Arial", Font.BOLD, 13));
+        boutonAjout.setBackground(new Color(0x3A3A3A)); // gris léger
+        boutonAjout.setForeground(Color.WHITE);
+        boutonAjout.setBorder(BorderFactory.createEmptyBorder(6, 16, 6, 16)); // padding
+        boutonAjout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        boutonAjout.setOpaque(true);
+
+        // Panel du bas contenant le bouton
+        JPanel basPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 10));
+        basPanel.setBackground(Color.WHITE);
+        basPanel.add(boutonAjout);
+
+        // Disposition principale
+        this.setLayout(new BorderLayout());
+        this.add(scrollPane, BorderLayout.CENTER);
+        this.add(basPanel, BorderLayout.SOUTH);
+
+        // Ajout du scrollPane dans le panneau principal
+        this.add(scrollPane, BorderLayout.CENTER);
+
     }
 
+    /**
+     * Met à jour la liste affichée avec les rappels fournis.
+     *
+     * @param rappels liste de ModelRappel à afficher (peut être null ou vide)
+     */
     public void rafraichirListe(List<ModelRappel> rappels) {
-
-        // Je vide le contenu actuel
         listeRappel.removeAll();
+        boutonsRappels.clear(); // je vide la liste des boutons pour eviter les doublons
 
-        // Je verifie que la liste n'est pas nulle ou vide
         if (rappels == null || rappels.isEmpty()) {
             listeRappel.add(new JLabel("Aucun rappel à afficher."));
         } else {
-            // Triage en fonction du rang 
             rappels.sort(new ComparateurRang());
-            // Pour chaque rappel, je crée un JPanel pour l'afficher
+
             for (ModelRappel r : rappels) {
-
-                JPanel panneauRappel = new JPanel(new BorderLayout());
-                JPanel panneauTitre = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                JPanel panneauContenu = new JPanel(new BorderLayout());
-
-                // Titre en gras
-                JLabel titre = new JLabel(r.getTitre());
-                titre.setFont(titre.getFont().deriveFont(Font.BOLD, 16f));
-                panneauTitre.setOpaque(false); // transparent
-                panneauTitre.add(titre);
-
-                // Contenu tronqué et voir +
-                String contenu = r.getContenu();
-                int longueurTronquee = 40;
-                if (contenu.length() > longueurTronquee) {
-                    contenu = contenu.substring(0, longueurTronquee) + "...";
-                }
-
-                JLabel contenuLabel = new JLabel(contenu);
-                JLabel voirPlus = new JLabel("Cliquer pour voir +");
-                voirPlus.setForeground(new Color(0x5555FF)); // bleu doux
-                contenuLabel.setFont(contenuLabel.getFont().deriveFont(Font.PLAIN));
-
-                panneauContenu.setOpaque(false);
-                panneauContenu.add(contenuLabel, BorderLayout.WEST);
-                panneauContenu.add(voirPlus, BorderLayout.EAST);
-
-                // Assemblage des panneaux
-                panneauRappel.add(panneauTitre, BorderLayout.NORTH);
-                panneauRappel.add(panneauContenu, BorderLayout.CENTER);
-
-                // Gestion de la couleur de fond selon le theme
-                int theme = r.getTheme();
-                Color fond;
-                if (theme == 1) {
-                    fond = new Color(0xFFD6D6); // rouge pastel
-                } else if (theme == 2) {
-                    fond = new Color(0xFFF5CC); // jaune doux
-                } else if (theme == 3) {
-                    fond = new Color(0xDFFFD6); // vert pastel
-                } else if (theme == 4) {
-                    fond = new Color(0xD6E9FF); // bleu clair
-                } else {
-                    fond = new Color(0xD0F0FD); // cyan doux
-                }
-                panneauRappel.setBackground(fond);
-
-                //Ajout d'une bordure fine et marge interne
-                panneauRappel.setBorder(BorderFactory.createCompoundBorder(
-                    new LineBorder(new Color(200, 200, 200), 2, true), // bordure arrondie
-                    BorderFactory.createEmptyBorder(10, 15, 10, 15) // marges internes
+                JPanel carteDeRappel = new JPanel(new BorderLayout());
+                carteDeRappel.setBackground(getCouleurParTheme(r.getTheme()));
+                //ajout bordure arrondie et aussi d'un padding
+                carteDeRappel.setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(new Color(220, 220, 220), 1, true),
+                        new EmptyBorder(8, 12, 8, 12)
                 ));
+                carteDeRappel.setMaximumSize(new Dimension(450, Integer.MAX_VALUE)); // largeur fixe
 
-                // Ajout du rappel à la liste
-                listeRappel.add(panneauRappel);
-                listeRappel.add(Box.createVerticalStrut(10)); // espace entre cartes
+                // Titre
+                JLabel titre = new JLabel(r.getTitre());
+                titre.setFont(titre.getFont().deriveFont(Font.BOLD, 14f));
+
+                // Contenu tronqué
+                String contenu = r.getContenu();
+                if (contenu != null && contenu.length() > 40) {
+                    contenu = contenu.substring(0, 40) + "...";
+                }
+
+                JLabel contenuLabel = new JLabel("<html><p style='width:250px'>" + contenu + "</p></html>");
+                contenuLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+
+                // Panneau texte
+                JPanel textePanel = new JPanel();
+                textePanel.setLayout(new BoxLayout(textePanel, BoxLayout.Y_AXIS));
+                textePanel.setOpaque(false);
+                textePanel.add(titre);
+                textePanel.add(Box.createVerticalStrut(5));
+                textePanel.add(contenuLabel);
+
+
+                // Bouton "..."
+                JButton boutonAction = new JButton("...");
+                boutonAction.setActionCommand("detail");
+                this.boutonsRappels.add(boutonAction);
+                boutonAction.putClientProperty("rappel", r);
+                boutonAction.setFocusPainted(false);
+                boutonAction.setFont(new Font("Arial", Font.BOLD, 15));
+                boutonAction.setBackground(new Color(0xCEDBEF));
+                boutonAction.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                boutonAction.setBorder(BorderFactory.createEmptyBorder());
+                Dimension taille = new Dimension(20, 10);
+                boutonAction.setPreferredSize(taille);
+                boutonAction.setMaximumSize(taille);
+                boutonAction.setMinimumSize(taille);
+
+
+
+
+
+                carteDeRappel.add(textePanel, BorderLayout.CENTER);
+                carteDeRappel.add(boutonAction, BorderLayout.EAST);
+                carteDeRappel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+                listeRappel.add(carteDeRappel);
+                //listeRappel.add(Box.createVerticalStrut(50));
+                listeRappel.add(Box.createVerticalStrut(10));
             }
+        }
 
-            // Je demande a swing de rafraichir l'affichage avec les nouveaux composants
-            listeRappel.revalidate();  // disposition
-            listeRappel.repaint();
+        listeRappel.revalidate();
+        listeRappel.repaint();
+    }
+
+    /**
+     * Retourne une couleur selon le thème.
+     *
+     * @param theme identifiant numérique du thème
+     * @return couleur de fond correspondante
+     */
+    private Color getCouleurParTheme(int theme) {
+       if (theme == 1) {
+            return new Color(0xFFECEC); // rouge 
+        } else if (theme == 2) {
+            return new Color(0xFFF9E6); // jaune 
+        } else if (theme == 3) {
+            return new Color(0xE9FFE9); // vert
+        } else if (theme == 4) {
+            return new Color(0xE6F0FF); // bleu 
+        } else {
+            return new Color(0xF0F0F0); // gris
         }
     }
 
-
-    // Getter pour le bouton d'ajout
+    /**
+     * Donne accès au bouton d'ajout pour attacher un listener.
+     *
+     * @return bouton d'ajout
+     */
     public JButton getButtonAdd() {
-        return this.bouton_ajouter_rappel;
+        return this.boutonAjout;
+    }
+
+    /**
+     * Donne accès à la liste des boutons de rappels pour attacher des listeners.
+     *
+     * @return liste des boutons de rappels
+     */
+    public List<JButton> getButtonsRappels() {
+        return this.boutonsRappels;
     }
 }

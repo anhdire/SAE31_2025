@@ -52,7 +52,8 @@ public class ModelRappelDAO {
                     rs.getString(2),
                     rs.getString(3),
                     rs.getInt(4),
-                    rs.getInt(5)
+                    rs.getInt(5),
+                    rs.getString(6)
                 );
                 rappels.add(rappel);
             }

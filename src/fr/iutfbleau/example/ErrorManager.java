@@ -17,6 +17,7 @@ public class ErrorManager {
      */
     public static void showError(String message) {
         JOptionPane.showMessageDialog(null, message, "Erreur", JOptionPane.ERROR_MESSAGE);
+        /// 
     }
 
     /**
