@@ -88,6 +88,7 @@ public class ControleurRappel {
     }
 
     public void afficherFormModification(ModelRappel r) {
+        System.out.println(r.getDate());
         vue.showPanel("FormModif");
     }
 
