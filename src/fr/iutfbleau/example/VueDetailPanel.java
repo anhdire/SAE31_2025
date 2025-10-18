@@ -120,6 +120,8 @@ public class VueDetailPanel extends JPanel {
 
     // Affiche un rappel
     public void afficherRappel(ModelRappel r) {
+        this.btnModifier.putClientProperty("rappel", r);
+        this.btnSupprimer.putClientProperty("rappel", r);
         titreLabel.setText(r.getTitre());
         contenuArea.setText(r.getContenu());
         dateLabel.setText("Créé le : " + r.getDate());
