@@ -46,7 +46,7 @@ public class VueRappelAddPanel extends JPanel {
         this.theme_used_3.setActionCommand("3");
         this.theme_used_4 = new JCheckBox("Bleu");
         this.theme_used_4.setActionCommand("4");
-        this.theme_used_5 = new JCheckBox("Cyan");
+        this.theme_used_5 = new JCheckBox("gris");
         this.theme_used_5.setActionCommand("5");
         this.bg = new ButtonGroup();
         bg.add(this.theme_used_1);
@@ -89,6 +89,19 @@ public class VueRappelAddPanel extends JPanel {
         this.contenu_add.setText("");
         this.rang.setText("");
     }
+
+    public int getThemeChoisi() {
+        ButtonModel selected = this.bg.getSelection();
+        if (selected == null){
+            return 0; 
+        }
+        try {
+            return Integer.parseInt(selected.getActionCommand());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
 
     public JCheckBox getTheme1(){
         return this.theme_used_1;

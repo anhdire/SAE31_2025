@@ -69,12 +69,12 @@
 |----|--------------|-------------|-----------|---------|---------|
 | **US5** | Connecter l’ajout de rappel à la BD. | `RappelDAO.java`, `ControleurRappel.java`, `AjouterRappelListener.java` | Haute | 🟨 | Ayoub |
 | **US16** | Gérer les pertes de connexion et erreurs SQL avec des alertes graphiques.| `DBManager.java`, `ControleurRappel.java`, `ErrorManager.java` | Haute | 🟥 | Youness |
-| **US6** | Rendre la liste interactive (clic  -> détail). | `VueRappelListPanel.java`, `ControleurRappel.java` | Haute | 🟨 | Algassimou |
-| **US7** | Créer la vue du détail de rappel. | `VueRappelDetailPanel.java` | Moyenne |  🟨  | Algassimou |
+| **US6** | Rendre la liste interactive (clic  -> détail). | `VueRappelListPanel.java`, `ControleurRappel.java` | Haute | 🟩 | Algassimou |
+| **US7** | Créer la vue du détail de rappel. | `VueRappelDetailPanel.java` | Moyenne |  🟩  | Algassimou |
 | **US8** | Modifier un rappel existant. | `ModifierRappelListener.java`, `RappelDAO.java` | Moyenne | 🟥 | Ayoub |
 | **US9** | Supprimer un rappel. | `ListenerSupprimerRappel.java`, `ModelRappelDAO.java` | Moyenne | 🟥 | Youness |
 | **US13 et US10** | Ajouter la validation des champs et messages d’erreur dans le formulaire d’ajout. | `VueRappelAddPanel.java`, `AjouterRappelListener.java` | Haute | 🟨 | Ayoub |
-| **US14** | Ajouter les messages de confirmation après les actions CRUD (succès, échec). | `ControleurRappel.java`, `JOptionPane` | Moyenne | 🟥 | Algassimou |
+| **US14** | Ajouter les messages de confirmation après les actions CRUD (succès, échec). | `ControleurRappel.java`, `JOptionPane` | Moyenne | 🟨 | Algassimou |
 
 
 **Livrables de fin Sprint 1 :**

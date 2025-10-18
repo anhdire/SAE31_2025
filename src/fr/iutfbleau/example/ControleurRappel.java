@@ -18,6 +18,7 @@ public class ControleurRappel {
         // Ajout des ecouteurs pour les boutons
         this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerBtn(this));
         this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerBtn(this));
+        this.vue.getFormAjoutPanel().getButton().addActionListener(new ListenerAjoutBD(this, vue));
       
 
 
@@ -114,6 +115,9 @@ public class ControleurRappel {
 
     public void ajouterRappel(ModelRappel r) {
         this.dao.ajouterRappel(r);
+
+        this.listeInitialisee = false;
+        this.initialiserListe();
         this.afficherListe();        
     }
 

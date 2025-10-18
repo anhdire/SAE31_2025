@@ -36,7 +36,7 @@ public class VueListePanel extends JPanel {
         this.scrollPane = new JScrollPane(listeRappel);
         this.scrollPane.setBorder(null);
         this.scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        //this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
 
         // Création du bouton "Ajouter un rappel"

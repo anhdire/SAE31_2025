@@ -29,6 +29,8 @@ public class ErrorManager {
         JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    
+
     /**
      * Affiche une boîte de dialogue de confirmation avec un message donné.
      *
@@ -39,4 +41,14 @@ public class ErrorManager {
         return JOptionPane.showConfirmDialog(null, message, "Confirmation", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION; //
     }
+
+    /**
+     * Affiche une boîte de dialogue d'avertissement avec un message donné.
+     *
+     * @param message le texte du message d'information à afficher
+     */
+    public static void showWarning(String message) {
+        JOptionPane.showMessageDialog(null, message, "Avertissement", JOptionPane.WARNING_MESSAGE);
+    }
+
 }
