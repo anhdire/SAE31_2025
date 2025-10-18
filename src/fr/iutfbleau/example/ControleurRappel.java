@@ -8,20 +8,21 @@ import javax.swing.JButton;
 public class ControleurRappel {
     private VueMainFrame vue;
     private ModelRappelDAO dao;
+    private boolean listeInitialisee = false;
+
 
     public ControleurRappel(ModelRappelDAO d, VueMainFrame vue) {
         this.dao = d;
         this.vue = vue;
 
         // Ajout des ecouteurs pour les boutons
-        this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerAjouterRappel(this));
-        this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerRetourListe(this));
-        this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerRetourListe(this));
-        this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerModifierRappel(this));
-        this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerSupprimerRapel(this));
+        this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerBtn(this));
+        this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerBtn(this));
+      
 
 
         // afficher la liste des rappels au demarrage.
+        this.initialiserListe();
         this.afficherListe();
 
 
@@ -33,28 +34,56 @@ public class ControleurRappel {
         this.vue.getFormAjoutPanel().getTheme5().addActionListener(new ListenerTheme(this));    
     }
 
-
-    public  void afficherListe() {
-        // Gestion de erreur et communication graphique
+    public void initialiserListe() {
+        if (listeInitialisee) return;
         try {
             List<ModelRappel> rappels = dao.getAllRappels();
             vue.getListePanel().rafraichirListe(rappels);
-            // Ecouteur pour les boutons de la liste des rappels
-            for (JButton btn : this.vue.getListePanel().getButtonsRappels()) {
-            btn.addActionListener(new ListenerVoirDetail(this));
-        }
+
+            // Attacher les listeners une seule fois au btn ...
+            for (JButton btn : vue.getListePanel().getButtonsRappels()) {
+                btn.addActionListener(new ListenerBtn(this));
+            }
+
+            listeInitialisee = true;
+
         } catch (Exception e) {
             String message = """
-                   Impossible de charger les rappels :
+                Impossible de charger les rappels :
                     \t- Vérifiez que votre connexion internet fonctionne.
                     \t- Vérifiez que le service de rappels est disponible.
                     \t- Réessayez dans quelques instants.
                     """;
             ErrorManager.showError(message);
-            // Fin du programme
             System.exit(1);
-            return;
         }
+}
+
+
+
+    public  void afficherListe() {
+
+        // ce code est a suprimer mais je fais les teste dabord 
+        // Gestion de erreur et communication graphique
+        // try {
+        //     List<ModelRappel> rappels = dao.getAllRappels();
+        //     vue.getListePanel().rafraichirListe(rappels);
+        //     // Ecouteur pour les boutons de la liste des rappels
+        //     for (JButton btn : this.vue.getListePanel().getButtonsRappels()) {
+        //     btn.addActionListener(new ListenerBtn(this));
+        // }
+        // } catch (Exception e) {
+        //     String message = """
+        //            Impossible de charger les rappels :
+        //             \t- Vérifiez que votre connexion internet fonctionne.
+        //             \t- Vérifiez que le service de rappels est disponible.
+        //             \t- Réessayez dans quelques instants.
+        //             """;
+        //     ErrorManager.showError(message);
+        //     // Fin du programme
+        //     System.exit(1);
+        //     return;
+        // }
         vue.showPanel("Liste");
     }
 
@@ -69,6 +98,17 @@ public class ControleurRappel {
     public void afficherDetail(ModelRappel r) {
         vue.getDetailPanel().afficherRappel(r);
         vue.showPanel("Detail");
+
+        this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerBtn(this));
+        this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerBtn(this));
+        this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
+
+        // V1
+        // this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerRetourListe(this));
+        // this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerModifierRappel(this));
+        // this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerSupprimerRappel(this));
+
+      
     }
 
     public void ajouterRappel(ModelRappel r) {

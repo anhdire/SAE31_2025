@@ -2,10 +2,10 @@ package fr.iutfbleau.example;
 
 import java.awt.event.*;
 
-public class ListenerSupprimerRapel implements ActionListener {
+public class ListenerSupprimerRappel implements ActionListener {
     private ControleurRappel controleur;
 
-    public ListenerSupprimerRapel(ControleurRappel controleur) {
+    public ListenerSupprimerRappel(ControleurRappel controleur) {
         this.controleur = controleur;
     }
 

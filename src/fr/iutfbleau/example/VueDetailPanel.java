@@ -24,6 +24,7 @@ public class VueDetailPanel extends JPanel {
         topPanel.setBackground(Color.WHITE);
 
         btnRetour = new JButton("Retour");
+        btnRetour.setActionCommand("retour");
         btnRetour.setFocusPainted(false);
         btnRetour.setBackground(Color.BLACK);
         btnRetour.setForeground(Color.WHITE);
@@ -55,6 +56,7 @@ public class VueDetailPanel extends JPanel {
 
         // Bas : bouton tâche accomplie
         btnTacheAccomplie = new JButton("Tâche accomplie");
+        btnTacheAccomplie.setActionCommand("tacheOk");
         btnTacheAccomplie.setFocusPainted(false);
         btnTacheAccomplie.setBackground(new Color(40, 167, 69));
         btnTacheAccomplie.setForeground(Color.WHITE);
@@ -78,14 +80,15 @@ public class VueDetailPanel extends JPanel {
         btnModifier = new JButton("Modifier");
         btnSupprimer = new JButton("Supprimer");
 
+        btnModifier.setActionCommand("modifier");
         btnModifier.setFocusPainted(false);
-        btnModifier.setActionCommand("supprimer");
         btnModifier.setBackground(Color.BLACK);
         btnModifier.setForeground(Color.WHITE);
         btnModifier.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnModifier.setFont(new Font("SansSerif", Font.PLAIN, 13));
         btnModifier.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
+        btnSupprimer.setActionCommand("supprimer");
         btnSupprimer.setFocusPainted(false);
         btnSupprimer.setBackground(new Color(200, 0, 0)); // rouge foncé
         btnSupprimer.setForeground(Color.WHITE);

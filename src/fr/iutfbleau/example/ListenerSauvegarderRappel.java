@@ -2,9 +2,9 @@ package fr.iutfbleau.example;
 
 import java.awt.event.*;
 
-public class SauvegarderRappelListener implements ActionListener {
+public class ListenerSauvegarderRappel implements ActionListener {
     private ControleurRappel controller;
-    public SauvegarderRappelListener(ControleurRappel controller) {
+    public ListenerSauvegarderRappel(ControleurRappel controller) {
         this.controller = controller;
     }
    

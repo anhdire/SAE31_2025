@@ -27,6 +27,9 @@ public class ListenerBtn implements ActionListener {
                 ModelRappel r = (ModelRappel) btn.getClientProperty("rappel");
                 controleur.afficherDetail(r);
             }
+            else if(action.equals("vueajouter")){
+                controleur.afficherFormAjout();
+            }
             else {
                 System.out.println("Action non reconnue : " + action);
             }

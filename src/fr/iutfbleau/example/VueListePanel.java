@@ -41,6 +41,7 @@ public class VueListePanel extends JPanel {
 
         // Création du bouton "Ajouter un rappel"
         this.boutonAjout = new JButton("Ajouter un rappel");
+        boutonAjout.setActionCommand("vueajouter");
         boutonAjout.setFocusPainted(false);
         boutonAjout.setFont(new Font("Arial", Font.BOLD, 13));
         boutonAjout.setBackground(new Color(0x3A3A3A)); // gris léger
@@ -112,6 +113,7 @@ public class VueListePanel extends JPanel {
 
                 // Bouton "..."
                 JButton boutonAction = new JButton("...");
+                boutonAction.setActionCommand("detail");
                 this.boutonsRappels.add(boutonAction);
                 boutonAction.putClientProperty("rappel", r);
                 boutonAction.setFocusPainted(false);
