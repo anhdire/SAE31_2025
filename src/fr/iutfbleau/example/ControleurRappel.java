@@ -13,16 +13,17 @@ public class ControleurRappel {
         this.dao = d;
         this.vue = vue;
 
-
         // Ajout des ecouteurs pour les boutons
         this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerAjouterRappel(this));
         this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerRetourListe(this));
+        this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerRetourListe(this));
+        this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerModifierRappel(this));
+        this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerSupprimerRapel(this));
 
 
-        // Ecouteur pour les boutons de la liste des rappels
-        for (JButton btn : this.vue.getListePanel().getButtonsRappels()) {
-            btn.addActionListener(new ListenerVoirDetail(this));
-        }
+        // afficher la liste des rappels au demarrage.
+        this.afficherListe();
+
 
         // Ajout des ecouteurs pour les boutons de changement de theme
         this.vue.getFormAjoutPanel().getTheme1().addActionListener(new ListenerTheme(this));
@@ -30,9 +31,6 @@ public class ControleurRappel {
         this.vue.getFormAjoutPanel().getTheme3().addActionListener(new ListenerTheme(this));
         this.vue.getFormAjoutPanel().getTheme4().addActionListener(new ListenerTheme(this));
         this.vue.getFormAjoutPanel().getTheme5().addActionListener(new ListenerTheme(this));    
-
-        // afficher la liste des rappels au demarrage
-        this.afficherListe();
     }
 
 
@@ -41,14 +39,20 @@ public class ControleurRappel {
         try {
             List<ModelRappel> rappels = dao.getAllRappels();
             vue.getListePanel().rafraichirListe(rappels);
+            // Ecouteur pour les boutons de la liste des rappels
+            for (JButton btn : this.vue.getListePanel().getButtonsRappels()) {
+            btn.addActionListener(new ListenerVoirDetail(this));
+        }
         } catch (Exception e) {
             String message = """
-                    Impossible de charger les rappels : 
-                    \t -Verifier la connexion à la base de données.
-                    \t -Vérifier que le serveur MySQL est démarré.
-                    \t -Vérifier les paramètres de connexion dans ModelRappelDAO.
+                   Impossible de charger les rappels :
+                    \t- Vérifiez que votre connexion internet fonctionne.
+                    \t- Vérifiez que le service de rappels est disponible.
+                    \t- Réessayez dans quelques instants.
                     """;
             ErrorManager.showError(message);
+            // Fin du programme
+            System.exit(1);
             return;
         }
         vue.showPanel("Liste");
@@ -75,7 +79,8 @@ public class ControleurRappel {
     public void modifierRappel(ModelRappel r) {
       
     }
-    public void supprimerRappel(int id) {}
+    public void supprimerRappel(int id) {
+    }
 
     public void changerTheme(int i) {
         //System.out.println("Changement de theme vers le theme " + i);

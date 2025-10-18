@@ -11,7 +11,7 @@ public class ListenerRetourListe implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("Revenir en arrière")){
+        if(e.getActionCommand().equals("Retour")){
            controleur.afficherListe();
         }
     }

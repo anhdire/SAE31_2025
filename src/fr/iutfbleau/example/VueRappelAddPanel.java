@@ -54,7 +54,7 @@ public class VueRappelAddPanel extends JPanel {
         jp.setLayout(gl);
         this.bouton_add = new JButton("Ajouter ce rappel");
         bouton_add.setBackground(new Color(94,105,242));
-        this.bouton_retour = new JButton("Revenir en arrière");
+        this.bouton_retour = new JButton("Retour");
         jpp.add(bouton_add);
         jpp.add(bouton_retour);
         super.add(etiquette_add);

@@ -23,6 +23,7 @@ public class VueListePanel extends JPanel {
      * Construit le panel de liste et initialise les composants graphiques.
      */
     public VueListePanel() {
+
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
 
@@ -31,49 +32,35 @@ public class VueListePanel extends JPanel {
         this.listeRappel.setLayout(new BoxLayout(this.listeRappel, BoxLayout.Y_AXIS));
         this.listeRappel.setBackground(Color.WHITE);
 
+        // ScrollPane contenant la liste
         this.scrollPane = new JScrollPane(listeRappel);
         this.scrollPane.setBorder(null);
         this.scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        // masquer les barres (ne plus afficher)
-        //this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        this.scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
 
-
-        this.add(scrollPane, BorderLayout.CENTER);
-
-        // Bouton d'ajout "+"
-        this.boutonAjout = new JButton("+");
-        boutonAjout.setFont(new Font("Arial", Font.BOLD, 19));
-        boutonAjout.setPreferredSize(new Dimension(35, 35));
+        // Création du bouton "Ajouter un rappel"
+        this.boutonAjout = new JButton("Ajouter un rappel");
         boutonAjout.setFocusPainted(false);
-        boutonAjout.setBackground(new Color(0x007BFF));
+        boutonAjout.setFont(new Font("Arial", Font.BOLD, 13));
+        boutonAjout.setBackground(new Color(0x3A3A3A)); // gris léger
         boutonAjout.setForeground(Color.WHITE);
-        boutonAjout.setBorder(BorderFactory.createEmptyBorder());
+        boutonAjout.setBorder(BorderFactory.createEmptyBorder(6, 16, 6, 16)); // padding
         boutonAjout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        boutonAjout.setOpaque(true);
 
-        // un JLayeredPane pour superposer le bouton au scrolloane
-        JLayeredPane layered = new JLayeredPane();
-        this.setPreferredSize(new Dimension(VueMainFrame.WIDTH, VueMainFrame.HEIGHT));
-        layered.setLayout(null);
-    
-        // scrollPane prend tout l'espace
-        scrollPane.setBounds(0, 0, VueMainFrame.WIDTH, VueMainFrame.HEIGHT);
-        layered.add(scrollPane, JLayeredPane.DEFAULT_LAYER); // DEFAULT_LAYER = 0 (plus bas)
+        // Panel du bas contenant le bouton
+        JPanel basPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 10));
+        basPanel.setBackground(Color.WHITE);
+        basPanel.add(boutonAjout);
 
-        // je positionne le bouton en bas à droite (marge 12px)
-        Dimension b = boutonAjout.getPreferredSize();
-        int bx = VueMainFrame.WIDTH - b.width - 45;
-        int by = VueMainFrame.HEIGHT - b.height - 55;
-        boutonAjout.setBounds(bx, by, b.width, b.height); 
-        layered.add(boutonAjout, JLayeredPane.PALETTE_LAYER); // PALETTE_LAYER = 100 (plus haut)
-
-        
-        // Ajouter le layeredPane au panel principal
-        this.removeAll(); // au cas où il y avait déjà quelque chose
+        // Disposition principale
         this.setLayout(new BorderLayout());
-        this.add(layered, BorderLayout.CENTER);
+        this.add(scrollPane, BorderLayout.CENTER);
+        this.add(basPanel, BorderLayout.SOUTH);
+
+        // Ajout du scrollPane dans le panneau principal
+        this.add(scrollPane, BorderLayout.CENTER);
 
     }
 
@@ -84,6 +71,7 @@ public class VueListePanel extends JPanel {
      */
     public void rafraichirListe(List<ModelRappel> rappels) {
         listeRappel.removeAll();
+        boutonsRappels.clear(); // je vide la liste des boutons pour eviter les doublons
 
         if (rappels == null || rappels.isEmpty()) {
             listeRappel.add(new JLabel("Aucun rappel à afficher."));
@@ -121,16 +109,22 @@ public class VueListePanel extends JPanel {
                 textePanel.add(Box.createVerticalStrut(5));
                 textePanel.add(contenuLabel);
 
+
                 // Bouton "..."
                 JButton boutonAction = new JButton("...");
                 this.boutonsRappels.add(boutonAction);
-                boutonAction.putClientProperty("rappel", r);  // on Fait porter le rappel par le bouton
-                boutonAction.setPreferredSize(new Dimension(20, 20));
+                boutonAction.putClientProperty("rappel", r);
                 boutonAction.setFocusPainted(false);
-                boutonAction.setFont(new Font("Arial", Font.BOLD, 10));
-                boutonAction.setBackground(new Color(245, 245, 245));
+                boutonAction.setFont(new Font("Arial", Font.BOLD, 15));
+                boutonAction.setBackground(new Color(0xCEDBEF));
                 boutonAction.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 boutonAction.setBorder(BorderFactory.createEmptyBorder());
+                Dimension taille = new Dimension(20, 10);
+                boutonAction.setPreferredSize(taille);
+                boutonAction.setMaximumSize(taille);
+                boutonAction.setMinimumSize(taille);
+
+
 
 
 
@@ -139,6 +133,7 @@ public class VueListePanel extends JPanel {
                 carteDeRappel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
                 listeRappel.add(carteDeRappel);
+                //listeRappel.add(Box.createVerticalStrut(50));
                 listeRappel.add(Box.createVerticalStrut(10));
             }
         }

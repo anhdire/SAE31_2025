@@ -43,7 +43,8 @@ public class VueMainFrame extends JFrame {
      */
     private JPanel container;
 
-    public static final int WIDTH = 420;
+
+    public static final int WIDTH = 410;
     public static final int HEIGHT = 400;
 
 
@@ -65,8 +66,6 @@ public class VueMainFrame extends JFrame {
         this.formModifPanel = new VueRappelModifPanel();
         this.listePanel = new VueListePanel();
         this.detailPanel = new VueDetailPanel();
-       
-
 
         // Configuration du CardLayout
         // Le CardLayout affiche une seule carte à la fois.

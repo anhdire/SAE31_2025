@@ -11,22 +11,12 @@ import java.awt.event.*;
 
 public class ListenerTheme implements ActionListener{
 	public ControleurRappel controller;
-	//private VueRappelAddPanel vra;
 
 	/** 
 	 * Permet d'ajouter des ecouteurs a chaque bouton 
 	*/
 	public ListenerTheme(ControleurRappel ctr){
 		this.controller = ctr;
-		// this.vra = a;
-		// this.vra.getTheme1().addActionListener(this);
-		// this.vra.getTheme2().addActionListener(this); 		
-		// this.vra.getTheme3().addActionListener(this);		
-		// this.vra.getTheme4().addActionListener(this);
-		// this.vra.getTheme5().addActionListener(this);
-
-
-
 	}
 	/**
 	 * Permet de changer le fond d'ecran du panel selon le bouton cliqué
