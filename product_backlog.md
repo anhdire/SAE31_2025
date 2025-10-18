@@ -15,8 +15,8 @@
 | **US3** | Développeur | Créer la classe de connexion à la base de données (connexion SQLite). | `DBManager.java` | Haute | 🟩 |
 | **US4** | Utilisateur | Voir une petite fenêtre “Papillon” toujours au premier plan. | `App.java`, `VueMainFrame.java` | Haute | 🟩 |
 | **US5** | Utilisateur | Ajouter un rappel (titre, contenu, thème, rang) et le sauvegarder dans la base. | `VueRappelAddPanel.java`, `RappelDAO.java`, `AjouterRappelListener.java` | Haute | 🟨 |
-| **US6** | Utilisateur | Afficher la liste des rappels triables et chargés depuis la base. | `VueRappelListPanel.java`, `RappelDAO.java`, `ControleurRappel.java` | Haute | 🟨 |
-| **US7** | Utilisateur | Afficher en détail un rappel sélectionné (titre, contenu, thème). | `VueRappelDetailPanel.java`, `ControleurRappel.java` | Moyenne | 🟥 |
+| **US6** | Utilisateur | Afficher la liste des rappels triables et chargés depuis la base. | `VueRappelListPanel.java`, `RappelDAO.java`, `ControleurRappel.java` | Haute | 🟩 |
+| **US7** | Utilisateur | Afficher en détail un rappel sélectionné (titre, contenu, thème). | `VueRappelDetailPanel.java`, `ControleurRappel.java` | Moyenne | 🟩 |
 | **US8** | Utilisateur | Modifier un rappel existant et mettre à jour la base. | `VueRappelAddPanel.java`, `ModifierRappelListener.java`, `RappelDAO.java` | Moyenne | 🟥 |
 | **US9** | Utilisateur | Supprimer un rappel (suppression aussi dans la base). | `SupprimerRappelListener.java`, `RappelDAO.java` | Moyenne | 🟥 |
 | **US10** | Utilisateur | Voir des messages visuels d’erreur (connexion BD, suppression, etc.). | `ControleurRappel.java`, `JOptionPane` | Haute | 🟥 |
@@ -91,7 +91,7 @@
 
 | ID | Description | Fichier(s) | Priorité | Statut | Dev |
 |----|--------------|-------------|-----------|---------|-----|
-| **US11** | Générer l’archive `.jar` exécutable. | `makefile`, `manifest.txt` | Haute | 🟥 | Algassimou |
+| **US11** | Générer l’archive `.jar` exécutable. | `makefile` | Haute | 🟥 | Algassimou |
  **US17** | Créer deux diagrammes UML détaillant le fonctionnement de l’ajout et de la modification d’un rappel, incluant un diagramme de séquence pour chacun. | `doc/rapport/UML/sequence_ajout.staruml`, `doc/rapport/UML/sequence_modif.staruml` | Moyenne | 🟥 | Ayoub |
 | **US18** | Créer deux diagrammes UML représentant le fonctionnement de l’affichage de la liste des rappels et de la vue détaillée, avec un diagramme de séquence pour chacun. | `doc/rapport/UML/sequence_liste.staruml`, `doc/rapport/UML/sequence_detail.staruml` | Moyenne | 🟥 | Algassimou |
 | **US12** | Rédiger le rapport PDF complet (introduction, UML, captures, ergonomie, conclusions). | `doc/rapport/rapport.pdf`, `rapport/UML/diagrammes.staruml` | Haute | 🟥 |
