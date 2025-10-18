@@ -74,7 +74,7 @@
 | **US8** | Modifier un rappel existant. | `ModifierRappelListener.java`, `RappelDAO.java` | Moyenne | 🟥 | Ayoub |
 | **US9** | Supprimer un rappel. | `ListenerSupprimerRappel.java`, `ModelRappelDAO.java` | Moyenne | 🟥 | Youness |
 | **US10** | Afficher les erreurs graphiquement. | `ControleurRappel.java`, `JOptionPane` | Haute | 🟥 | Ayoub |
-| **US13** | Ajouter la validation des champs et messages d’erreur dans le formulaire d’ajout. | `VueRappelAddPanel.java`, `AjouterRappelListener.java` | Haute | 🟥 | Ayoub |
+| **US13** | Ajouter la validation des champs et messages d’erreur dans le formulaire d’ajout. | `VueRappelAddPanel.java`, `AjouterRappelListener.java` | Haute | 🟨 | Ayoub |
 | **US14** | Ajouter les messages de confirmation après les actions CRUD (succès, échec). | `ControleurRappel.java`, `JOptionPane` | Moyenne | 🟥 | Algassimou |
 
 
