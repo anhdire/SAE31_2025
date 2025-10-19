@@ -14,7 +14,7 @@
 | **US2** | Équipe | Concevoir le wireframe (maquette) et définir une charte graphique cohérente. | `ressources/maquette.png`, `doc/charte_graphique.md` | Haute | 🟨 |
 | **US3** | Développeur | Créer la classe de connexion à la base de données (connexion SQLite). | `DBManager.java` | Haute | 🟩 |
 | **US4** | Utilisateur | Voir une petite fenêtre “Papillon” toujours au premier plan. | `App.java`, `VueMainFrame.java` | Haute | 🟩 |
-| **US5** | Utilisateur | Ajouter un rappel (titre, contenu, thème, rang) et le sauvegarder dans la base. | `VueRappelAddPanel.java`, `RappelDAO.java`, `AjouterRappelListener.java` | Haute | 🟨 |
+| **US5** | Utilisateur | Ajouter un rappel (titre, contenu, thème, rang) et le sauvegarder dans la base. | `VueRappelAddPanel.java`, `RappelDAO.java`, `AjouterRappelListener.java` | Haute | 🟩 |
 | **US6** | Utilisateur | Afficher la liste des rappels triables et chargés depuis la base. | `VueRappelListPanel.java`, `RappelDAO.java`, `ControleurRappel.java` | Haute | 🟩 |
 | **US7** | Utilisateur | Afficher en détail un rappel sélectionné (titre, contenu, thème). | `VueRappelDetailPanel.java`, `ControleurRappel.java` | Moyenne | 🟩 |
 | **US8** | Utilisateur | Modifier un rappel existant et mettre à jour la base. | `VueRappelAddPanel.java`, `ModifierRappelListener.java`, `RappelDAO.java` | Moyenne | 🟥 |
@@ -22,7 +22,7 @@
 | **US10** | Utilisateur | Voir des messages visuels d’erreur (connexion BD, suppression, etc.). | `ControleurRappel.java`, `JOptionPane` | Haute | 🟥 |
 | **US11** | Équipe | Générer une archive `.jar` exécutable du projet. | `makefile`, `manifest.txt` | Haute | 🟥 |
 | **US12** | Équipe | Rédiger le rapport PDF complet (introduction, UML, captures, ergonomie, conclusions). | `rapport/rapport.pdf`, `rapport/UML/diagrammes.staruml` | Haute | 🟨 |
-| **US13** | Utilisateur | Être averti graphiquement en cas d’erreur de saisie lors de l’ajout d’un rappel (titre vide, texte trop long, etc.). | `VueRappelAddPanel.java`, `AjouterRappelListener.java`, `ErrorManager.java` | Haute | 🟥 |
+| **US13** | Utilisateur | Être averti graphiquement en cas d’erreur de saisie lors de l’ajout d’un rappel (titre vide, texte trop long, etc.). | `VueRappelAddPanel.java`, `AjouterRappelListener.java`, `ErrorManager.java` | Haute | 🟩 |
 | **US14** | Utilisateur | Recevoir des confirmations visuelles lors des actions importantes (ajout, modification, suppression réussie). | `ControleurRappel.java`, `JOptionPane`, `ErrorManager.java` | Moyenne | 🟥 |
 | **US15** | Équipe | Créer une classe utilitaire `ErrorManager` centralisant l’affichage des messages (erreurs, confirmations, alertes). | `ErrorManager.java` | Haute | 🟥 |
 | **US16** | Utilisateur | Être prévenu en cas de perte de connexion à la base ou d’erreur SQL par une alerte graphique. | `DBManager.java`, `ControleurRappel.java`, `ErrorManager.java` | Haute | 🟥 |
