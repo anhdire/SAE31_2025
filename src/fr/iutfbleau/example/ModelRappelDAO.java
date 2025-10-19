@@ -36,7 +36,19 @@ public class ModelRappelDAO {
             System.out.println("Erreur de requete SQL");
         }
     }
-    public void supprimerRappel(int id) {}
+    /**
+     * Permet de suprimer le rappel dans la base de données
+     * @param id d'identifier le tuple a suprimer
+     */
+    public void supprimerRappel(int id) {
+        try{
+            String sql_request = "DELETE FROM " + DBManager.TABLE_NAME+ " WHERE (Id)" + "VALUES(?)";
+            PreparedStatement requete = this.connection.prepareStatement(sql_request);
+
+        }catch(SQLException e){
+            System.out.println("Erreur de requete SQL");
+        }
+    }
     public void modifierRappel(ModelRappel r) {}
     
 
