@@ -76,6 +76,7 @@ public class VueMainFrame extends JFrame {
         container.add(listePanel, "Liste");
         container.add(formAjoutPanel, "FormAjout");
         container.add(detailPanel, "Detail");
+        container.add(formModifPanel, "FormModif");
 
         this.add(container);
     }
@@ -93,6 +94,8 @@ public class VueMainFrame extends JFrame {
             this.setTitle("Ajouter/Modifier un rappel");
         } else if (name.equals("Detail")) {
             this.setTitle("Détails du rappel");
+        }  else if(name.equals("FormModif")){
+            this.setTitle("Modifier un rappel");
         }
     }
 

@@ -85,9 +85,11 @@ public class VueRappelAddPanel extends JPanel {
     public ModelRappel getRappelFromForm() { return null; }
     public void remplirChamps(ModelRappel r) {}
     public void viderChamps() {
+        this.bg.clearSelection();
         this.titre_add.setText("");
         this.contenu_add.setText("");
         this.rang.setText("");
+        super.setBackground(Color.WHITE);
     }
 
     public int getThemeChoisi() {

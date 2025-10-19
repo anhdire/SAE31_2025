@@ -61,5 +61,6 @@ public class ListenerAjoutBD implements ActionListener {
         // Sinon, ajouter le rappel
         ModelRappel mr = new ModelRappel(-1, titre, contenu, rang, theme, null);
         control.ajouterRappel(mr);
+        vmr.getFormAjoutPanel().viderChamps();
     }
 }

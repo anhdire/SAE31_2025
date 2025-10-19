@@ -23,7 +23,7 @@ public class ListenerBtn implements ActionListener {
             else if (action.equals("modifier")) {
                 ModelRappel r = (ModelRappel) btn.getClientProperty("rappel");
                 controleur.afficherFormModification(r);
-                System.out.println("lsdksldkls");
+                //System.out.println("lsdksldkls");
             }
             else if (action.equals("retour")) {
                 controleur.afficherListe();

@@ -90,6 +90,7 @@ public class ControleurRappel {
 
     public void afficherFormModification(ModelRappel r) {
         System.out.println(r.getDate());
+        vue.getFormModifPanel().afficherRappelModif(r); //
         vue.showPanel("FormModif");
     }
 
@@ -109,8 +110,6 @@ public class ControleurRappel {
         // this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerRetourListe(this));
         // this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerModifierRappel(this));
         // this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerSupprimerRappel(this));
-
-      
     }
 
     public void ajouterRappel(ModelRappel r) {
@@ -122,8 +121,9 @@ public class ControleurRappel {
     }
 
     public void modifierRappel(ModelRappel r) {
-      
+        this.dao.modifierRappel(r);
     }
+   
     public void supprimerRappel(int id) {
     }
 

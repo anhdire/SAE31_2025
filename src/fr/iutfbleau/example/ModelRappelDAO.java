@@ -65,5 +65,43 @@ public class ModelRappelDAO {
         return rappels; 
     }
 
-    public ModelRappel getOneRappel(int id) { return null; }
+
+
+    /**
+     * Methode permettant de recupérer le rappel du choix par rapport à l'ID
+     * @param id permet de recuperer les données seulement d'un rappel
+     * @return ModelRappel retourne les données sous forme d'un rappel
+    */
+
+    public ModelRappel getOneRappel(int id){
+        String title = new String();
+        String content = new String();
+        int theme = 0;
+        int rank = 0;
+        String date = new String();
+        try{
+            String req_sql = "SELECT Titre,Contenu,Theme,Rang,DateCreation FROM "+DBManager.TABLE_NAME+" WHERE Id=(?)";
+            PreparedStatement pstate = this.connection.prepareStatement(req_sql);
+            pstate.setInt(1,id);
+            //pstate.executeQuery();
+            ResultSet rset = pstate.executeQuery();
+         while(rset.next()){
+            title = rset.getString("Titre");
+            content = rset.getString("Contenu");
+            theme = rset.getInt("Theme");
+            rank = rset.getInt("Rang");
+            date = rset.getString("DateCreation");
+        }
+        
+
+
+        }catch(SQLException e){
+            System.out.println("Erreur de requete SQL pour la recherche d'un rappel selon l'ID");
+        }
+
+        ModelRappel mod_rap = new ModelRappel(id,title,content,theme,rank,date);
+        return mod_rap;
+
+
+    }
 }
