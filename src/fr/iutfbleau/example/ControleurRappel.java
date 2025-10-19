@@ -16,10 +16,11 @@ public class ControleurRappel {
         this.vue = vue;
 
         // Ajout des ecouteurs pour les boutons
+        this.vue.getFormModifPanel().getButtonRetour().addActionListener(new ListenerBtn(this));
         this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerBtn(this));
         this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerBtn(this));
         this.vue.getFormAjoutPanel().getButton().addActionListener(new ListenerAjoutBD(this, vue));
-      
+        this.vue.getFormModifPanel().getButtonModification().addActionListener(new ListenerModifieBD(this,vue));
 
 
         // afficher la liste des rappels au demarrage.
@@ -33,6 +34,15 @@ public class ControleurRappel {
         this.vue.getFormAjoutPanel().getTheme3().addActionListener(new ListenerTheme(this));
         this.vue.getFormAjoutPanel().getTheme4().addActionListener(new ListenerTheme(this));
         this.vue.getFormAjoutPanel().getTheme5().addActionListener(new ListenerTheme(this));    
+
+        /*
+        this.vue.getFormModifPanel().getT1().addActionListener(new ListenerTheme(this));
+        this.vue.getFormModifPanel().getT2().addActionListener(new ListenerTheme(this));
+        this.vue.getFormModifPanel().getT3().addActionListener(new ListenerTheme(this));
+        this.vue.getFormModifPanel().getT4().addActionListener(new ListenerTheme(this));
+        this.vue.getFormModifPanel().getT5().addActionListener(new ListenerTheme(this));
+        */
+
     }
 
     public void initialiserListe() {
