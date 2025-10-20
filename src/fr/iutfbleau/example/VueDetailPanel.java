@@ -1,19 +1,38 @@
 package fr.iutfbleau.example;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
+/**
+ * Panel qui affiche les détails d’un rappel sélectionné.
+ * Il montre le titre, le contenu, la date de création, et propose des boutons pour modifier, supprimer ou revenir.
+ */
 public class VueDetailPanel extends JPanel {
 
+    /** Titre du rappel */
     private JLabel titreLabel;
+
+    /** Contenu du rappel */
     private JTextArea contenuArea;
+
+    /** Date de création du rappel */
     private JLabel dateLabel;
 
+    /** Bouton pour modifier le rappel */
     private JButton btnModifier;
+
+    /** Bouton pour supprimer le rappel */
     private JButton btnSupprimer;
+
+    /** Bouton pour revenir à la liste */
     private JButton btnRetour;
+
+    /** Bouton pour marquer une tâche comme accomplie */
     private JButton btnTacheAccomplie;
 
+    /**
+     * Constructeur qui initialise tous les éléments graphiques de la vue détail.
+    */
     public VueDetailPanel() {
         setLayout(new BorderLayout(10, 10));
         setBackground(Color.WHITE);
@@ -56,7 +75,7 @@ public class VueDetailPanel extends JPanel {
 
         // Bas : bouton tâche accomplie
         btnTacheAccomplie = new JButton("Tâche accomplie");
-        btnTacheAccomplie.setActionCommand("tacheOk");
+        btnTacheAccomplie.setActionCommand("suppression"); // A voir apres qu'est ce qu'on peut implementer ici 
         btnTacheAccomplie.setFocusPainted(false);
         btnTacheAccomplie.setBackground(new Color(40, 167, 69));
         btnTacheAccomplie.setForeground(Color.WHITE);
@@ -88,7 +107,7 @@ public class VueDetailPanel extends JPanel {
         btnModifier.setFont(new Font("SansSerif", Font.PLAIN, 13));
         btnModifier.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
-        btnSupprimer.setActionCommand("supprimer");
+        btnSupprimer.setActionCommand("supression");
         btnSupprimer.setFocusPainted(false);
         btnSupprimer.setBackground(new Color(200, 0, 0)); // rouge foncé
         btnSupprimer.setForeground(Color.WHITE);
@@ -118,7 +137,11 @@ public class VueDetailPanel extends JPanel {
         add(zoneBas, BorderLayout.SOUTH);
     }
 
-    // Affiche un rappel
+    /**
+     * Affiche les informations du rappel dans les champs de la vue.
+     *
+     * @param r Le rappel à afficher
+     */
     public void afficherRappel(ModelRappel r) {
         this.btnModifier.putClientProperty("rappel", r);
         this.btnSupprimer.putClientProperty("rappel", r);
@@ -129,9 +152,35 @@ public class VueDetailPanel extends JPanel {
         repaint();
     }
 
-    // Accès aux boutons
-    public JButton getBtnModifier() { return btnModifier; }
-    public JButton getBtnSupprimer() { return btnSupprimer; }
-    public JButton getBtnRetour() { return btnRetour; }
-    public JButton getBtnTacheAccomplie() { return btnTacheAccomplie; }
+/**
+     * Retourne le bouton "Modifier"
+     * @return le bouton Modifier
+     */
+    public JButton getBtnModifier() { 
+        return btnModifier; 
+    }
+
+    /**
+     * Retourne le bouton "Supprimer"
+     * @return le bouton Supprimer
+     */
+    public JButton getBtnSupprimer() { 
+        return btnSupprimer; 
+    }
+
+    /**
+     * Retourne le bouton "Retour"
+     * @return le bouton Retour
+     */
+    public JButton getBtnRetour() { 
+        return btnRetour; 
+    }
+
+    /**
+     * Retourne le bouton "Tâche accomplie"
+     * @return le bouton Tâche accomplie
+     */
+    public JButton getBtnTacheAccomplie() { 
+        return btnTacheAccomplie; 
+    }
 }

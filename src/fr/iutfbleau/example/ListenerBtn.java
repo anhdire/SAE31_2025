@@ -1,7 +1,7 @@
 package fr.iutfbleau.example;
 
-import javax.swing.JButton;
 import java.awt.event.*;
+import javax.swing.JButton;
 
 public class ListenerBtn implements ActionListener {
     private ControleurRappel controleur;
@@ -33,6 +33,10 @@ public class ListenerBtn implements ActionListener {
             }
             else if(action.equals("vueajouter")){
                 controleur.afficherFormAjout();
+            }
+            else if(action.equals("supression")){
+                ModelRappel r = (ModelRappel) btn.getClientProperty("rappel");
+                controleur.supprimerRappel(r.getId());
             }
             else {
                 System.out.println("Action non reconnue : " + action);

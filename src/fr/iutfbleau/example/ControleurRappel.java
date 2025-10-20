@@ -34,15 +34,6 @@ public class ControleurRappel {
         this.vue.getFormAjoutPanel().getTheme3().addActionListener(new ListenerTheme(this));
         this.vue.getFormAjoutPanel().getTheme4().addActionListener(new ListenerTheme(this));
         this.vue.getFormAjoutPanel().getTheme5().addActionListener(new ListenerTheme(this));    
-
-        /*
-        this.vue.getFormModifPanel().getT1().addActionListener(new ListenerTheme(this));
-        this.vue.getFormModifPanel().getT2().addActionListener(new ListenerTheme(this));
-        this.vue.getFormModifPanel().getT3().addActionListener(new ListenerTheme(this));
-        this.vue.getFormModifPanel().getT4().addActionListener(new ListenerTheme(this));
-        this.vue.getFormModifPanel().getT5().addActionListener(new ListenerTheme(this));
-        */
-
     }
 
     public void initialiserListe() {
@@ -70,37 +61,13 @@ public class ControleurRappel {
         }
 }
 
-
-
     public  void afficherListe() {
-
-        // ce code est a suprimer mais je fais les teste dabord 
-        // Gestion de erreur et communication graphique
-        // try {
-        //     List<ModelRappel> rappels = dao.getAllRappels();
-        //     vue.getListePanel().rafraichirListe(rappels);
-        //     // Ecouteur pour les boutons de la liste des rappels
-        //     for (JButton btn : this.vue.getListePanel().getButtonsRappels()) {
-        //     btn.addActionListener(new ListenerBtn(this));
-        // }
-        // } catch (Exception e) {
-        //     String message = """
-        //            Impossible de charger les rappels :
-        //             \t- Vérifiez que votre connexion internet fonctionne.
-        //             \t- Vérifiez que le service de rappels est disponible.
-        //             \t- Réessayez dans quelques instants.
-        //             """;
-        //     ErrorManager.showError(message);
-        //     // Fin du programme
-        //     System.exit(1);
-        //     return;
-        // }
         vue.showPanel("Liste");
     }
 
     public void afficherFormModification(ModelRappel r) {
         System.out.println(r.getDate());
-        vue.getFormModifPanel().afficherRappelModif(r); //
+        vue.getFormModifPanel().afficherRappelModif(r);
         vue.showPanel("FormModif");
     }
 
@@ -115,11 +82,6 @@ public class ControleurRappel {
         this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerBtn(this));
         this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerBtn(this));
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
-
-        // V1
-        // this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerRetourListe(this));
-        // this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerModifierRappel(this));
-        // this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerSupprimerRappel(this));
     }
 
     public void ajouterRappel(ModelRappel r) {
@@ -135,6 +97,16 @@ public class ControleurRappel {
     }
    
     public void supprimerRappel(int id) {
+        if (ErrorManager.confirm("Voulez-vous vraiment supprimer ce rappel ?")) {
+            try {
+                dao.supprimerRappel(id);
+                this.listeInitialisee = false;
+                this.initialiserListe();
+                this.afficherListe();
+            } catch (Exception e) {
+                ErrorManager.showError("Erreur lors de la suppression du rappel.");
+            }
+        }        
     }
 
     public void changerTheme(int i) {

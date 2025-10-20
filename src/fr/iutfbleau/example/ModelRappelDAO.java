@@ -29,9 +29,6 @@ public class ModelRappelDAO {
             requete.setInt(3,theme); // permet d'ajouter le theme du rappel
             requete.setInt(4,rang); // permet d'ajouter le rang du rappel
             requete.executeUpdate();
-            
-
-
         }catch(SQLException e){
             System.out.println("Erreur de requete SQL");
         }
@@ -42,13 +39,15 @@ public class ModelRappelDAO {
      */
     public void supprimerRappel(int id) {
         try{
-            String sql_request = "DELETE FROM " + DBManager.TABLE_NAME+ " WHERE (Id)" + "VALUES(?)";
-            PreparedStatement requete = this.connection.prepareStatement(sql_request);
-
+            String sql = "DELETE FROM " + DBManager.TABLE_NAME + " WHERE id = ?";
+            PreparedStatement pst = this.connection.prepareStatement(sql);
+            pst.setInt(1, id);
+            pst.executeUpdate();
         }catch(SQLException e){
             System.out.println("Erreur de requete SQL");
         }
     }
+
     public void modifierRappel(ModelRappel r) {}
     
 

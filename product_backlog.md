@@ -28,6 +28,8 @@
 | **US16** | Utilisateur | Être prévenu en cas de perte de connexion à la base ou d’erreur SQL par une alerte graphique. | `DBManager.java`, `ControleurRappel.java`, `ErrorManager.java` | Haute | 🟥 |
 | **US17** | Équipe | Créer deux diagrammes UML détaillant le fonctionnement de l’ajout et de la modification d’un rappel, incluant un diagramme de séquence pour chacun. | `rapport/UML/sequence_ajout.staruml`, `rapport/UML/sequence_modif.staruml` | Moyenne | 🟥 |
 | **US18** | Équipe | Créer deux diagrammes UML représentant le fonctionnement de l’affichage de la liste des rappels et de la vue détaillée, avec un diagramme de séquence pour chacun. | `rapport/UML/sequence_liste.staruml`, `rapport/UML/sequence_detail.staruml` | Moyenne | 🟥 |
+| **US19** | Equipe | Placer de commentaire pour la javadoc dans tout sauf vue et controleur | .. | Moyenne | 🟥 |
+| **US20** | Equipe | Placer de commentaire pour la javadoc dans les vue et le controleur | .. | Moyenne | 🟥 |
 
 
 
@@ -96,7 +98,9 @@
 | **US18** | Créer deux diagrammes UML représentant le fonctionnement de l’affichage de la liste des rappels et de la vue détaillée, avec un diagramme de séquence pour chacun. | `doc/rapport/UML/sequence_liste.staruml`, `doc/rapport/UML/sequence_detail.staruml` | Moyenne | 🟥 | Algassimou Pellel Diallo|
 | **US12** | Rédiger le rapport PDF complet (introduction, UML, captures, ergonomie, conclusions). | `doc/rapport/rapport.pdf`, `rapport/UML/diagrammes.staruml` | Haute | 🟥 |
 Equipe |
-| **US15** | Créer la classe `ErrorManager` pour centraliser tous les messages d’erreur / confirmation. | `ErrorManager.java` | Haute | 🟩 | Algassimou Pellel Diallo |
+| **US15** | Créer la classe `ErrorManager` pour centraliser tous les messages d’erreur / confirmation. | `ErrorManager.java` | Haute | 🟩 | Algassimou |
+| **US19** | Equipe | Placer de commentaire pour la javadoc dans tout sauf vue et controleur | .. | Moyenne | 🟥 |Ayoub |
+| **US20** | Equipe | Placer de commentaire pour la javadoc dans les vue et le controleur | .. | Moyenne | 🟥 |Algassimou |
 
 
 **Livrables de fin Sprint 2 :**
