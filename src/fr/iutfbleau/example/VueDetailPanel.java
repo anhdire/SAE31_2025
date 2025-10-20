@@ -5,7 +5,8 @@ import javax.swing.*;
 
 /**
  * Panel qui affiche les détails d’un rappel sélectionné.
- * Il montre le titre, le contenu, la date de création, et propose des boutons pour modifier, supprimer ou revenir.
+ * Il montre le titre, le contenu, la date de création, le thème, le rang, l'id
+ * et propose des boutons pour modifier, supprimer ou revenir.
  */
 public class VueDetailPanel extends JPanel {
 
@@ -17,6 +18,15 @@ public class VueDetailPanel extends JPanel {
 
     /** Date de création du rappel */
     private JLabel dateLabel;
+
+    /** Thème du rappel */
+    private JLabel themeLabel;
+
+    /** Rang du rappel */
+    private JLabel rangLabel;
+
+    /** Id du rappel */
+    private JLabel idLabel;
 
     /** Bouton pour modifier le rappel */
     private JButton btnModifier;
@@ -75,7 +85,7 @@ public class VueDetailPanel extends JPanel {
 
         // Bas : bouton tâche accomplie
         btnTacheAccomplie = new JButton("Tâche accomplie");
-        btnTacheAccomplie.setActionCommand("suppression"); // A voir apres qu'est ce qu'on peut implementer ici 
+        btnTacheAccomplie.setActionCommand("suppression");
         btnTacheAccomplie.setFocusPainted(false);
         btnTacheAccomplie.setBackground(new Color(40, 167, 69));
         btnTacheAccomplie.setForeground(Color.WHITE);
@@ -83,6 +93,26 @@ public class VueDetailPanel extends JPanel {
         btnTacheAccomplie.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnTacheAccomplie.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         btnTacheAccomplie.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Labels supplémentaires
+        idLabel = new JLabel();
+        themeLabel = new JLabel();
+        rangLabel = new JLabel();
+
+        idLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        themeLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        rangLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JPanel infoPanel = new JPanel(new GridLayout(3, 1));
+        infoPanel.setBackground(Color.WHITE);
+        infoPanel.add(idLabel);
+        infoPanel.add(themeLabel);
+        infoPanel.add(rangLabel);
+
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setBackground(Color.WHITE);
+        centerPanel.add(scrollPane, BorderLayout.CENTER);
+        centerPanel.add(infoPanel, BorderLayout.SOUTH);
 
         // Date + boutons modifier/supprimer
         JPanel basPanel = new JPanel(new BorderLayout());
@@ -109,7 +139,7 @@ public class VueDetailPanel extends JPanel {
 
         btnSupprimer.setActionCommand("supression");
         btnSupprimer.setFocusPainted(false);
-        btnSupprimer.setBackground(new Color(200, 0, 0)); // rouge foncé
+        btnSupprimer.setBackground(new Color(200, 0, 0));
         btnSupprimer.setForeground(Color.WHITE);
         btnSupprimer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnSupprimer.setFont(new Font("SansSerif", Font.PLAIN, 13));
@@ -121,7 +151,6 @@ public class VueDetailPanel extends JPanel {
         basPanel.add(dateLabel, BorderLayout.WEST);
         basPanel.add(buttonPanel, BorderLayout.EAST);
 
-        // Regroupement du bas
         JPanel zoneBas = new JPanel();
         zoneBas.setLayout(new BoxLayout(zoneBas, BoxLayout.Y_AXIS));
         zoneBas.setBackground(Color.WHITE);
@@ -131,9 +160,8 @@ public class VueDetailPanel extends JPanel {
         zoneBas.add(Box.createVerticalStrut(10));
         zoneBas.add(basPanel);
 
-        // Ajout au panneau principal
         add(topPanel, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
+        add(centerPanel, BorderLayout.CENTER);
         add(zoneBas, BorderLayout.SOUTH);
     }
 
@@ -145,42 +173,24 @@ public class VueDetailPanel extends JPanel {
     public void afficherRappel(ModelRappel r) {
         this.btnModifier.putClientProperty("rappel", r);
         this.btnSupprimer.putClientProperty("rappel", r);
+
         titreLabel.setText(r.getTitre());
         contenuArea.setText(r.getContenu());
         dateLabel.setText("Créé le : " + r.getDate());
+        idLabel.setText("ID : " + r.getId());
+        rangLabel.setText("Rang : " + r.getRang());
+        themeLabel.setText("Thème : " + r.getTheme());
+
         revalidate();
         repaint();
     }
 
-/**
-     * Retourne le bouton "Modifier"
-     * @return le bouton Modifier
-     */
     public JButton getBtnModifier() { 
         return btnModifier; 
     }
-
-    /**
-     * Retourne le bouton "Supprimer"
-     * @return le bouton Supprimer
-     */
     public JButton getBtnSupprimer() { 
         return btnSupprimer; 
     }
-
-    /**
-     * Retourne le bouton "Retour"
-     * @return le bouton Retour
-     */
-    public JButton getBtnRetour() { 
-        return btnRetour; 
-    }
-
-    /**
-     * Retourne le bouton "Tâche accomplie"
-     * @return le bouton Tâche accomplie
-     */
-    public JButton getBtnTacheAccomplie() { 
-        return btnTacheAccomplie; 
-    }
+    public JButton getBtnRetour() { return btnRetour; }
+    public JButton getBtnTacheAccomplie() { return btnTacheAccomplie; }
 }

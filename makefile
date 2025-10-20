@@ -73,34 +73,6 @@ $(BIN)/$(PKG_PATH)/VueRappelModifPanel.class: \
 # - ListenerVoirDetail
 #
 # Elles sont donc compilées ensemble pour éviter toute dépendance circulaire.
-
-
-#   COMPILATION GROUPÉE DU CONTRÔLEUR + TOUS LES LISTENERS
-# $(BIN)/$(PKG_PATH)/ControleurRappel.class \
-# $(BIN)/$(PKG_PATH)/ListenerAjouterRappel.class \
-# $(BIN)/$(PKG_PATH)/ListenerSauvegarderRappel.class \
-# $(BIN)/$(PKG_PATH)/ListenerTheme.class \
-# $(BIN)/$(PKG_PATH)/ListenerRetourListe.class \
-# $(BIN)/$(PKG_PATH)/ListenerVoirDetail.class \
-# $(BIN)/$(PKG_PATH)/ListenerSupprimerRappel.class \
-# $(BIN)/$(PKG_PATH)/ListenerModifierRappel.class \
-# $(BIN)/$(PKG_PATH)/ListenerBtn.class: \
-# $(SRC)/$(PKG_PATH)/ControleurRappel.java \
-# $(SRC)/$(PKG_PATH)/ListenerAjouterRappel.java \
-# $(SRC)/$(PKG_PATH)/ListenerSauvegarderRappel.java \
-# $(SRC)/$(PKG_PATH)/ListenerTheme.java \
-# $(SRC)/$(PKG_PATH)/ListenerRetourListe.java \
-# $(SRC)/$(PKG_PATH)/ListenerVoirDetail.java \
-# $(SRC)/$(PKG_PATH)/ListenerSupprimerRappel.java \
-# $(SRC)/$(PKG_PATH)/ListenerModifierRappel.java \
-# $(SRC)/$(PKG_PATH)/ListenerBtn.java \
-# $(BIN)/$(PKG_PATH)/ModelRappelDAO.class \
-# $(BIN)/$(PKG_PATH)/ErrorManager.class | $(BIN)
-# 	@echo "Compilation groupée du contrôleur et de tous les listeners..."
-# 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $(filter %.java,$^)
-
-
-#   COMPILATION GROUPÉE DU CONTRÔLEUR + LISTENERS ACTUELS
 $(BIN)/$(PKG_PATH)/ControleurRappel.class \
 $(BIN)/$(PKG_PATH)/ListenerBtn.class \
 $(BIN)/$(PKG_PATH)/ListenerTheme.class \

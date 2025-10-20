@@ -1,7 +1,6 @@
 package fr.iutfbleau.example;
 
 import java.awt.event.*;
-import javax.swing.*;
 
 public class ListenerAjoutBD implements ActionListener {
     //private static int i = 17;
@@ -26,6 +25,7 @@ public class ListenerAjoutBD implements ActionListener {
         String rankStr = vmr.getFormAjoutPanel().getRank();
         int rang = 0;
         int theme = vmr.getFormAjoutPanel().getThemeChoisi();
+        
 
         // Vérification titre
         if (titre == null || titre.isEmpty() || titre.equals("Nom : ")) {
@@ -59,7 +59,7 @@ public class ListenerAjoutBD implements ActionListener {
         }
 
         // Sinon, ajouter le rappel
-        ModelRappel mr = new ModelRappel(-1, titre, contenu, rang, theme, null);
+        ModelRappel mr = new ModelRappel(-1, titre, contenu, theme,  rang, null);
         control.ajouterRappel(mr);
         vmr.getFormAjoutPanel().viderChamps();
     }

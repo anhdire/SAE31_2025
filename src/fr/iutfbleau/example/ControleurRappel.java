@@ -1,9 +1,9 @@
 package fr.iutfbleau.example;
 
 import java.awt.Color;
+import java.awt.event.*;
 import java.util.List;
-import javax.swing.JButton;
-
+import  javax.swing.JButton;
 
 public class ControleurRappel {
     private VueMainFrame vue;
@@ -14,6 +14,9 @@ public class ControleurRappel {
     public ControleurRappel(ModelRappelDAO d, VueMainFrame vue) {
         this.dao = d;
         this.vue = vue;
+
+   
+
 
         // Ajout des ecouteurs pour les boutons
         this.vue.getFormModifPanel().getButtonRetour().addActionListener(new ListenerBtn(this));
@@ -66,7 +69,6 @@ public class ControleurRappel {
     }
 
     public void afficherFormModification(ModelRappel r) {
-        System.out.println(r.getDate());
         vue.getFormModifPanel().afficherRappelModif(r);
         vue.showPanel("FormModif");
     }
@@ -86,7 +88,6 @@ public class ControleurRappel {
 
     public void ajouterRappel(ModelRappel r) {
         this.dao.ajouterRappel(r);
-
         this.listeInitialisee = false;
         this.initialiserListe();
         this.afficherListe();        
@@ -97,6 +98,12 @@ public class ControleurRappel {
     }
    
     public void supprimerRappel(int id) {
+        // Avoir plusieur action listner sur btnsuprimer cause une redondance sur le Jdialog de confirmation 
+        JButton btn = this.vue.getDetailPanel().getBtnSupprimer();
+        for (ActionListener al : btn.getActionListeners()) {
+            btn.removeActionListener(al);
+        }
+        
         if (ErrorManager.confirm("Voulez-vous vraiment supprimer ce rappel ?")) {
             try {
                 dao.supprimerRappel(id);
@@ -110,21 +117,20 @@ public class ControleurRappel {
     }
 
     public void changerTheme(int i) {
-        //System.out.println("Changement de theme vers le theme " + i);
         if(i == 1){
-            this.vue.getFormAjoutPanel().setBackground(new Color(0xFFD6D6)); // Rouge
+            this.vue.getFormAjoutPanel().setBackground(new Color(255, 236, 236));  // Rouge
         }
         if(i == 2){
-			this.vue.getFormAjoutPanel().setBackground(new Color(0xFFF5CC)); // Jaune
+			this.vue.getFormAjoutPanel().setBackground(new Color(255, 249, 230));  // Jaune
         }
         if(i == 3){
-            this.vue.getFormAjoutPanel().setBackground(new Color(0xDFFFD6)); // Vert
+            this.vue.getFormAjoutPanel().setBackground(new Color(233, 255, 233));  // Vert
         }
         if(i == 4){
-            this.vue.getFormAjoutPanel().setBackground(new Color(0xD6E9FF)); // Bleu
+            this.vue.getFormAjoutPanel().setBackground(new Color(230, 240, 255));  // Bleu
         }
         if(i == 5){
-            this.vue.getFormAjoutPanel().setBackground(new Color(0xD0F0FD)); // Cyan
+            this.vue.getFormAjoutPanel().setBackground(new Color(240, 240, 240)); // Gris
         }
     }
 }

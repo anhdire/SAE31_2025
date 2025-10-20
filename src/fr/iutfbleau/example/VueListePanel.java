@@ -152,15 +152,15 @@ public class VueListePanel extends JPanel {
      */
     private Color getCouleurParTheme(int theme) {
        if (theme == 1) {
-            return new Color(0xFFECEC); // rouge 
+            return new Color(255, 236, 236);  // Rouge
         } else if (theme == 2) {
-            return new Color(0xFFF9E6); // jaune 
+            return new Color(255, 249, 230);  // Jaune
         } else if (theme == 3) {
-            return new Color(0xE9FFE9); // vert
+            return new Color(233, 255, 233);  // Vert
         } else if (theme == 4) {
-            return new Color(0xE6F0FF); // bleu 
+            return new Color(230, 240, 255);  // Bleu
         } else {
-            return new Color(0xF0F0F0); // gris
+            return new Color(240, 240, 240); // Gris
         }
     }
 
