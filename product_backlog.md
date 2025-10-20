@@ -45,7 +45,7 @@
 | ID | Description | Fichier(s) | Priorité | Statut | Dev |
 |----|--------------|-------------|-----------|---------|-----|
 | **US1** | Mettre en place la structure MVC et le Makefile. | `makefile`, packages MVC | Haute | 🟩 | Algassimou |
-| **US2** | Concevoir le wireframe + charte graphique. | `res/maquette.png`, `doc/charte_graphique.md` | Haute | 🟨 | Youness |
+| **US2** | Concevoir le wireframe + charte graphique. | `res/maquette.png`, `doc/charte_graphique.md` | Haute | 🟩 | Youness |
 | **US3** | Créer la classe de connexion BD (SQLite). | `DBManager.java` | Haute | 🟩 | Youness |
 | **US4** | Afficher une fenêtre principale “Papillon” toujours au premier plan. | `App.java`, `VueMainFrame.java` | Haute | 🟩 | Ayoub |
 | **US5** | Ajouter un rappel (vue + début liaison BD). | `VueRappelAddPanel.java`, `ControleurRappel.java` | Haute | 🟩 | Ayoub |
@@ -91,12 +91,12 @@
 
 | ID | Description | Fichier(s) | Priorité | Statut | Dev |
 |----|--------------|-------------|-----------|---------|-----|
-| **US11** | Générer l’archive `.jar` exécutable. | `makefile` | Haute | 🟥 | Algassimou |
+| **US11** | Générer l’archive `.jar` exécutable. | `makefile` | Haute | 🟩 | Algassimou |
  **US17** | Créer deux diagrammes UML détaillant le fonctionnement de l’ajout et de la modification d’un rappel, incluant un diagramme de séquence pour chacun. | `doc/rapport/UML/sequence_ajout.staruml`, `doc/rapport/UML/sequence_modif.staruml` | Moyenne | 🟥 | Ayoub |
-| **US18** | Créer deux diagrammes UML représentant le fonctionnement de l’affichage de la liste des rappels et de la vue détaillée, avec un diagramme de séquence pour chacun. | `doc/rapport/UML/sequence_liste.staruml`, `doc/rapport/UML/sequence_detail.staruml` | Moyenne | 🟥 | Algassimou |
+| **US18** | Créer deux diagrammes UML représentant le fonctionnement de l’affichage de la liste des rappels et de la vue détaillée, avec un diagramme de séquence pour chacun. | `doc/rapport/UML/sequence_liste.staruml`, `doc/rapport/UML/sequence_detail.staruml` | Moyenne | 🟥 | Algassimou Pellel Diallo|
 | **US12** | Rédiger le rapport PDF complet (introduction, UML, captures, ergonomie, conclusions). | `doc/rapport/rapport.pdf`, `rapport/UML/diagrammes.staruml` | Haute | 🟥 |
 Equipe |
-| **US15** | Créer la classe `ErrorManager` pour centraliser tous les messages d’erreur / confirmation. | `ErrorManager.java` | Haute | 🟥 | Youness |
+| **US15** | Créer la classe `ErrorManager` pour centraliser tous les messages d’erreur / confirmation. | `ErrorManager.java` | Haute | 🟩 | Algassimou Pellel Diallo |
 
 
 **Livrables de fin Sprint 2 :**
