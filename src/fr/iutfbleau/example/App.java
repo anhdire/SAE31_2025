@@ -1,11 +1,17 @@
 package fr.iutfbleau.example;
+
+import javax.swing.*;
+
 public class App {
+
     public static void main(String[] args) {
         DBManager db = new DBManager();
-        ModelRappelDAO modelRappelDAO = new ModelRappelDAO(db.getConnection());
+        ModelRappelDAO dao = new ModelRappelDAO(db.getConnection());
         VueMainFrame vue = new VueMainFrame();
-        //ListenerTheme th = new ListenerTheme(vue.getFormPanel());
-        ControleurRappel controller = new ControleurRappel(modelRappelDAO, vue);
+        ControleurRappel controleur = new ControleurRappel(dao, vue);
+
+        vue.addWindowListener(new ListenerFermeture(db));
+        vue.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // pour capturer l'événement
         vue.setVisible(true);
     }
 }

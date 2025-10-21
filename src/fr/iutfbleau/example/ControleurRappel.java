@@ -1,6 +1,7 @@
 package fr.iutfbleau.example;
 
 import java.awt.Color;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
 
@@ -51,12 +52,11 @@ public class ControleurRappel {
 
             listeInitialisee = true;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             String message = """
                 Impossible de charger les rappels :
-                    \t- Vérifiez que votre connexion internet fonctionne.
-                    \t- Vérifiez que le service de rappels est disponible.
-                    \t- Réessayez dans quelques instants.
+                    \t- Vérifiez que votre connexion internet fonctionne, et réessayez dans quelques instants.\n
+                L'application Va se fermer
                     """;
             ErrorManager.showError(message);
             System.exit(1);
@@ -64,7 +64,6 @@ public class ControleurRappel {
 }
 
     public  void afficherListe() {
-        System.out.println("suis dans afficher liste");
         vue.showPanel("Liste");
     }
 
@@ -107,17 +106,13 @@ public class ControleurRappel {
         Utils.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
         
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
-        System.out.println("supRappel > AJOUT DU listener DANS LA fonction supprimer juste apres la boucle de supression ");
+       
 
         if (ErrorManager.confirm("Voulez-vous vraiment supprimer ce rappel ?")) {
-            try {
-                dao.supprimerRappel(id);
-                this.listeInitialisee = false;
-                this.initialiserListe();
-                this.afficherListe();
-            } catch (Exception e) {
-                ErrorManager.showError("Erreur lors de la suppression du rappel.");
-            }
+            dao.supprimerRappel(id);
+            this.listeInitialisee = false;
+            this.initialiserListe();
+            this.afficherListe();
         }        
     }
 

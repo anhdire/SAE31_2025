@@ -1,118 +1,160 @@
 package fr.iutfbleau.example;
+
 import java.sql.*;
 import java.util.*;
 
 /**
- * Classe permettant d'interagir avec la BD
+ * Classe permettant d'interagir avec la base de données pour gérer les rappels.
  */
 public class ModelRappelDAO {
+
+    /** Connexion à la base de données */
     private Connection connection;
 
+    /**
+     * Constructeur qui reçoit une connexion active.
+     * @param c la connexion à utiliser
+     */
     public ModelRappelDAO(Connection c) { 
         this.connection = c; 
     }
 
     /**
-     * Permet d'ajouter le rappel dans la base de données
-     * @param r permet de recuper les champs que l'on veut insérer
-    */
+     * Ajoute un rappel dans la base.
+     * @param r rappel à ajouter
+     */
     public void ajouterRappel(ModelRappel r) {
-        String nom = r.getTitre();
-        String contenu = r.getContenu();
-        int theme = r.getTheme();
-        int rang = r.getRang();
-        try{
-            String sql_request = "INSERT INTO " + DBManager.TABLE_NAME+ " (Titre,Contenu,Theme,Rang)" + "VALUES(?,?,?,?)";
-            PreparedStatement requete = this.connection.prepareStatement(sql_request);
-            requete.setString(1,nom); // permet d'ajouter le nom du rappel
-            requete.setString(2,contenu); // permet d'ajouter le nom du contenu
-            requete.setInt(3,theme); // permet d'ajouter le theme du rappel
-            requete.setInt(4,rang); // permet d'ajouter le rang du rappel
-            requete.executeUpdate();
-        }catch(SQLException e){
-            System.out.println("Erreur de requete SQL");
+        String sql = "INSERT INTO " + DBManager.TABLE_NAME + " (Titre,Contenu,Theme,Rang) VALUES (?,?,?,?)";
+        PreparedStatement pst = null;
+
+        try {
+            pst = this.connection.prepareStatement(sql);
+            pst.setString(1, r.getTitre());
+            pst.setString(2, r.getContenu());
+            pst.setInt(3, r.getTheme());
+            pst.setInt(4, r.getRang());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            ErrorManager.showError("""
+                Une erreur est survenue pendant l'ajout du rappel.
+
+                Recommandations :
+                \t- Vérifiez votre connexion internet.
+                \t- Essayez de relancer l'application si le problème persiste.
+            """);
+        } finally {
+            try {
+                if (pst != null) pst.close();
+            } catch (SQLException ignored) {}
         }
     }
+
     /**
-     * Permet de suprimer le rappel dans la base de données
-     * @param id d'identifier le tuple a suprimer
+     * Supprime un rappel à partir de son identifiant.
+     * @param id identifiant du rappel
      */
     public void supprimerRappel(int id) {
-        try{
-            String sql = "DELETE FROM " + DBManager.TABLE_NAME + " WHERE id = ?";
-            PreparedStatement pst = this.connection.prepareStatement(sql);
+        String sql = "DELETE FROM " + DBManager.TABLE_NAME + " WHERE id = ?";
+        PreparedStatement pst = null;
+
+        try {
+            pst = this.connection.prepareStatement(sql);
             pst.setInt(1, id);
             pst.executeUpdate();
-        }catch(SQLException e){
-            System.out.println("Erreur de requete SQL");
+        } catch (SQLException e) {
+            ErrorManager.showError("""
+                Impossible de supprimer le rappel.
+                Recommandations :
+                \t- Fermez puis rouvrez la fiche du rappel et réessayez.
+                \t- Si le problème persiste, redémarrez l'application.
+            """);
+        } finally {
+            try {
+                if (pst != null) pst.close();
+            } catch (SQLException ignored) {}
         }
     }
 
-    public void modifierRappel(ModelRappel r) {}
-    
-
-    public List<ModelRappel> getAllRappels() { 
+    /**
+     * Récupère tous les rappels de la base.
+     * @return liste de rappels
+     * @throws SQLException si la requête échoue
+     */
+    public List<ModelRappel> getAllRappels() throws SQLException {
         List<ModelRappel> rappels = new ArrayList<>();
+        String sql = "SELECT * FROM " + DBManager.TABLE_NAME;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
         try {
-            String sql = "SELECT * FROM " + DBManager.TABLE_NAME;
-            PreparedStatement pst = this.connection.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()){
-                ModelRappel rappel = new ModelRappel(
-                    rs.getInt(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getInt(4),
-                    rs.getInt(5),
-                    rs.getString(6)
+            pst = this.connection.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                rappels.add(new ModelRappel(
+                    rs.getInt("id"),
+                    rs.getString("Titre"),
+                    rs.getString("Contenu"),
+                    rs.getInt("Theme"),
+                    rs.getInt("Rang"),
+                    rs.getString("DateCreation")
+                ));
+            }
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+            } catch (SQLException ignored) {}
+        }
+
+        return rappels;
+    }
+
+    /**
+     * Récupère un rappel spécifique à partir de son identifiant.
+     * @param id identifiant du rappel
+     * @return le rappel correspondant
+     */
+    public ModelRappel getOneRappel(int id) {
+        String sql = "SELECT Titre, Contenu, Theme, Rang, DateCreation FROM " + DBManager.TABLE_NAME + " WHERE Id = ?";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        ModelRappel rappel = null;
+
+        try {
+            pst = this.connection.prepareStatement(sql);
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                rappel = new ModelRappel(
+                    id,
+                    rs.getString("Titre"),
+                    rs.getString("Contenu"),
+                    rs.getInt("Theme"),
+                    rs.getInt("Rang"),
+                    rs.getString("DateCreation")
                 );
-                rappels.add(rappel);
             }
 
         } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération des rappels :");
-            e.printStackTrace();
+            ErrorManager.showError("Erreur lors de la lecture du rappel.\nVeuillez vérifier votre connexion.");
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+            } catch (SQLException ignored) {}
         }
-        return rappels; 
+
+        return rappel;
     }
 
-
-
     /**
-     * Methode permettant de recupérer le rappel du choix par rapport à l'ID
-     * @param id permet de recuperer les données seulement d'un rappel
-     * @return ModelRappel retourne les données sous forme d'un rappel
-    */
-
-    public ModelRappel getOneRappel(int id){
-        String title = new String();
-        String content = new String();
-        int theme = 0;
-        int rank = 0;
-        String date = new String();
-        try{
-            String req_sql = "SELECT Titre,Contenu,Theme,Rang,DateCreation FROM "+DBManager.TABLE_NAME+" WHERE Id=(?)";
-            PreparedStatement pstate = this.connection.prepareStatement(req_sql);
-            pstate.setInt(1,id);
-            //pstate.executeQuery();
-            ResultSet rset = pstate.executeQuery();
-         while(rset.next()){
-            title = rset.getString("Titre");
-            content = rset.getString("Contenu");
-            theme = rset.getInt("Theme");
-            rank = rset.getInt("Rang");
-            date = rset.getString("DateCreation");
-        }
-        
-
-
-        }catch(SQLException e){
-            System.out.println("Erreur de requete SQL pour la recherche d'un rappel selon l'ID");
-        }
-
-        ModelRappel mod_rap = new ModelRappel(id,title,content,theme,rank,date);
-        return mod_rap;
-
-
+     * Modifie un rappel existant.
+     * (À implémenter)
+     * @param r le rappel à modifier
+     */
+    public void modifierRappel(ModelRappel r) {
+        // À faire
     }
 }
