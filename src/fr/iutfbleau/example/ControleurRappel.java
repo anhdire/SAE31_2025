@@ -84,6 +84,8 @@ public class ControleurRappel {
         this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerBtn(this));
         this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerBtn(this));
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
+
+        System.out.println("AJOUT DU PREMIER LISTNER");
     }
 
     public void ajouterRappel(ModelRappel r) {
@@ -102,8 +104,11 @@ public class ControleurRappel {
         JButton btn = this.vue.getDetailPanel().getBtnSupprimer();
         for (ActionListener al : btn.getActionListeners()) {
             btn.removeActionListener(al);
+            System.out.println("SUPPRESSION");
         }
-        
+        this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
+        System.out.println("AJOUT DU DANS LA fonction supprimer juste apres la boucle de supression ");
+
         if (ErrorManager.confirm("Voulez-vous vraiment supprimer ce rappel ?")) {
             try {
                 dao.supprimerRappel(id);

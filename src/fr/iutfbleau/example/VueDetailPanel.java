@@ -191,6 +191,10 @@ public class VueDetailPanel extends JPanel {
     public JButton getBtnSupprimer() { 
         return btnSupprimer; 
     }
-    public JButton getBtnRetour() { return btnRetour; }
-    public JButton getBtnTacheAccomplie() { return btnTacheAccomplie; }
+    public JButton getBtnRetour() {
+        return btnRetour; 
+    }
+    public JButton getBtnTacheAccomplie() { 
+        return btnTacheAccomplie; 
+    }
 }

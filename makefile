@@ -43,9 +43,6 @@ $(BIN)/$(PKG_PATH)/ModelRappelDAO.class: $(SRC)/$(PKG_PATH)/ModelRappelDAO.java 
 
 
 #   COMPILATION GROUPÉE DES VUES
-# Les classes suivantes sont interdépendantes :
-# - VueMainFrame <-> VueListePanel
-# - VueMainFrame dépend aussi de VueDetailPanel, VueRappelAddPanel, VueRappelModifPanel
 
 $(BIN)/$(PKG_PATH)/VueMainFrame.class \
 $(BIN)/$(PKG_PATH)/VueListePanel.class \
@@ -64,15 +61,7 @@ $(BIN)/$(PKG_PATH)/VueRappelModifPanel.class: \
 
 
 #   COMPILATION GROUPÉE DU CONTRÔLEUR + TOUS LES LISTENERS
-# Ces classes se réfèrent mutuellement :
-# - ControleurRappel
-# - ListenerAjouterRappel
-# - SauvegarderRappelListener
-# - ListenerTheme
-# - ListenerRetourListe
-# - ListenerVoirDetail
-#
-# Elles sont donc compilées ensemble pour éviter toute dépendance circulaire.
+# Elles sont compilées ensemble pour éviter toute dépendance circulaire.
 $(BIN)/$(PKG_PATH)/ControleurRappel.class \
 $(BIN)/$(PKG_PATH)/ListenerBtn.class \
 $(BIN)/$(PKG_PATH)/ListenerTheme.class \
@@ -93,7 +82,6 @@ $(BIN)/$(PKG_PATH)/ErrorManager.class | $(BIN)
 
 
 #   CLASSE PRINCIPALE
-
 $(BIN)/$(PKG_PATH)/App.class: $(SRC)/$(PKG_PATH)/App.java \
 		$(BIN)/$(PKG_PATH)/DBManager.class \
 		$(BIN)/$(PKG_PATH)/ModelRappelDAO.class \
@@ -103,20 +91,18 @@ $(BIN)/$(PKG_PATH)/App.class: $(SRC)/$(PKG_PATH)/App.java \
 
 
 #   ARCHIVE JAR
-
 jar: all
 	@$(JAR) cvfe Papillon.jar $(MAIN_PKG) -C $(BIN) .
-	@echo "Papillon.jar créé avec succès."
+	@echo "Papillon.jar cree avec succes."
 
 
 #   EXÉCUTION
-
 run: jar
-	@echo "Exécution de l'application Papillon..."
+	@echo "Execution de l'application Papillon..."
 	@$(JAVA) -cp "Papillon.jar;$(LIB);$(RES)" $(MAIN_PKG)
 
 runnotjar: all
-	@echo "Exécution en mode développement (sans jar)..."
+	@echo "Execution en mode developpement (sans jar)..."
 	@$(JAVA) -cp "$(BIN);$(LIB);$(RES)" $(MAIN_PKG)
 
 
@@ -124,4 +110,4 @@ runnotjar: all
 clean:
 	@rm -rf $(BIN) Papillon.jar
 	@rm -rf build
-	@echo "Nettoyage terminé."
+	@echo "Nettoyage termine."
