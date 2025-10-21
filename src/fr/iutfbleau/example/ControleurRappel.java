@@ -1,9 +1,8 @@
 package fr.iutfbleau.example;
 
 import java.awt.Color;
-import java.awt.event.*;
 import java.util.List;
-import  javax.swing.JButton;
+import javax.swing.JButton;
 
 public class ControleurRappel {
     private VueMainFrame vue;
@@ -65,6 +64,7 @@ public class ControleurRappel {
 }
 
     public  void afficherListe() {
+        System.out.println("suis dans afficher liste");
         vue.showPanel("Liste");
     }
 
@@ -81,11 +81,14 @@ public class ControleurRappel {
         vue.getDetailPanel().afficherRappel(r);
         vue.showPanel("Detail");
 
+        // Evite redondance sur le Jdialog de confirmation et permet aussi de suprimer la redondance des listeners
+        Utils.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
+        Utils.resetListeners(this.vue.getDetailPanel().getBtnRetour());
+
+        // Rajout de un seul listner
         this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerBtn(this));
         this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerBtn(this));
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
-
-        System.out.println("AJOUT DU PREMIER LISTNER");
     }
 
     public void ajouterRappel(ModelRappel r) {
@@ -101,13 +104,10 @@ public class ControleurRappel {
    
     public void supprimerRappel(int id) {
         // Avoir plusieur action listner sur btnsuprimer cause une redondance sur le Jdialog de confirmation 
-        JButton btn = this.vue.getDetailPanel().getBtnSupprimer();
-        for (ActionListener al : btn.getActionListeners()) {
-            btn.removeActionListener(al);
-            System.out.println("SUPPRESSION");
-        }
+        Utils.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
+        
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
-        System.out.println("AJOUT DU DANS LA fonction supprimer juste apres la boucle de supression ");
+        System.out.println("supRappel > AJOUT DU listener DANS LA fonction supprimer juste apres la boucle de supression ");
 
         if (ErrorManager.confirm("Voulez-vous vraiment supprimer ce rappel ?")) {
             try {

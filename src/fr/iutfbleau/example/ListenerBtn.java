@@ -25,7 +25,6 @@ public class ListenerBtn implements ActionListener {
                 controleur.afficherFormModification(r);
             }
             else if (action.equals("retour")) {
-                System.out.println("j'ai cliquer sur Retour");
                 controleur.afficherListe();
             }
             else if (action.equals("detail")) {

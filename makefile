@@ -67,12 +67,14 @@ $(BIN)/$(PKG_PATH)/ListenerBtn.class \
 $(BIN)/$(PKG_PATH)/ListenerTheme.class \
 $(BIN)/$(PKG_PATH)/ListenerAjoutBD.class \
 $(BIN)/$(PKG_PATH)/ListenerModifierRappel.class \
+$(BIN)/$(PKG_PATH)/Utils.class \
 $(BIN)/$(PKG_PATH)/ListenerModifieBD.class: \
 $(SRC)/$(PKG_PATH)/ControleurRappel.java \
 $(SRC)/$(PKG_PATH)/ListenerBtn.java \
 $(SRC)/$(PKG_PATH)/ListenerTheme.java \
 $(SRC)/$(PKG_PATH)/ListenerAjoutBD.java \
 $(SRC)/$(PKG_PATH)/ListenerModifierRappel.java \
+$(SRC)/$(PKG_PATH)/Utils.java \
 $(SRC)/$(PKG_PATH)/ListenerModifieBD.java \
 $(BIN)/$(PKG_PATH)/ModelRappelDAO.class \
 $(BIN)/$(PKG_PATH)/ErrorManager.class | $(BIN)
