@@ -1,4 +1,4 @@
-# ✅ Checkliste de Validation – Classes du Projet Papillon
+# Checkliste de Validation – Classes du Projet Papillon
 
 > Cette checkliste permet de vérifier que chaque classe est propre, complète et conforme à l’UML avant le merge final sur la branche stable.
 
@@ -7,13 +7,12 @@
 ## Contrôleur
 
 ### `ControleurRappel.java`
-- [ ] JavaDoc complète (classe + méthodes publiques)
-- [ ] Respect du rôle du contrôleur (aucune logique graphique)
-- [ ] Appelle le modèle (DAO) et met à jour la vue via des méthodes dédiées
-- [ ] Gestion correcte des erreurs (try/catch + `ErrorManager` ou `JOptionPane`)
-- [ ] Méthodes : `afficherListe()`, `afficherForm()`, `ajouterRappel()`, `modifierRappel()`, `supprimerRappel()`
-- [ ] Aucun `System.out.println()` de debug
-- [ ] UML conforme (relations avec `ModelRappelDAO` et `VueMainFrame`)
+- [X] JavaDoc complète (classe + méthodes publiques)
+- [X] Respect du rôle du contrôleur (aucune logique graphique)
+- [X] Appelle le modèle (DAO) et met à jour la vue via des méthodes dédiées
+- [X] Gestion correcte des erreurs (try/catch + `ErrorManager` )
+- [X] Aucun `System.out.println()` de debug
+- [X] UML conforme (relations avec `ModelRappelDAO` et `VueMainFrame`)
 
 ---
 
@@ -44,10 +43,10 @@
 - [ ] UML conforme
 
 ### `ComparateurRang.java`
-- [ ] Implémente `Comparator<ModelRappel>`
-- [ ] Compare correctement les rappels selon leur `rang`
-- [ ] JavaDoc et commentaire sur la logique de tri
-- [ ] UML conforme
+- [X] Implémente `Comparator<ModelRappel>`
+- [X] Compare correctement les rappels selon leur `rang`
+- [X] JavaDoc et commentaire sur la logique de tri
+- [X] UML conforme
 
 ### `ErrorManager.java`
 - [ ] Contient des méthodes statiques pour afficher les erreurs (`showError(...)`)
@@ -107,15 +106,15 @@
 - [ ] UML conforme
 
 ### `ListenerAjoutBD.java`
-- [ok] JavaDoc complète
-- [ok] Appelle `ControleurRappel.ajouterRappel()`
-- [ok] Pas de logique BD directe
-- [ok] UML conforme
+- [X] JavaDoc complète
+- [X] Appelle `ControleurRappel.ajouterRappel()`
+- [X] Pas de logique BD directe
+- [X] UML conforme
 
 ### `ListenerModifierRappel.java`
 - [ ] JavaDoc complète
 - [X] Appelle `ControleurRappel.modifierRappel()`
-- [ ] Ne contient aucune logique de DAO
+- [X] Ne contient aucune logique de DAO
 - [ ] UML conforme
 
 ### `ListenerModifieBD.java`
@@ -133,7 +132,6 @@
 ### `ListenerFermeture.java`
 - [ ] JavaDoc complète
 - [X] Gère la fermeture propre de la fenêtre
-- [ ] Peut appeler une méthode `controller.fermerApplication()`
 - [ ] UML conforme
 
 ---
@@ -169,8 +167,6 @@
 - [ ] Aucun listener ne contient de logique métier  
 - [X] Le code suit le schéma MVC  
 - [ ] Le projet tourne sans erreur (`make run`)  
-- [ ] Commit final clair : `Validation Sprint 1 – code propre et documenté`  
 
 ---
 
-**Quand toutes les cases seront cochées, le projet serra considéré comme “stable” et prêt à être mergé dans la branche `main`.**

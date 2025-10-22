@@ -152,6 +152,7 @@ public class ControleurRappel {
             this.listeInitialisee = false;
             this.initialiserListe();
             this.afficherListe();
+            ErrorManager.showInfo("Le rappel a été supprimé avec succès !");
         }        
     }
 
