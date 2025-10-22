@@ -8,7 +8,7 @@ import javax.swing.*;
  * Utilise un CardLayout pour afficher alternativement la liste des rappels,
  * le formulaire d'ajout/modification et la vue de détail.
  *
- * @author DIALLO Algassimou Pellel, ANHDIRE Ayoub, BOULALAM Younes
+ * @author DIALLO Algassimou Pellel, ANHDIRE Ayoub, BOULALAM Youness
  *
  */
 public class VueMainFrame extends JFrame {
