@@ -19,6 +19,13 @@ public class ListenerModifieBD implements ActionListener {
 		this.v = vmn;
 	}
 
+    /**
+     * Gère l'action de confirmation des modifications.
+     * Vérifie les champs, affiche un avertissement en cas d'erreur,
+     * et transmet les données modifiées au contrôleur.
+     *
+     * @param e l'événement déclenché par l'action utilisateur
+     */
 	@Override
 	public void actionPerformed(ActionEvent e){
 		int rang=0;
