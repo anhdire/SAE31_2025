@@ -92,8 +92,8 @@
 ### `VueRappelModifPanel.java`
 - [ ] JavaDoc complète
 - [X] Même structure que `VueRappelAddPanel`
-- [ ] Pré-remplissage des champs à partir d’un `ModelRappel`
-- [ ] Listener de validation appelle `ControleurRappel.modifierRappel()`
+- [X] Pré-remplissage des champs à partir d’un `ModelRappel`
+- [X] Listener de validation appelle `ControleurRappel.modifierRappel()`
 - [ ] UML conforme
 
 ---
