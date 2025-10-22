@@ -75,7 +75,10 @@ public class VueListePanel extends JPanel {
         boutonsRappels.clear(); // je vide la liste des boutons pour eviter les doublons
 
         if (rappels == null || rappels.isEmpty()) {
-            listeRappel.add(new JLabel("Aucun rappel à afficher."));
+            JLabel message = new JLabel("Aucun rappel à afficher.");
+            message.setFont(new Font("Arial", Font.BOLD, 13));
+            message.setForeground(new Color(0x3A3A3A)); // c'est du gris
+            listeRappel.add(message);
         } else {
             rappels.sort(new ComparateurRang());
 
