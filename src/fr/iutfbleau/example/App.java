@@ -11,7 +11,7 @@ public class App {
         ControleurRappel controleur = new ControleurRappel(dao, vue);
 
         vue.addWindowListener(new ListenerFermeture(db));
-        vue.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // pour capturer l'événement
+        vue.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         vue.setVisible(true);
     }
 }

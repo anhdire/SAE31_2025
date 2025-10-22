@@ -13,7 +13,6 @@ public class Utils {
     public static void resetListeners(JButton bouton) {
         for (ActionListener al : bouton.getActionListeners()) {
             bouton.removeActionListener(al);
-            System.out.println(" Listeners supprimés pour : " + bouton.getText());
         }
     }
 }

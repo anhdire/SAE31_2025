@@ -25,6 +25,9 @@ $(BIN):
 $(BIN)/$(PKG_PATH)/DBManager.class: $(SRC)/$(PKG_PATH)/DBManager.java | $(BIN)
 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
+$(BIN)/$(PKG_PATH)/ListenerFermeture.class: $(SRC)/$(PKG_PATH)/ListenerFermeture.java | $(BIN)
+	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
+
 $(BIN)/$(PKG_PATH)/ComparateurRang.class: $(SRC)/$(PKG_PATH)/ComparateurRang.java | $(BIN)
 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
@@ -88,6 +91,7 @@ $(BIN)/$(PKG_PATH)/App.class: $(SRC)/$(PKG_PATH)/App.java \
 		$(BIN)/$(PKG_PATH)/DBManager.class \
 		$(BIN)/$(PKG_PATH)/ModelRappelDAO.class \
 		$(BIN)/$(PKG_PATH)/VueMainFrame.class \
+		$(BIN)/$(PKG_PATH)/ListenerFermeture.class \
 		$(BIN)/$(PKG_PATH)/ControleurRappel.class | $(BIN)
 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
 

@@ -61,7 +61,7 @@ public class ControleurRappel {
             ErrorManager.showError(message);
             System.exit(1);
         }
-}
+    }
 
     public  void afficherListe() {
         vue.showPanel("Liste");
