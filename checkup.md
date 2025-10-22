@@ -21,8 +21,8 @@
 
 ### `ModelRappel.java`
 - [ ] JavaDoc complète (classe + getters/setters)
-- [✅] Attributs privés + getters/setters publics
-- [✅ ] Constructeur complet (id, titre, contenu, thème, rang)
+- [X] Attributs privés + getters/setters publics
+- [X] Constructeur complet (id, titre, contenu, thème, rang)
 - [ ] Respecte le rôle de simple “donnée”
 - [ ] Pas de logique de BD ni d’affichage
 - [ ] UML conforme
