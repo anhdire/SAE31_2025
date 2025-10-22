@@ -33,7 +33,7 @@
 - [X] Utilise `DBManager` pour la connexion
 - [X] Ferme les connexions (`try-with-resources`)
 - [X] Gestion propre des exceptions SQL
-- [ ] Pas de message console, utilise `ErrorManager` ou exceptions personnalisées
+- [X] Pas de message console, utilise `ErrorManager` ou exceptions personnalisées
 - [ ] UML conforme
 
 ### `DBManager.java`
