@@ -112,25 +112,25 @@
 - [X] UML conforme
 
 ### `ListenerModifierRappel.java`
-- [ ] JavaDoc complète
+- [X] JavaDoc complète
 - [X] Appelle `ControleurRappel.modifierRappel()`
 - [X] Ne contient aucune logique de DAO
 - [ ] UML conforme
 
 ### `ListenerModifieBD.java`
-- [ ] JavaDoc complète
+- [X] JavaDoc complète
 - [X] Gère les modifications d’un rappel via le contrôleur
 - [X] Vérifie la cohérence entre le modèle et la vue
 - [ ] UML conforme
 
 ### `ListenerTheme.java`
-- [ ] JavaDoc complète
+- [X] JavaDoc complète
 - [X] Appelle `ControleurRappel.changerTheme()` (pas de `setBackground()` direct)
 - [X] Ne crée pas lui-même les `addActionListener`
 - [ ] UML conforme
 
 ### `ListenerFermeture.java`
-- [ ] JavaDoc complète
+- [X] JavaDoc complète
 - [X] Gère la fermeture propre de la fenêtre
 - [ ] UML conforme
 
