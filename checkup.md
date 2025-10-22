@@ -84,7 +84,7 @@
 
 ### `VueRappelAddPanel.java`
 - [ ] JavaDoc complète
-- [ ] Champs (titre, contenu, thème, rang) fonctionnels
+- [X] Champs (titre, contenu, thème, rang) fonctionnels
 - [ ] Boutons “Valider” et “Annuler” avec listeners séparés
 - [ ] `ListenerTheme` fonctionne et passe par le contrôleur
 - [ ] UML conforme
