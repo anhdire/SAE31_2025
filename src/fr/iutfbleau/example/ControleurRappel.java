@@ -1,6 +1,7 @@
 package fr.iutfbleau.example;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
@@ -15,9 +16,6 @@ public class ControleurRappel {
         this.dao = d;
         this.vue = vue;
 
-   
-
-
         // Ajout des ecouteurs pour les boutons
         this.vue.getFormModifPanel().getButtonRetour().addActionListener(new ListenerBtn(this));
         this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerBtn(this));
@@ -25,11 +23,9 @@ public class ControleurRappel {
         this.vue.getFormAjoutPanel().getButton().addActionListener(new ListenerAjoutBD(this, vue));
         this.vue.getFormModifPanel().getButtonModification().addActionListener(new ListenerModifieBD(this,vue));
 
-
         // afficher la liste des rappels au demarrage.
         this.initialiserListe();
         this.afficherListe();
-
 
         // Ajout des ecouteurs pour les boutons de changement de theme
         this.vue.getFormAjoutPanel().getTheme1().addActionListener(new ListenerTheme(this));
@@ -68,6 +64,7 @@ public class ControleurRappel {
     }
 
     public void afficherFormModification(ModelRappel r) {
+        
         vue.getFormModifPanel().afficherRappelModif(r);
         vue.showPanel("FormModif");
     }
@@ -81,8 +78,9 @@ public class ControleurRappel {
         vue.showPanel("Detail");
 
         // Evite redondance sur le Jdialog de confirmation et permet aussi de suprimer la redondance des listeners
-        Utils.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
-        Utils.resetListeners(this.vue.getDetailPanel().getBtnRetour());
+        this.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
+        this.resetListeners(this.vue.getDetailPanel().getBtnRetour());
+        this.resetListeners(this.vue.getDetailPanel().getBtnModifier());
 
         // Rajout de un seul listner
         this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerBtn(this));
@@ -103,11 +101,8 @@ public class ControleurRappel {
    
     public void supprimerRappel(int id) {
         // Avoir plusieur action listner sur btnsuprimer cause une redondance sur le Jdialog de confirmation 
-        Utils.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
-        
+        this.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
-       
-
         if (ErrorManager.confirm("Voulez-vous vraiment supprimer ce rappel ?")) {
             dao.supprimerRappel(id);
             this.listeInitialisee = false;
@@ -133,4 +128,18 @@ public class ControleurRappel {
             this.vue.getFormAjoutPanel().setBackground(new Color(240, 240, 240)); // Gris
         }
     }
+
+
+    /**
+     * Supprime tous les ActionListener attachés à un bouton.
+     *
+     * @param bouton Le bouton à nettoyer
+     */
+    public void resetListeners(JButton bouton) {
+        for (ActionListener al : bouton.getActionListeners()) {
+            bouton.removeActionListener(al);
+        }
+    }
+
+
 }
