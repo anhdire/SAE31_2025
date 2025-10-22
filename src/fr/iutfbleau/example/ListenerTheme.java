@@ -4,8 +4,8 @@ import java.awt.event.*;
 
 /** 
  * Classe qui permettra à l'utilisateur d'avoir un apercu du theme qu'il choisir
- * @author ANHDIRE Ayoub
- * @version 1.0
+ * @author ANHDIRE Ayoub, BOULALAM youness
+ * @version 1.1
  * 
 */
 

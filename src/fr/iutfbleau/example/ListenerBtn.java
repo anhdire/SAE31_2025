@@ -3,13 +3,34 @@ package fr.iutfbleau.example;
 import java.awt.event.*;
 import javax.swing.JButton;
 
+/**
+ * Classe pour l'ecouteur generique pour les boutons de l'application.
+ * Déclenche des actions en fonction de la commande associée au bouton.
+ */
 public class ListenerBtn implements ActionListener {
+
+    /**
+     * Contrôleur de l'application.
+     */
     private ControleurRappel controleur;
 
+
+    /**
+     * Construit un écouteur de boutons.
+     *
+     * @param c le contrôleur de l'application
+     */
     public ListenerBtn(ControleurRappel c) {
         this.controleur = c;
     }
 
+    /**
+     * Methode de gestion les différentes actions selon le bouton cliqué.
+     * Déclenche les actions du contrôleur en fonction de la commande du bouton :
+     * ajouter, modifier, retour, détail, vueajouter, suppression.
+     *
+     * @param e l'événement déclenché par le clic utilisateur
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
