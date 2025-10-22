@@ -19,6 +19,8 @@ public class ControleurRappel {
      * Constructeur du contrôleur.
      * @param d le DAO pour accéder à la base de données
      * @param vue la vue principale de l'application
+     * @author Algassimou Pellel Diallo
+     * @version 1.0
      */
     public ControleurRappel(ModelRappelDAO d, VueMainFrame vue) {
         this.dao = d;

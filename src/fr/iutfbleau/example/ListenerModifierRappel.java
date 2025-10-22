@@ -4,6 +4,8 @@ import java.awt.event.*;
 /**
  * Écouteur pour le bouton permettant de modifier un rappel.
  * Affiche le formulaire de modification via le contrôleur.
+ * @author Ayoub ANHDIRE
+ * @version 1.0
  */
 public class ListenerModifierRappel implements ActionListener {
     /**

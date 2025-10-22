@@ -4,6 +4,8 @@ import java.awt.event.*;
 /**
  * Écouteur pour le bouton de modification d'un rappel.
  * Valide les données saisies et met à jour le rappel dans la base de données.
+ * @author Ayoub ANHDIRE
+ * @version 1.0
  */
 public class ListenerModifieBD implements ActionListener {
 	private ControleurRappel c;

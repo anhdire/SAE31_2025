@@ -6,6 +6,8 @@ import java.util.Comparator;
  * Comparateur de rappels basé sur le champ {@code rang}.
  * 
  * Permet de trier une liste de {@link ModelRappel} par ordre croissant de rang.
+ * @author Algassimou Pellel Diallo
+ * @version 1.0
  */
 public class ComparateurRang implements Comparator<ModelRappel> {
     // Je compare deux rappels en fonction de leur rang

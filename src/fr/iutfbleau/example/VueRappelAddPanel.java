@@ -6,8 +6,7 @@ import javax.swing.*;
  * Panneau permettant d'ajouter un nouveau rappel.
  * Contient des champs pour le nom, le contenu, le rang et le thème.
  * Fournit également les boutons pour valider ou revenir en arrière.
- * 
- * @author Toi :)
+ * @author Ayoub ANHDIRE
  * @version 1.0
  */
 public class VueRappelAddPanel extends JPanel {
@@ -174,10 +173,9 @@ public class VueRappelAddPanel extends JPanel {
 
     /** 
      * @return La valeur du rang saisi sous forme de texte. 
-     * (Affiche aussi la valeur dans la console pour débogage.)
-     */
+     * (Affiche aussi la valeur dans la console pour débogage.
+    */
     public String getRank() {
-        System.out.println("Theme : " + theme_used_1.getText());
         return rang.getText();
     }
 

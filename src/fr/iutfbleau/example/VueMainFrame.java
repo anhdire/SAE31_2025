@@ -9,6 +9,7 @@ import javax.swing.*;
  * le formulaire d'ajout/modification et la vue de détail.
  *
  * @author DIALLO Algassimou Pellel, ANHDIRE Ayoub, BOULALAM Youness
+ * @version 1.0
  *
  */
 public class VueMainFrame extends JFrame {

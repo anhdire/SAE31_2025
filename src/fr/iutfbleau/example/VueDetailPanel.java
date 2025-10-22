@@ -7,6 +7,8 @@ import javax.swing.*;
  * Panel qui affiche les détails d’un rappel sélectionné.
  * Il montre le titre, le contenu, la date de création, le thème, le rang, l'id
  * et propose des boutons pour modifier, supprimer ou revenir.
+ * @author Algassimou Pellel Diallo
+ * @version 1.5
  */
 public class VueDetailPanel extends JPanel {
 

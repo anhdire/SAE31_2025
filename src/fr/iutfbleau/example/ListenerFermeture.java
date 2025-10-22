@@ -5,6 +5,8 @@ import java.awt.event.*;
 /**
  * Écouteur de fermeture pour l'application.
  * Ferme proprement la connexion à la base de données à la fermeture de la fenêtre.
+ * @author Algassimou Pellel Diallo
+ * @version 1.0
  */
 public class ListenerFermeture extends WindowAdapter {
 

@@ -6,6 +6,8 @@ import javax.swing.JButton;
 /**
  * Classe pour l'ecouteur generique pour les boutons de l'application.
  * Déclenche des actions en fonction de la commande associée au bouton.
+ * @author Algassimou Pellel Diallo
+ * @version 1.0
  */
 public class ListenerBtn implements ActionListener {
 

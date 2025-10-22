@@ -5,6 +5,8 @@ import java.awt.event.*;
 /**
  * Écouteur pour le bouton "Ajouter ce rappel".
  * Récupère les données du formulaire, les valide, puis déclenche l'ajout dans la base de données.
+ * @author Ayoub ANHDIRE
+ * @version 1.0
  */
 public class ListenerAjoutBD implements ActionListener {
 

@@ -5,6 +5,8 @@ import java.util.*;
 
 /**
  * Classe permettant d'interagir avec la base de données pour gérer les rappels.
+ * @author Algassimou Pellel DIALLO, Youness BOULALAM, Ayoub ANHDIRE
+ * @version 1.0
  */
 public class ModelRappelDAO {
 
