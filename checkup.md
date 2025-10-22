@@ -86,7 +86,7 @@
 - [ ] JavaDoc complète
 - [X] Champs (titre, contenu, thème, rang) fonctionnels
 - [X] Boutons “Valider” et “Annuler” avec listeners séparés
-- [ ] `ListenerTheme` fonctionne et passe par le contrôleur
+- [X] `ListenerTheme` fonctionne et passe par le contrôleur
 - [ ] UML conforme
 
 ### `VueRappelModifPanel.java`
