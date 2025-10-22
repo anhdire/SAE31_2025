@@ -58,16 +58,23 @@ public class VueRappelModifPanel extends JPanel{
      * Bouton permettant à l'utilisateur de revenir à la liste des rappels
     */
     private JButton getBacktoHome;
+    /**
+     * Groupe de boutons pour qu'au maximum un theme soit sélectionné
+    */
+    private ButtonGroup bg;
+
+    
 
     /**
-     * Interface graphique pour la modification du Rappel
+    * Interface graphique pour la modification du Rappel
+    * vue permettant à l'utilisateur de pouvoir changer les données de son rappel
     */
 
     public VueRappelModifPanel(){
         super();
         GridLayout page_gestion = new GridLayout(6,1,0,5);
         super.setLayout(page_gestion);
-        Font f = new Font("Garamond",Font.PLAIN,25);
+        Font f = new Font("SansSerif",Font.BOLD,22);
         this.modifierRappel = new JLabel("Modifier un Rappel");
         this.modifierRappel.setFont(f);
         this.modifierRappel.setForeground(Color.RED);
@@ -85,7 +92,7 @@ public class VueRappelModifPanel extends JPanel{
         GridLayout grrrrrr = new GridLayout(1,5,5,5);
         JPanel panel = new JPanel();
         panel.setLayout(grrrrrr);
-        ButtonGroup bg = new ButtonGroup();
+        this.bg = new ButtonGroup();
         this.one_color = new JCheckBox("Rouge");
         one_color.setActionCommand("1");
         bg.add(one_color);
@@ -107,11 +114,9 @@ public class VueRappelModifPanel extends JPanel{
         JPanel jp = new JPanel();
         jp.setLayout(gr);
         this.confirmModification = new JButton("Confirmer les modifications");
-        confirmModification.setFont(new Font("Merriweather",Font.PLAIN,14));
         confirmModification.setBackground(new Color(39,245,173));
         this.getBacktoHome = new JButton("Revenir à l'accueil");
         getBacktoHome.setActionCommand("retour");
-        getBacktoHome.setFont(new Font("Open Sans",Font.PLAIN,14));
         getBacktoHome.setBackground(new Color(237,69,90));
         jp.add(confirmModification);
         jp.add(getBacktoHome);
@@ -126,9 +131,31 @@ public class VueRappelModifPanel extends JPanel{
     */
 
     public void afficherRappelModif(ModelRappel r){
-        modifierTitle.setText("Titre : "+ r.getTitre());
-        modifierContent.setText("Contenu : "+ r.getContenu());
-        modifierRank.setText("Rang : "+String.valueOf(r.getRang()));
+        modifierTitle.setText(r.getTitre());
+        modifierContent.setText(r.getContenu());
+        modifierRank.setText(String.valueOf(r.getRang()));
+    }
+
+
+    public void viderChamps(){
+        modifierTitle.setText("");
+        modifierContent.setText("");
+        modifierRank.setText("");
+    }
+
+    public int getnewThemeChoisi() {
+        ButtonModel selected = this.bg.getSelection();
+        if (selected == null) {
+            return 0;
+        }
+
+        String actionCommand = selected.getActionCommand();
+        try {
+            int valeur = Integer.parseInt(actionCommand);
+            return valeur;
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     public JCheckBox getT1(){

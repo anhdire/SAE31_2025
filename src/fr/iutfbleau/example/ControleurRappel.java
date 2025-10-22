@@ -97,6 +97,9 @@ public class ControleurRappel {
 
     public void modifierRappel(ModelRappel r) {
         this.dao.modifierRappel(r);
+        this.listeInitialisee = false;
+        this.initialiserListe();
+        this.afficherListe();  
     }
    
     public void supprimerRappel(int id) {
