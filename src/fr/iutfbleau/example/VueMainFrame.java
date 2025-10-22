@@ -45,7 +45,7 @@ public class VueMainFrame extends JFrame {
 
 
     public static final int WIDTH = 410;
-    public static final int HEIGHT = 400;
+    public static final int HEIGHT = 350;
 
 
     /**
