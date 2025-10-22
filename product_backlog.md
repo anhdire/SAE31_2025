@@ -17,19 +17,19 @@
 | **US5** | Utilisateur | Ajouter un rappel (titre, contenu, thème, rang) et le sauvegarder dans la base. | `VueRappelAddPanel.java`, `RappelDAO.java`, `AjouterRappelListener.java` | Haute | 🟩 |
 | **US6** | Utilisateur | Afficher la liste des rappels triables et chargés depuis la base. | `VueRappelListPanel.java`, `RappelDAO.java`, `ControleurRappel.java` | Haute | 🟩 |
 | **US7** | Utilisateur | Afficher en détail un rappel sélectionné (titre, contenu, thème). | `VueRappelDetailPanel.java`, `ControleurRappel.java` | Moyenne | 🟩 |
-| **US8** | Utilisateur | Modifier un rappel existant et mettre à jour la base. | `VueRappelAddPanel.java`, `ModifierRappelListener.java`, `RappelDAO.java` | Moyenne | 🟥 |
+| **US8** | Utilisateur | Modifier un rappel existant et mettre à jour la base. | `VueRappelAddPanel.java`, `ModifierRappelListener.java`, `RappelDAO.java` | Moyenne | 🟩 |
 | **US9** | Utilisateur | Supprimer un rappel (suppression aussi dans la base). | `SupprimerRappelListener.java`, `RappelDAO.java` | Moyenne | 🟩 |
 | **US10** | Utilisateur | Voir des messages visuels d’erreur (connexion BD, suppression, etc.). | `ControleurRappel.java`, `JOptionPane` | Haute | 🟩 |
 | **US11** | Équipe | Générer une archive `.jar` exécutable du projet. | `makefile` | Haute | 🟩 |
 | **US12** | Équipe | Rédiger le rapport PDF complet (introduction, UML, captures, ergonomie, conclusions). | `rapport/rapport.pdf`, `rapport/UML/diagrammes.staruml` | Haute | 🟨 |
 | **US13** | Utilisateur | Être averti graphiquement en cas d’erreur de saisie lors de l’ajout d’un rappel (titre vide, texte trop long, etc.). | `VueRappelAddPanel.java`, `AjouterRappelListener.java`, `ErrorManager.java` | Haute | 🟩 |
-| **US14** | Utilisateur | Recevoir des confirmations visuelles lors des actions importantes (ajout, modification, suppression réussie). | `ControleurRappel.java`, `JOptionPane`, `ErrorManager.java` | Moyenne | 🟨 |
+| **US14** | Utilisateur | Recevoir des confirmations visuelles lors des actions importantes (ajout, modification, suppression réussie). | `ControleurRappel.java`, `JOptionPane`, `ErrorManager.java` | Moyenne | 🟩 |
 | **US15** | Équipe | Créer une classe utilitaire `ErrorManager` centralisant l’affichage des messages (erreurs, confirmations, alertes). | `ErrorManager.java` | Haute | 🟩 |
 | **US16** | Utilisateur | Être prévenu en cas de perte de connexion à la base ou d’erreur SQL par une alerte graphique. | `DBManager.java`, `ControleurRappel.java`, `ErrorManager.java` | Haute | 🟩 |
-| **US17** | Équipe | Créer deux diagrammes UML détaillant le fonctionnement de l’ajout et de la modification d’un rappel, incluant un diagramme de séquence pour chacun. | `rapport/UML/sequence_ajout.staruml`, `rapport/UML/sequence_modif.staruml` | Moyenne | 🟥 |
-| **US18** | Équipe | Créer deux diagrammes UML représentant le fonctionnement de l’affichage de la liste des rappels et de la vue détaillée, avec un diagramme de séquence pour chacun. | `rapport/UML/sequence_liste.staruml`, `rapport/UML/sequence_detail.staruml` | Moyenne | 🟥 |
-| **US19** | Equipe | Placer de commentaire pour la javadoc dans tout sauf vue et controleur | .. | Moyenne | 🟥 |
-| **US20** | Equipe | Placer de commentaire pour la javadoc dans les vue et le controleur | .. | Moyenne | 🟥 |
+| **US17** | Équipe | Créer deux diagrammes UML détaillant le fonctionnement de l’ajout et de la modification d’un rappel, incluant un diagramme de séquence pour chacun. | `rapport/UML/sequence_ajout.staruml`, `rapport/UML/sequence_modif.staruml` | Moyenne |  🟨 |
+| **US18** | Équipe | Créer deux diagrammes UML représentant le fonctionnement de l’affichage de la liste des rappels et de la vue détaillée, avec un diagramme de séquence pour chacun. | `rapport/UML/sequence_liste.staruml`, `rapport/UML/sequence_detail.staruml` | Moyenne | 🟨 |
+| **US19** | Equipe | Placer de commentaire pour la javadoc dans tout sauf vue et controleur | .. | Moyenne | 🟩 |
+| **US20** | Equipe | Placer de commentaire pour la javadoc dans les vue et le controleur | .. | Moyenne | 🟩 |
 
 
 
@@ -73,9 +73,9 @@
 | **US16** | Gérer les pertes de connexion et erreurs SQL avec des alertes graphiques.| `DBManager.java`, `ControleurRappel.java`, `ErrorManager.java` | Haute | 🟩 | Algassimou |
 | **US6** | Rendre la liste interactive (clic  -> détail). | `VueRappelListPanel.java`, `ControleurRappel.java` | Haute | 🟩 | Algassimou |
 | **US7** | Créer la vue du détail de rappel. | `VueRappelDetailPanel.java` | Moyenne |  🟩  | Algassimou |
-| **US8** | Modifier un rappel existant. | `ModifierRappelListener.java`, `RappelDAO.java` | Moyenne | 🟥 | Ayoub |
+| **US8** | Modifier un rappel existant. | `ModifierRappelListener.java`, `RappelDAO.java` | Moyenne | 🟩 | Ayoub |
 | **US9** | Supprimer un rappel. | `ListenerSupprimerRappel.java`, `ModelRappelDAO.java` | Moyenne | 🟩 | Youness |
-| **US13 et US10** | Ajouter la validation des champs et messages d’erreur dans le formulaire d’ajout. | `VueRappelAddPanel.java`, `AjouterRappelListener.java` | Haute | 🟨 | Ayoub |
+| **US13 et US10** | Ajouter la validation des champs et messages d’erreur dans le formulaire d’ajout. | `VueRappelAddPanel.java`, `AjouterRappelListener.java` | Haute | 🟩 | Ayoub |
 | **US14** | Ajouter les messages de confirmation après les actions CRUD (succès, échec). | `ControleurRappel.java`, `JOptionPane` | Moyenne | 🟩 | Algassimou |
 
 
@@ -95,12 +95,12 @@
 |----|--------------|-------------|-----------|---------|-----|
 | **US11** | Générer l’archive `.jar` exécutable. | `makefile` | Haute | 🟩 | Algassimou |
  **US17** | Créer deux diagrammes UML détaillant le fonctionnement de l’ajout et de la modification d’un rappel, incluant un diagramme de séquence pour chacun. | `doc/rapport/UML/sequence_ajout.staruml`, `doc/rapport/UML/sequence_modif.staruml` | Moyenne | 🟥 | Ayoub |
-| **US18** | Créer deux diagrammes UML représentant le fonctionnement de l’affichage de la liste des rappels et de la vue détaillée, avec un diagramme de séquence pour chacun. | `doc/rapport/UML/sequence_liste.staruml`, `doc/rapport/UML/sequence_detail.staruml` | Moyenne | 🟥 | Algassimou Pellel Diallo|
-| **US12** | Rédiger le rapport PDF complet (introduction, UML, captures, ergonomie, conclusions). | `doc/rapport/rapport.pdf`, `rapport/UML/diagrammes.staruml` | Haute | 🟥 |
+| **US18** | Créer deux diagrammes UML représentant le fonctionnement de l’affichage de la liste des rappels et de la vue détaillée, avec un diagramme de séquence pour chacun. | `doc/rapport/UML/sequence_liste.staruml`, `doc/rapport/UML/sequence_detail.staruml` | Moyenne | 🟨 | Algassimou Pellel Diallo|
+| **US12** | Rédiger le rapport PDF complet (introduction, UML, captures, ergonomie, conclusions). | `doc/rapport/rapport.pdf`, `rapport/UML/diagrammes.staruml` | Haute | 🟨 |
 Equipe |
 | **US15** | Créer la classe `ErrorManager` pour centraliser tous les messages d’erreur / confirmation. | `ErrorManager.java` | Haute | 🟩 | Algassimou |
-| **US19** | Equipe | Placer de commentaire pour la javadoc dans tout sauf vue et controleur | .. | Moyenne | 🟥 |Ayoub |
-| **US20** | Equipe | Placer de commentaire pour la javadoc dans les vue et le controleur | .. | Moyenne | 🟥 |Algassimou |
+| **US19** | Equipe | Placer de commentaire pour la javadoc dans tout sauf vue et controleur | .. | Moyenne | 🟩 |Ayoub |
+| **US20** | Equipe | Placer de commentaire pour la javadoc dans les vue et le controleur | .. | Moyenne | 🟩 |Algassimou |
 
 
 **Livrables de fin Sprint 2 :**
