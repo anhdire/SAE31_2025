@@ -114,7 +114,7 @@
 
 ### `ListenerModifierRappel.java`
 - [ ] JavaDoc complète
-- [ ] Appelle `ControleurRappel.modifierRappel()`
+- [X] Appelle `ControleurRappel.modifierRappel()`
 - [ ] Ne contient aucune logique de DAO
 - [ ] UML conforme
 
