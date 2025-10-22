@@ -5,6 +5,8 @@ import javax.swing.*;
 /**
  * Classe de lancement de l'application "Papillon".
  * Cree Le gestionaire de base de donne,le modele, les vues, le controleur .
+ * @author Algassimou Pellel DIALLO
+ * @version 1.2
  */
 public class App {
 

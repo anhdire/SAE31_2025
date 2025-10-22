@@ -19,12 +19,12 @@
 ## Modèle (Model)
 
 ### `ModelRappel.java`
-- [ ] JavaDoc complète (classe + getters/setters)
+- [X] JavaDoc complète (classe + getters/setters)
 - [X] Attributs privés + getters/setters publics
 - [X] Constructeur complet (id, titre, contenu, thème, rang)
-- [ ] Respecte le rôle de simple “donnée”
-- [ ] Pas de logique de BD ni d’affichage
-- [ ] UML conforme
+- [X] Respecte le rôle de simple “donnée”
+- [X] Pas de logique de BD ni d’affichage
+- [X] UML conforme
 
 ### `ModelRappelDAO.java`
 - [ ] JavaDoc complète
