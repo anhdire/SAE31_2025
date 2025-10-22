@@ -62,6 +62,10 @@ public class VueRappelModifPanel extends JPanel{
      * Groupe de boutons pour qu'au maximum un theme soit sélectionné
     */
     private ButtonGroup bg;
+    /**
+     * ID du rappel en cours de modification
+    */
+    private int idRappel;
 
     
 
@@ -131,6 +135,7 @@ public class VueRappelModifPanel extends JPanel{
     */
 
     public void afficherRappelModif(ModelRappel r){
+        this.idRappel = r.getId();
         modifierTitle.setText(r.getTitre());
         modifierContent.setText(r.getContenu());
         modifierRank.setText(String.valueOf(r.getRang()));
@@ -216,8 +221,12 @@ public class VueRappelModifPanel extends JPanel{
     public String getnewRank(){
         return this.modifierRank.getText();
     }
-    
 
-
-    
+    /**
+     * Récupère l'ID du rappel en cours de modification.
+     * @return l'identifiant du rappel
+    */
+    public int getIdRappel() {
+        return this.idRappel;
+    }
 }

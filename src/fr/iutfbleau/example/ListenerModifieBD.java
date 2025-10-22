@@ -2,13 +2,20 @@ package fr.iutfbleau.example;
 import javax.swing.*;
 import java.awt.event.*;
 
-
-
-public class ListenerModifieBD implements ActionListener{
+/**
+ * Écouteur pour le bouton de modification d'un rappel.
+ * Valide les données saisies et met à jour le rappel dans la base de données.
+ */
+public class ListenerModifieBD implements ActionListener {
 	private ControleurRappel c;
 	private VueMainFrame v;
 
-	public ListenerModifieBD(ControleurRappel cr,VueMainFrame vmn){
+	/**
+	 * Constructeur du listener.
+	 * @param cr le contrôleur de l'application
+	 * @param vmn la vue principale
+	 */
+	public ListenerModifieBD(ControleurRappel cr, VueMainFrame vmn) {
 		this.c = cr;
 		this.v = vmn;
 	}
@@ -18,9 +25,12 @@ public class ListenerModifieBD implements ActionListener{
 		int rang=0;
 		boolean b = true;
 		String mess = "Veuillez corriger les points suivants : \n";
+
+        // 
 		if(!e.getActionCommand().equals("Confirmer les modifications")){
 			return;
 		}
+
 		String newTitle = v.getFormModifPanel().getnewTitle();
 		String newwContent = v.getFormModifPanel().getnewContent();
 		String newRank = v.getFormModifPanel().getnewRank();
@@ -56,15 +66,13 @@ public class ListenerModifieBD implements ActionListener{
             ErrorManager.showWarning(mess);
             return;
         }
-      		
-        // il faut recuperer l'ancien ID du rappel
-        // occupe toi de cela algassimou
-        // le reste est opérationnel
-        
 
-        //ModelRappel mr = new ModelRappel(,newTitle,newwContent,newTheme,rang,null);
-        //c.modifierRappel(mr);
-        //v.getFormModifPanel().viderChamps();
+        // Récupération de l'ID du rappel en cours de modification
+        int idRappel = v.getFormModifPanel().getIdRappel();
 
+        // Création du rappel modifié et envoi au contrôleur
+        ModelRappel mr = new ModelRappel(idRappel, newTitle, newwContent, newTheme, rang, null);
+        c.modifierRappel(mr);
+        v.getFormModifPanel().viderChamps();
 	}
 }

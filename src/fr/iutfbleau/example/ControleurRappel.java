@@ -6,12 +6,20 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
 
+/**
+ * Contrôleur de l'application de gestion des rappels.
+ */
 public class ControleurRappel {
     private VueMainFrame vue;
     private ModelRappelDAO dao;
     private boolean listeInitialisee = false;
 
 
+    /**
+     * Constructeur du contrôleur.
+     * @param d le DAO pour accéder à la base de données
+     * @param vue la vue principale de l'application
+     */
     public ControleurRappel(ModelRappelDAO d, VueMainFrame vue) {
         this.dao = d;
         this.vue = vue;
@@ -35,13 +43,18 @@ public class ControleurRappel {
         this.vue.getFormAjoutPanel().getTheme5().addActionListener(new ListenerTheme(this));    
     }
 
+    /**
+     * Initialise la liste des rappels depuis la base de données.
+     * Permet aussi d'optimiser le chargement des rappels, 
+     * En evitant de charger la liste des rappels a chaque fois.
+     */
     public void initialiserListe() {
         if (listeInitialisee) return;
         try {
             List<ModelRappel> rappels = dao.getAllRappels();
             vue.getListePanel().rafraichirListe(rappels);
 
-            // Attacher les listeners une seule fois au btn ...
+            // Ajout des ecouteurs pour les boutons de la liste des rappels (optimisation)
             for (JButton btn : vue.getListePanel().getButtonsRappels()) {
                 btn.addActionListener(new ListenerBtn(this));
             }
@@ -59,20 +72,34 @@ public class ControleurRappel {
         }
     }
 
+    /**
+     * Affiche le panel de la liste des rappels.
+     */
     public  void afficherListe() {
         vue.showPanel("Liste");
     }
 
+    /**
+     * Affiche le formulaire de modification d'un rappel.
+     * @param r le rappel à modifier
+     */
     public void afficherFormModification(ModelRappel r) {
         
         vue.getFormModifPanel().afficherRappelModif(r);
         vue.showPanel("FormModif");
     }
 
+    /**
+     * Affiche le formulaire d'ajout d'un nouveau rappel.
+     */
     public void afficherFormAjout() {
         vue.showPanel("FormAjout");
     }
 
+    /**
+     * Affiche les détails d'un rappel.
+     * @param r le rappel à afficher
+     */
     public void afficherDetail(ModelRappel r) {
         vue.getDetailPanel().afficherRappel(r);
         vue.showPanel("Detail");
@@ -88,20 +115,34 @@ public class ControleurRappel {
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
     }
 
+    /**
+     * Ajoute un nouveau rappel et rafraîchit la liste.
+     * @param r le rappel à ajouter
+     */
     public void ajouterRappel(ModelRappel r) {
         this.dao.ajouterRappel(r);
         this.listeInitialisee = false;
         this.initialiserListe();
-        this.afficherListe();        
+        this.afficherListe();
+        ErrorManager.showInfo("Le rappel a été ajouté avec succès !");        
     }
 
+    /**
+     * Modifie un rappel existant et rafraîchit la liste.
+     * @param r le rappel à modifier
+     */
     public void modifierRappel(ModelRappel r) {
         this.dao.modifierRappel(r);
         this.listeInitialisee = false;
         this.initialiserListe();
-        this.afficherListe();  
+        this.afficherListe();
+        ErrorManager.showInfo("Le rappel a été modifié avec succès !");  
     }
    
+    /**
+     * Supprime un rappel après confirmation de l'utilisateur.
+     * @param id l'identifiant du rappel à supprimer
+     */
     public void supprimerRappel(int id) {
         // Avoir plusieur action listner sur btnsuprimer cause une redondance sur le Jdialog de confirmation 
         this.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
@@ -114,6 +155,10 @@ public class ControleurRappel {
         }        
     }
 
+    /**
+     * Change le thème de couleur du formulaire d'ajout.
+     * @param i le numéro du thème (1 à 5)
+     */
     public void changerTheme(int i) {
         if(i == 1){
             this.vue.getFormAjoutPanel().setBackground(new Color(255, 236, 236));  // Rouge

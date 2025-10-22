@@ -74,7 +74,7 @@ public class ListenerAjoutBD implements ActionListener {
             return;
         }
 
-        // Si tout est valide, créer et ajouter le rappel
+        // Si tout est valide, créer et envoyer au contrôleur
         ModelRappel mr = new ModelRappel(-1, titre, contenu, theme, rang, null);
         control.ajouterRappel(mr);
         vmr.getFormAjoutPanel().viderChamps();

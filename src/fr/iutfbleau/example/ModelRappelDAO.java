@@ -150,23 +150,33 @@ public class ModelRappelDAO {
     }
 
     /**
-     * Modifie un rappel existant.
-     * (À implémenter)
-     * @param r le rappel à modifier
+     * Modifie un rappel existant dans la base de données.
+     * @param r le rappel à modifier avec ses nouvelles valeurs
      */
     public void modifierRappel(ModelRappel r) {
-        try{
-        String s = "UPDATE "+DBManager.TABLE_NAME+" SET Titre= ? , Contenu = ? , Theme = ? , Rang = ? WHERE ID = ?";
-        PreparedStatement pst = this.connection.prepareStatement(s);
-        pst.setString(1,r.getTitre());
-        pst.setString(2,r.getContenu());
-        pst.setInt(3,r.getTheme());
-        pst.setInt(4,r.getRang());
-        pst.setInt(5,r.getId());
-        pst.executeUpdate();
-            }catch(SQLException e){
-        System.out.println("Erreur de mise à jour dans la base de données");
-    }
+        String sql = "UPDATE " + DBManager.TABLE_NAME + " SET Titre = ?, Contenu = ?, Theme = ?, Rang = ? WHERE ID = ?";
+        PreparedStatement pst = null;
 
+        try {
+            pst = this.connection.prepareStatement(sql);
+            pst.setString(1, r.getTitre());
+            pst.setString(2, r.getContenu());
+            pst.setInt(3, r.getTheme());
+            pst.setInt(4, r.getRang());
+            pst.setInt(5, r.getId());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            ErrorManager.showError("""
+                Impossible de mettre à jour le rappel.
+                Recommandations :
+                \t- Vérifiez votre connexion internet.
+                \t- Réessayez après quelques instants.
+                \t- Si le problème persiste, redémarrez l'application.
+            """);
+        } finally {
+            try {
+                if (pst != null) pst.close();
+            } catch (SQLException ignored) {}
+        }
     }
 }
