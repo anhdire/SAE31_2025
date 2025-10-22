@@ -155,6 +155,18 @@ public class ModelRappelDAO {
      * @param r le rappel à modifier
      */
     public void modifierRappel(ModelRappel r) {
-        // À faire
+        try{
+        String s = "UPDATE "+DBManager.TABLE_NAME+" SET Titre= ? , Contenu = ? , Theme = ? , Rang = ? WHERE ID = ?";
+        PreparedStatement pst = this.connection.prepareStatement(s);
+        pst.setString(1,r.getTitre());
+        pst.setString(2,r.getContenu());
+        pst.setInt(3,r.getTheme());
+        pst.setInt(4,r.getRang());
+        pst.setInt(5,r.getId());
+        pst.executeUpdate();
+            }catch(SQLException e){
+        System.out.println("Erreur de mise à jour dans la base de données");
+    }
+
     }
 }

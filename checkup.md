@@ -21,19 +21,19 @@
 
 ### `ModelRappel.java`
 - [ ] JavaDoc complète (classe + getters/setters)
-- [ ] Attributs privés + getters/setters publics
-- [ ] Constructeur complet (id, titre, contenu, thème, rang)
+- [X] Attributs privés + getters/setters publics
+- [X] Constructeur complet (id, titre, contenu, thème, rang)
 - [ ] Respecte le rôle de simple “donnée”
 - [ ] Pas de logique de BD ni d’affichage
 - [ ] UML conforme
 
 ### `ModelRappelDAO.java`
 - [ ] JavaDoc complète
-- [ ] Contient les 5 opérations CRUD (`ajouter`, `modifier`, `supprimer`, `get`, `getAll`)
-- [ ] Utilise `DBManager` pour la connexion
-- [ ] Ferme les connexions (`try-with-resources`)
-- [ ] Gestion propre des exceptions SQL
-- [ ] Pas de message console, utilise `ErrorManager` ou exceptions personnalisées
+- [X] Contient les 5 opérations CRUD (`ajouter`, `modifier`, `supprimer`, `get`, `getAll`)
+- [X] Utilise `DBManager` pour la connexion
+- [X] Ferme les connexions (`try-with-resources`)
+- [X] Gestion propre des exceptions SQL
+- [X] Pas de message console, utilise `ErrorManager` ou exceptions personnalisées
 - [ ] UML conforme
 
 ### `DBManager.java`
@@ -84,16 +84,16 @@
 
 ### `VueRappelAddPanel.java`
 - [ ] JavaDoc complète
-- [ ] Champs (titre, contenu, thème, rang) fonctionnels
-- [ ] Boutons “Valider” et “Annuler” avec listeners séparés
-- [ ] `ListenerTheme` fonctionne et passe par le contrôleur
+- [X] Champs (titre, contenu, thème, rang) fonctionnels
+- [X] Boutons “Valider” et “Annuler” avec listeners séparés
+- [X] `ListenerTheme` fonctionne et passe par le contrôleur
 - [ ] UML conforme
 
 ### `VueRappelModifPanel.java`
 - [ ] JavaDoc complète
-- [ ] Même structure que `VueRappelAddPanel`
-- [ ] Pré-remplissage des champs à partir d’un `ModelRappel`
-- [ ] Listener de validation appelle `ControleurRappel.modifierRappel()`
+- [X] Même structure que `VueRappelAddPanel`
+- [X] Pré-remplissage des champs à partir d’un `ModelRappel`
+- [X] Listener de validation appelle `ControleurRappel.modifierRappel()`
 - [ ] UML conforme
 
 ---
@@ -114,25 +114,25 @@
 
 ### `ListenerModifierRappel.java`
 - [ ] JavaDoc complète
-- [ ] Appelle `ControleurRappel.modifierRappel()`
+- [X] Appelle `ControleurRappel.modifierRappel()`
 - [ ] Ne contient aucune logique de DAO
 - [ ] UML conforme
 
 ### `ListenerModifieBD.java`
 - [ ] JavaDoc complète
-- [ ] Gère les modifications d’un rappel via le contrôleur
-- [ ] Vérifie la cohérence entre le modèle et la vue
+- [X] Gère les modifications d’un rappel via le contrôleur
+- [X] Vérifie la cohérence entre le modèle et la vue
 - [ ] UML conforme
 
 ### `ListenerTheme.java`
 - [ ] JavaDoc complète
-- [ ] Appelle `ControleurRappel.changerTheme()` (pas de `setBackground()` direct)
-- [ ] Ne crée pas lui-même les `addActionListener`
+- [X] Appelle `ControleurRappel.changerTheme()` (pas de `setBackground()` direct)
+- [X] Ne crée pas lui-même les `addActionListener`
 - [ ] UML conforme
 
 ### `ListenerFermeture.java`
 - [ ] JavaDoc complète
-- [ ] Gère la fermeture propre de la fenêtre
+- [X] Gère la fermeture propre de la fenêtre
 - [ ] Peut appeler une méthode `controller.fermerApplication()`
 - [ ] UML conforme
 
@@ -153,9 +153,9 @@
 
 ### `App.java`
 - [ ] JavaDoc présente
-- [ ] Contient le `main()` du projet
-- [ ] Initialise le contrôleur et la vue (`new ControleurRappel(new VueMainFrame())`)
-- [ ] Lance correctement l’application
+- [X] Contient le `main()` du projet
+- [X] Initialise le contrôleur et la vue (`new ControleurRappel(new VueMainFrame())`)
+- [X] Lance correctement l’application
 - [ ] Pas de logique métier
 - [ ] UML conforme
 
@@ -163,11 +163,11 @@
 
 ## Validation finale (avant merge)
 
-- [ ] Tous les fichiers compilent sans warning  
+- [X] Tous les fichiers compilent sans warning  
 - [ ] Tous les fichiers ont une JavaDoc complète  
 - [ ] Tous les fichiers sont présents dans le diagramme UML  
 - [ ] Aucun listener ne contient de logique métier  
-- [ ] Le code suit le schéma MVC  
+- [X] Le code suit le schéma MVC  
 - [ ] Le projet tourne sans erreur (`make run`)  
 - [ ] Commit final clair : `Validation Sprint 1 – code propre et documenté`  
 
