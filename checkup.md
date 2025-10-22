@@ -120,19 +120,19 @@
 
 ### `ListenerModifieBD.java`
 - [ ] JavaDoc complète
-- [ ] Gère les modifications d’un rappel via le contrôleur
-- [ ] Vérifie la cohérence entre le modèle et la vue
+- [X] Gère les modifications d’un rappel via le contrôleur
+- [X] Vérifie la cohérence entre le modèle et la vue
 - [ ] UML conforme
 
 ### `ListenerTheme.java`
 - [ ] JavaDoc complète
-- [ ] Appelle `ControleurRappel.changerTheme()` (pas de `setBackground()` direct)
-- [ ] Ne crée pas lui-même les `addActionListener`
+- [X] Appelle `ControleurRappel.changerTheme()` (pas de `setBackground()` direct)
+- [X] Ne crée pas lui-même les `addActionListener`
 - [ ] UML conforme
 
 ### `ListenerFermeture.java`
 - [ ] JavaDoc complète
-- [ ] Gère la fermeture propre de la fenêtre
+- [X] Gère la fermeture propre de la fenêtre
 - [ ] Peut appeler une méthode `controller.fermerApplication()`
 - [ ] UML conforme
 
@@ -153,9 +153,9 @@
 
 ### `App.java`
 - [ ] JavaDoc présente
-- [ ] Contient le `main()` du projet
-- [ ] Initialise le contrôleur et la vue (`new ControleurRappel(new VueMainFrame())`)
-- [ ] Lance correctement l’application
+- [X] Contient le `main()` du projet
+- [X] Initialise le contrôleur et la vue (`new ControleurRappel(new VueMainFrame())`)
+- [X] Lance correctement l’application
 - [ ] Pas de logique métier
 - [ ] UML conforme
 
@@ -163,11 +163,11 @@
 
 ## Validation finale (avant merge)
 
-- [ ] Tous les fichiers compilent sans warning  
+- [X] Tous les fichiers compilent sans warning  
 - [ ] Tous les fichiers ont une JavaDoc complète  
 - [ ] Tous les fichiers sont présents dans le diagramme UML  
 - [ ] Aucun listener ne contient de logique métier  
-- [ ] Le code suit le schéma MVC  
+- [X] Le code suit le schéma MVC  
 - [ ] Le projet tourne sans erreur (`make run`)  
 - [ ] Commit final clair : `Validation Sprint 1 – code propre et documenté`  
 
