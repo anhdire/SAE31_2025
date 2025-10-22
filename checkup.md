@@ -30,7 +30,7 @@
 ### `ModelRappelDAO.java`
 - [ ] JavaDoc complète
 - [X] Contient les 5 opérations CRUD (`ajouter`, `modifier`, `supprimer`, `get`, `getAll`)
-- [ ] Utilise `DBManager` pour la connexion
+- [X] Utilise `DBManager` pour la connexion
 - [ ] Ferme les connexions (`try-with-resources`)
 - [ ] Gestion propre des exceptions SQL
 - [ ] Pas de message console, utilise `ErrorManager` ou exceptions personnalisées
