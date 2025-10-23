@@ -10,24 +10,68 @@ import javax.swing.*;
  * @version 1.0
  */
 public class VueRappelAddPanel extends JPanel {
-
+    /**
+     * Etiquette ecrivant "Ajouter un Rappel"
+    */
     private JLabel etiquette_add;
+    /**
+     * Etiquette permettant à l'utilisateur de savoir que ce qu'il va ecrire 
+     * est le titre du Rappel
+    */
     private JLabel etiquette_add_title;
+    /**
+     * Etiquette permettant à l'utilisateur de savoir que ce qu'il va ecrire 
+     * est le contenu du Rappel
+    */
     private JLabel etiquette_add_content;
+    /**
+     * Champ de texte permettant à l'utilisateur d'ecrire le nom du Rappel
+    */
     private JTextField titre_add;
+    /**
+     * Zone de texte permettant à l'utilisateur d'ecrire le contenu du Rappel
+    */
     private JTextArea contenu_add;
-
+    /**
+     * Etiquette permettant à l'utilisateur de savoir que ce qu'il clique représente le THEME
+    */
     private JLabel etiquette_theme;
+    /**
+     * Bouton représentant le theme 1
+    */
     private JCheckBox theme_used_1; 
+    /**
+     * Bouton représentant le theme 2
+    */
     private JCheckBox theme_used_2; 
+    /**
+     * Bouton représentant le theme 3
+    */
     private JCheckBox theme_used_3; 
+    /**
+     * Bouton représentant le theme 4
+    */
     private JCheckBox theme_used_4;
+    /**
+     * Bouton représentant le theme 5
+    */
     private JCheckBox theme_used_5;
+    /**
+     * Groupe de Button qui permet à ce qu'un seul et unique bouton soit selectionné
+    */
     private ButtonGroup bg;
-
+    /**
+     * Bouton permettant d'ajouter le rappel
+    */
     private JButton bouton_add;
+    /**
+     * Bouton permettant de revenir à l'accueil
+    */
+    
     private JButton bouton_retour;
-
+    /**
+     * Gestionnaire de mise en page pour un rendu ordonnée
+    */
     private GridLayout gestionnaire_mise_page;
 
     /**
@@ -141,7 +185,7 @@ public class VueRappelAddPanel extends JPanel {
 
     /**
      * Retourne le numéro du thème sélectionné via les cases à cocher.
-     * @return Le numéro de thème choisi (1 à 5), ou 0 si aucun n'est sélectionné ou si erreur.
+     * @return int Le numéro de thème choisi (1 à 5), ou 0 si aucun n'est sélectionné ou si erreur.
      */
     public int getThemeChoisi() {
         ButtonModel selected = this.bg.getSelection();
@@ -158,7 +202,8 @@ public class VueRappelAddPanel extends JPanel {
         }
     }
 
-    /** @return Le bouton "Ajouter ce rappel". */
+    /**
+     * @return Le bouton "Ajouter ce rappel". */
     public JButton getButton() {
         return this.bouton_add;
     }
@@ -178,33 +223,31 @@ public class VueRappelAddPanel extends JPanel {
         return contenu_add.getText();
     }
 
-    /** 
-     * @return La valeur du rang saisi sous forme de texte. 
-     * (Affiche aussi la valeur dans la console pour débogage.
-    */
-    /*
-    public String getRank() {
-        return rang.getText();
-    }
-    */
-
     /** @return Le groupe de boutons des thèmes. */
     public ButtonGroup getGroupeButton() {
         return this.bg;
     }
-
+    /** @return le bouton theme 1 */
     public JCheckBox getTheme1() { 
         return theme_used_1; 
     }
+    
+    /** @return le bouton theme 2 */
     public JCheckBox getTheme2() { 
         return theme_used_2; 
     }
+    
+    /** @return le bouton theme 3 */
     public JCheckBox getTheme3() { 
         return theme_used_3; 
     }
+    
+    /** @return le bouton theme 4 */
     public JCheckBox getTheme4() { 
         return theme_used_4; 
     }
+        
+    /** @return le bouton theme 5 */
     public JCheckBox getTheme5() { 
         return theme_used_5; 
     }
