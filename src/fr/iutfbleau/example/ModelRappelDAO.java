@@ -4,31 +4,19 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Classe permettant d'interagir avec la base de données pour gérer les rappels.
- * @author Algassimou Pellel DIALLO, Youness BOULALAM, Ayoub ANHDIRE
- * @version 1.0
+ * DAO pour gérer les rappels dans la base de données.
  */
 public class ModelRappelDAO {
 
-    /** Connexion à la base de données */
     private Connection connection;
 
-    /**
-     * Constructeur qui reçoit une connexion active.
-     * @param c la connexion à utiliser
-     */
-    public ModelRappelDAO(Connection c) { 
-        this.connection = c; 
+    public ModelRappelDAO(Connection c) {
+        this.connection = c;
     }
 
-    /**
-     * Ajoute un rappel dans la base.
-     * @param r rappel à ajouter
-     */
     public void ajouterRappel(ModelRappel r) {
-        String sql = "INSERT INTO " + DBManager.TABLE_NAME + " (Titre,Contenu,Theme,Rang) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO " + DBManager.TABLE_NAME + " (Titre, Contenu, Theme, Rang) VALUES (?,?,?,?)";
         PreparedStatement pst = null;
-
         try {
             pst = this.connection.prepareStatement(sql);
             pst.setString(1, r.getTitre());
@@ -37,86 +25,51 @@ public class ModelRappelDAO {
             pst.setInt(4, r.getRang());
             pst.executeUpdate();
         } catch (SQLException e) {
-            ErrorManager.showError(
-                "Une erreur est survenue pendant l'ajout du rappel." +
-                "Recommandations :"+
-                "\t- Vérifiez votre connexion internet."+
-                "\t- Essayez de relancer l'application si le problème persiste."
-            );
+            ErrorManager.showError("Erreur lors de l'ajout du rappel.");
         } finally {
-            try {
-                if (pst != null) pst.close();
-            } catch (SQLException ignored) {}
+            try { if (pst != null) pst.close(); } catch (SQLException ignorer) {}
         }
     }
 
-    /**
-     * Supprime un rappel à partir de son identifiant.
-     * @param id identifiant du rappel
-     */
     public void supprimerRappel(int id) {
         String sql = "DELETE FROM " + DBManager.TABLE_NAME + " WHERE id = ?";
         PreparedStatement pst = null;
-
         try {
             pst = this.connection.prepareStatement(sql);
             pst.setInt(1, id);
             pst.executeUpdate();
         } catch (SQLException e) {
-            ErrorManager.showError(
-                "Impossible de supprimer le rappel."+
-                "Recommandations : "+
-                "\t- Fermez puis rouvrez la fiche du rappel et réessayez."+
-                "\t- Si le problème persiste, redémarrez l'application.");
+            ErrorManager.showError("Erreur lors de la suppression du rappel.");
         } finally {
-            try {
-                if (pst != null) pst.close();
-            } catch (SQLException ignored) {}
+            try { if (pst != null) pst.close(); } catch (SQLException ignorer) {}
         }
     }
 
-    /**
-     * Récupère tous les rappels de la base.
-     * @return liste de rappels
-     * @throws SQLException si la requête échoue
-     */
-    public List<ModelRappel> getAllRappels() throws SQLException {
-        List<ModelRappel> rappels = new ArrayList<>();
-        String sql = "SELECT * FROM " + DBManager.TABLE_NAME;
+    public void modifierRappel(ModelRappel r) {
+        String sql = "UPDATE " + DBManager.TABLE_NAME + " SET Titre = ?, Contenu = ?, Theme = ?, Rang = ? WHERE ID = ?";
         PreparedStatement pst = null;
-        ResultSet rs = null;
-
         try {
             pst = this.connection.prepareStatement(sql);
-            rs = pst.executeQuery();
-
-            while (rs.next()) {
-                rappels.add(new ModelRappel(
-                    rs.getInt("id"),
-                    rs.getString("Titre"),
-                    rs.getString("Contenu"),
-                    rs.getInt("Theme"),
-                    rs.getInt("Rang"),
-                    rs.getString("DateCreation")
-                ));
-            }
+            pst.setString(1, r.getTitre());
+            pst.setString(2, r.getContenu());
+            pst.setInt(3, r.getTheme());
+            pst.setInt(4, r.getRang());
+            pst.setInt(5, r.getId());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            ErrorManager.showError("Erreur lors de la modification du rappel.");
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-            } catch (SQLException ignored) {}
+            try { if (pst != null) pst.close(); } catch (SQLException ignorer) {}
         }
-
-        return rappels;
     }
 
     /**
-     * Récupère un rappel spécifique à partir de son identifiant.
+     * Récupère un rappel à partir de son identifiant.
      * @param id identifiant du rappel
-     * @return le rappel correspondant
+     * @return le rappel correspondant, ou null si introuvable
      */
     public ModelRappel getOneRappel(int id) {
-        String sql = "SELECT Titre, Contenu, Theme, Rang, DateCreation FROM " + DBManager.TABLE_NAME + " WHERE Id = ?";
+        String sql = "SELECT * FROM " + DBManager.TABLE_NAME + " WHERE id = ?";
         PreparedStatement pst = null;
         ResultSet rs = null;
         ModelRappel rappel = null;
@@ -128,55 +81,137 @@ public class ModelRappelDAO {
 
             if (rs.next()) {
                 rappel = new ModelRappel(
-                    id,
-                    rs.getString("Titre"),
-                    rs.getString("Contenu"),
-                    rs.getInt("Theme"),
-                    rs.getInt("Rang"),
-                    rs.getString("DateCreation")
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getInt(4),
+                    rs.getInt(5),
+                    rs.getString(6)
                 );
             }
 
         } catch (SQLException e) {
-            ErrorManager.showError("Erreur lors de la lecture du rappel.\nVeuillez vérifier votre connexion.");
+            ErrorManager.showError("Erreur lors de la récupération du rappel.");
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-            } catch (SQLException ignored) {}
+            try { if (rs != null) rs.close(); } catch (SQLException ignorer) {}
+            try { if (pst != null) pst.close(); } catch (SQLException ignorer) {}
         }
 
         return rappel;
     }
 
-    /**
-     * Modifie un rappel existant dans la base de données.
-     * @param r le rappel à modifier avec ses nouvelles valeurs
-     */
-    public void modifierRappel(ModelRappel r) {
-        String sql = "UPDATE " + DBManager.TABLE_NAME + " SET Titre = ?, Contenu = ?, Theme = ?, Rang = ? WHERE ID = ?";
+
+    public List<ModelRappel> getAllRappels() throws SQLException {
+        List<ModelRappel> rappels = new ArrayList<>();
+        String sql = "SELECT * FROM " + DBManager.TABLE_NAME;
         PreparedStatement pst = null;
+        ResultSet rs = null;
 
         try {
             pst = this.connection.prepareStatement(sql);
-            pst.setString(1, r.getTitre());
-            pst.setString(2, r.getContenu());
-            pst.setInt(3, r.getTheme());
-            pst.setInt(4, r.getRang());
-            pst.setInt(5, r.getId());
-            pst.executeUpdate();
-        } catch (SQLException e) {
-            ErrorManager.showError(
-                "Impossible de mettre à jour le rappel."+
-                "Recommandations :"+
-                "\t- Vérifiez votre connexion internet."+
-                "\t- Réessayez après quelques instants."+
-                "\t- Si le problème persiste, redémarrez l'application."
-            );
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                rappels.add(new ModelRappel(
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getInt(4),
+                    rs.getInt(5),
+                    rs.getString(6)
+                ));
+            }
         } finally {
-            try {
-                if (pst != null) pst.close();
-            } catch (SQLException ignored) {}
+            try { if (rs != null) rs.close(); } catch (SQLException ignorer) {}
+            try { if (pst != null) pst.close(); } catch (SQLException ignorer) {}
         }
+        return rappels;
+    }
+
+    public int getMaxRang() {
+        int max = -1;
+        String sql = "SELECT MAX(rang) FROM " + DBManager.TABLE_NAME;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = this.connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                max = rs.getInt(1);
+            } 
+        } catch (SQLException e) {
+            ErrorManager.showError("Erreur lors de la récupération du rang max.");
+        } finally {
+            try { if (rs != null) rs.close(); } catch (SQLException ignorer) {}
+            try { if (ps != null) ps.close(); } catch (SQLException ignorer) {}
+        }
+        return max;
+    }
+
+    public void updateRang(int id, int nouveauRang) {
+        String sql = "UPDATE " + DBManager.TABLE_NAME + " SET rang = ? WHERE id = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = this.connection.prepareStatement(sql);
+            ps.setInt(1, nouveauRang);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            ErrorManager.showError("Erreur lors de la mise à jour du rang.");
+        } finally {
+            try { if (ps != null) ps.close(); } catch (SQLException ignorer) {}
+        }
+    }
+
+    public ModelRappel getRappelParRang(int rang) {
+        String sql = "SELECT * FROM " + DBManager.TABLE_NAME + " WHERE rang = ?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = this.connection.prepareStatement(sql);
+            ps.setInt(1, rang);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new ModelRappel(
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getInt(4),
+                    rs.getInt(5),
+                    rs.getString(6)
+                );
+            }
+        } catch (SQLException e) {
+            ErrorManager.showError("Erreur lors de la récupération par rang.");
+        } finally {
+            try { if (rs != null) rs.close(); } catch (SQLException ignored) {}
+            try { if (ps != null) ps.close(); } catch (SQLException ignored) {}
+        }
+        return null;
+    }
+
+    public void reorganiserRangs() {
+        String sqlSelect = "SELECT id FROM " + DBManager.TABLE_NAME + " ORDER BY rang ASC";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = this.connection.prepareStatement(sqlSelect);
+            rs = pst.executeQuery();
+            int nouveauRang = 0;
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                updateRang(id, nouveauRang++);
+            }
+        } catch (SQLException e) {
+            ErrorManager.showError("Erreur lors de la réorganisation des rangs.");
+        } finally {
+            try { if (rs != null) rs.close(); } catch (SQLException ignored) {}
+            try { if (pst != null) pst.close(); } catch (SQLException ignored) {}
+        }
+    }
+
+    public void echangerRangs(int id1, int rang1, int id2, int rang2) {
+        updateRang(id1, -1); // temp
+        updateRang(id2, rang1);
+        updateRang(id1, rang2);
     }
 }

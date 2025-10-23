@@ -128,6 +128,21 @@ public class ControleurRappel {
         ErrorManager.showInfo("Le rappel a été ajouté avec succès !");        
     }
 
+    public void deplacerRappelVersHaut(ModelRappel r) {
+        if (r.getRang() <= 0) return; // il est deja en haut
+    
+        int rangActuel = r.getRang();
+        int rangVoisin = rangActuel - 1;
+    
+        ModelRappel voisin = dao.getRappelParRang(rangVoisin);
+        if (voisin != null) {
+            dao.updateRang(r.getId(), rangVoisin);
+            dao.updateRang(voisin.getId(), rangActuel);
+            afficherListe();
+        }
+    }
+    
+
     /**
      * Modifie un rappel existant et rafraîchit la liste.
      * @param r le rappel à modifier
@@ -144,17 +159,21 @@ public class ControleurRappel {
      * Supprime un rappel après confirmation de l'utilisateur.
      * @param id l'identifiant du rappel à supprimer
      */
+
     public void supprimerRappel(int id) {
         // Avoir plusieur action listner sur btnsuprimer cause une redondance sur le Jdialog de confirmation 
         this.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
+        
         if (ErrorManager.confirm("Voulez-vous vraiment supprimer ce rappel ?")) {
             dao.supprimerRappel(id);
+            dao.reorganiserRangs();
             this.listeInitialisee = false;
             this.initialiserListe();
             this.afficherListe();
             ErrorManager.showInfo("Le rappel a été supprimé avec succès !");
-        }        
+        }
+        
     }
 
     /**
@@ -190,6 +209,38 @@ public class ControleurRappel {
             bouton.removeActionListener(al);
         }
     }
+
+    /**
+     * Déplace un rappel vers le haut ou le bas dans la liste.
+     * @param id identifiant du rappel à déplacer
+     * @param versLeHaut true pour monter, false pour descendre
+     */
+    public void deplacerRappel(int id, boolean versLeHaut) {
+        ModelRappel courant = dao.getOneRappel(id);
+
+        if (courant == null) {
+            ErrorManager.showError("Rappel introuvable.");
+            return;
+        }
+
+        int rangActuel = courant.getRang();
+        int rangVoisin = versLeHaut ? rangActuel - 1 : rangActuel + 1;
+
+        ModelRappel voisin = dao.getRappelParRang(rangVoisin);
+
+        if (voisin == null) {
+            ErrorManager.showInfo("Déplacement impossible.");
+            return;
+        }
+
+        dao.echangerRangs(courant.getId(), rangActuel, voisin.getId(), rangVoisin);
+        this.listeInitialisee = false;
+        this.initialiserListe();
+        this.afficherListe();
+    }
+
+
+
 
 
 }

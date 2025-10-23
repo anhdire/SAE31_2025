@@ -31,7 +31,7 @@ CREATE TABLE `SAE31_2025_Rappel` (
   `Titre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Contenu` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Theme` int(11) NOT NULL CHECK (`Theme` BETWEEN 1 AND 5),
-  `Rang` int(11) NOT NULL CHECK (`Rang` >= 0),
+  `Rang` int(11) NOT NULL UNIQUE CHECK (`Rang` >= 0),
   `DateCreation` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
