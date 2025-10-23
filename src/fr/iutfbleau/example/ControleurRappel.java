@@ -36,6 +36,8 @@ public class ControleurRappel {
         this.vue = vue;
 
         // Ajout des ecouteurs pour les boutons
+        this.vue.getDetailPanel().getBtnMonter().addActionListener(new ListenerBtn(this));
+        this.vue.getDetailPanel().getBtnDescendre().addActionListener(new ListenerBtn(this));
         this.vue.getFormModifPanel().getButtonRetour().addActionListener(new ListenerBtn(this));
         this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerBtn(this));
         this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerBtn(this));

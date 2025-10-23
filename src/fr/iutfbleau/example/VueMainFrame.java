@@ -90,7 +90,7 @@ public class VueMainFrame extends JFrame {
         cardLayout.show(container, name);
         if (name.equals("Liste")) {
             this.setTitle("Liste des rappels");
-        } else if (name.equals("Form")) {
+        } else if (name.equals("FormAjout")) {
             this.setTitle("Ajouter/Modifier un rappel");
         } else if (name.equals("Detail")) {
             this.setTitle("Détails du rappel");

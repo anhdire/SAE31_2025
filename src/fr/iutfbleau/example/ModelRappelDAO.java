@@ -298,7 +298,8 @@ public class ModelRappelDAO {
     */
 
     public void echangerRangs(int id1, int rang1, int id2, int rang2) {
-        updateRang(id1, -1); // temp
+        int rangTemp = getMaxRang() + 1;
+        updateRang(id1, rangTemp);
         updateRang(id2, rang1);
         updateRang(id1, rang2);
     }
