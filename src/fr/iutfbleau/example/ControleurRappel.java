@@ -121,7 +121,7 @@ public class ControleurRappel {
      * @param r le rappel à ajouter
      */
     public void ajouterRappel(ModelRappel r) {
-        
+        // lola
         int maxrang = dao.getMaxRang();
         maxrang++;
         r.setRang(maxrang);
