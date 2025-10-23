@@ -121,7 +121,13 @@ public class ControleurRappel {
      * @param r le rappel à ajouter
      */
     public void ajouterRappel(ModelRappel r) {
+        
+        int maxrang = dao.getMaxRang();
+        maxrang++;
+        r.setRang(maxrang);
+
         this.dao.ajouterRappel(r);
+
         this.listeInitialisee = false;
         this.initialiserListe();
         this.afficherListe();

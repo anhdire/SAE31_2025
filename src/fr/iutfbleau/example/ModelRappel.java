@@ -82,6 +82,11 @@ public class ModelRappel {
         return date; 
     }
 
+    /* Change le rang du rappel */
+    public void setRang(int rang){
+        this.rang = rang;
+    }
+
     /**
      * Retourne une représentation textuelle du rappel.
      * 
