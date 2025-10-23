@@ -99,8 +99,8 @@ run: jar
 
 fatjar: jar
 	@echo "Création du jar avec le driver MariaDB... JAR"
-	rm -rf $(TMPDIR)
-	mkdir $(TMPDIR)
+	@rm -rf $(TMPDIR)
+	@mkdir $(TMPDIR)
 	cd $(TMPDIR) && jar xf ../Papillon.jar
 	cd $(TMPDIR) && jar xf ../$(LIB)
 	cd $(TMPDIR) && $(JAR) cfe ../$(FATJAR) $(MAIN_CLASS) .
