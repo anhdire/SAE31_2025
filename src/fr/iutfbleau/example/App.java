@@ -19,7 +19,7 @@ public class App {
         DBManager db = new DBManager();
         ModelRappelDAO dao = new ModelRappelDAO(db.getConnection());
         VueMainFrame vue = new VueMainFrame();
-        ControleurRappel controleur = new ControleurRappel(dao, vue);
+        ControleurRappel controleur = new ControleurRappel(dao, vue); // haha
 
         vue.addWindowListener(new ListenerFermeture(db));
         vue.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
