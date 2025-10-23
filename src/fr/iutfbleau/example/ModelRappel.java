@@ -4,7 +4,7 @@ package fr.iutfbleau.example;
  * Représente un rappel avec ses informations principales. 
  * Un rappel contient un identifiant, un titre, un contenu (facultatif),
  * un thème, un rang et une date de création.
- * @author Algassimou Pellel Diallo, Anhdire Ayoub , Youness BOULALAM
+ * @author Algassimou Pellel Diallo, Anhdire Ayoub, Youness BOULALAM
  * @version 1.1
  */
 public class ModelRappel {
@@ -26,15 +26,16 @@ public class ModelRappel {
 
     /** Date de création du rappel. */
     private String date;
-
+    
     /**
-     * Crée un nouveau rappel avec les informations données.
-     * @param id identifiant du rappel(unique)
-     * @param t titre du rappel
-     * @param c contenu du rappel (peut être null)
-     * @param th thème du rappel
-     * @param r rang du rappel
-     * @param date date de création du rappel
+     * Constructeur pour créer une nouvelle instance de ModelRappel.
+     * 
+     * @param id l'identifiant unique du rappel
+     * @param t le titre du rappel
+     * @param c le contenu du rappel (peut être null ou vide)
+     * @param th le numéro du thème (1-5)
+     * @param r le rang du rappel
+     * @param date la date de création du rappel
      */
     public ModelRappel(int id, String t, String c, int th, int r, String date) {
         this.id = id;
@@ -98,20 +99,21 @@ public class ModelRappel {
     }
 
     /**
-    * Change le rang du rappel 
-    * @param r le nouveau rang du rappel
-    */
+     * Change le rang du rappel 
+     * @param rang le nouveau rang du rappel
+     */
     public void setRang(int rang){
         this.rang = rang;
     }
 
     /**
-     * Retourne une représentation textuelle du rappel. 
-     * @return String une chaîne contenant toutes les informations du rappel
+     * Retourne une représentation textuelle complète du rappel.
+     * 
+     * @return String une chaîne formatée contenant toutes les informations du rappel
+     * sous la forme : "Rappel n°[id]: [titre], [contenu], Thème: [theme], Rang: [rang], Date: [date]"
      */
     @Override
     public String toString() { 
-        return "Rappel{id=" + id + ", titre='" + titre + "', contenu='" + contenu 
-            + "', theme=" + theme + ", rang=" + rang + ", date='" + date + "'}"; 
+        return "Rappel n°" + this.id + ": " + this.titre + ", " + this.contenu + ", Thème: " + this.theme + ", Rang: " + this.rang + ", Date: " + this.date;
     }
 }

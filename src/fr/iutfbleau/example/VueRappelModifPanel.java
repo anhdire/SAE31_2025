@@ -128,11 +128,10 @@ public class VueRappelModifPanel extends JPanel{
     }
 
     /**
-     * Methode permettant à l'utilisateur de savoir les données
-     * elle lui permet de savoir les données qu'il avait mis lors de la création du rappel
-     * @param r permet la récupération de ces données
-     * @return initialisés les champs de texte crées plus haut
-    */
+     * Affiche les détails d'un rappel dans l'interface de modification.
+     * Permet à l'utilisateur de voir et modifier les données existantes du rappel.
+     * @param r le modèle de rappel contenant les données à afficher
+     */
 
     public void afficherRappelModif(ModelRappel r){
         this.idRappel = r.getId();
