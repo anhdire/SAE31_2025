@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 /**
  * Vue permettant à l'utilisateur de modifier les données du Rappel
- * @author Ayoub ANHDIRE
+ * @author Ayoub ANHDIRE, DIALLO Algassimou Pellel, BOULALAM Youness
  * @version 1.0
  */
 
@@ -85,7 +85,6 @@ public class VueRappelModifPanel extends JPanel{
         modifierContent.setFont(ff);
         JScrollPane scroll = new JScrollPane(modifierContent);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        //this.modifierRank = new JTextField();
         super.add(modifierRappel);
         super.add(modifierTitle); 
         super.add(scroll);
@@ -130,9 +129,9 @@ public class VueRappelModifPanel extends JPanel{
 
     /**
      * Methode permettant à l'utilisateur de savoir les données
-     * elle lui permet de savoir les données qu'il avait mis lors de la creation du rappel
-     * @param r permet la recuperation de ces données
-     * @return initialises les champs de texte crées plus haut
+     * elle lui permet de savoir les données qu'il avait mis lors de la création du rappel
+     * @param r permet la récupération de ces données
+     * @return initialisés les champs de texte crées plus haut
     */
 
     public void afficherRappelModif(ModelRappel r){
@@ -141,12 +140,18 @@ public class VueRappelModifPanel extends JPanel{
         modifierContent.setText(r.getContenu());
     }
 
-
+    /**
+     * Methode permettant de vider les champs et zone de textes
+    */
     public void viderChamps(){
         modifierTitle.setText("");
         modifierContent.setText("");
     }
-
+    /**
+     * Methode permettant de récupérer le nouveau theme chosit par l'utilisateur
+     * @return int un numero de theme(entre 1 et 5)
+    */
+    
     public int getnewThemeChoisi() {
         ButtonModel selected = this.bg.getSelection();
         if (selected == null) {
@@ -161,20 +166,23 @@ public class VueRappelModifPanel extends JPanel{
             return 0;
         }
     }
-
+    /** @return le bouton theme 1 */
     public JCheckBox getT1(){
         return this.one_color;
     }
-
+    /** @return le bouton theme 2 */
     public JCheckBox getT2(){
         return this.two_color;
     }
+    /** @return le bouton theme 3 */
     public JCheckBox getT3(){
         return this.three_color;
     }
+    /** @return le bouton theme 4 */
     public JCheckBox getT4(){
         return this.four_color;
     }
+    /** @return le bouton theme 5 */
     public JCheckBox getT5(){
         return this.five_color;
     }
@@ -195,8 +203,8 @@ public class VueRappelModifPanel extends JPanel{
         return this.getBacktoHome;
     }
     /**
-     * Permet de recuperer ce que l'utilisateur écrit : le titre
-     * @return String retourne ce qu'il écrit sous forme de chaine de caractères
+     * Permet de récupérer ce que l'utilisateur écrit : le titre
+     * @return String retourne ce qu'il écrit sous forme de chaîne de caractères
     */
     
     public String getnewTitle(){
@@ -205,7 +213,7 @@ public class VueRappelModifPanel extends JPanel{
     }
 
     /**
-     * permet de recupérer ce que l'utilisateur écrit : le contenu
+     * permet de récupérer ce que l'utilisateur écrit : le contenu
      * @return String retourne ce qu'il écrit sous forme de de chaine de caracteres
     */
 
