@@ -81,7 +81,6 @@ public class VueListePanel extends JPanel {
             listeRappel.setLayout(new BorderLayout());
             listeRappel.add(centerPanel, BorderLayout.CENTER);
         } else {
-            rappels.sort(new ComparateurRang());
             listeRappel.setLayout(new BoxLayout(listeRappel, BoxLayout.Y_AXIS));
 
             for (ModelRappel r : rappels) {

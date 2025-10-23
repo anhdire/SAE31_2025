@@ -59,7 +59,11 @@ public class ModelRappelDAO {
         } catch (SQLException e) {
             ErrorManager.showError("Erreur lors de la modification du rappel.");
         } finally {
-            try { if (pst != null) pst.close(); } catch (SQLException ignorer) {}
+            try { 
+                if(pst != null) {
+                    pst.close();
+                } 
+            }catch (SQLException ignorer) {}
         }
     }
 
@@ -93,8 +97,14 @@ public class ModelRappelDAO {
         } catch (SQLException e) {
             ErrorManager.showError("Erreur lors de la récupération du rappel.");
         } finally {
-            try { if (rs != null) rs.close(); } catch (SQLException ignorer) {}
-            try { if (pst != null) pst.close(); } catch (SQLException ignorer) {}
+            try { 
+                if (rs != null){
+                    rs.close();
+                }
+                if(pst != null) {
+                    pst.close();
+                } 
+            }catch (SQLException ignorer) {}
         }
 
         return rappel;
@@ -103,7 +113,8 @@ public class ModelRappelDAO {
 
     public List<ModelRappel> getAllRappels() throws SQLException {
         List<ModelRappel> rappels = new ArrayList<>();
-        String sql = "SELECT * FROM " + DBManager.TABLE_NAME;
+        String sql = "SELECT * FROM " + DBManager.TABLE_NAME + " ORDER BY rang ASC";
+
         PreparedStatement pst = null;
         ResultSet rs = null;
 
@@ -121,8 +132,14 @@ public class ModelRappelDAO {
                 ));
             }
         } finally {
-            try { if (rs != null) rs.close(); } catch (SQLException ignorer) {}
-            try { if (pst != null) pst.close(); } catch (SQLException ignorer) {}
+            try { 
+                if (rs != null){
+                    rs.close();
+                }
+                if(pst != null) {
+                    pst.close();
+                } 
+            }catch (SQLException ignorer) {}
         }
         return rappels;
     }
@@ -130,46 +147,56 @@ public class ModelRappelDAO {
     public int getMaxRang() {
         int max = -1;
         String sql = "SELECT MAX(rang) FROM " + DBManager.TABLE_NAME;
-        PreparedStatement ps = null;
+        PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            ps = this.connection.prepareStatement(sql);
-            rs = ps.executeQuery();
+            pst = this.connection.prepareStatement(sql);
+            rs = pst.executeQuery();
             if (rs.next()){
                 max = rs.getInt(1);
             } 
         } catch (SQLException e) {
             ErrorManager.showError("Erreur lors de la récupération du rang max.");
         } finally {
-            try { if (rs != null) rs.close(); } catch (SQLException ignorer) {}
-            try { if (ps != null) ps.close(); } catch (SQLException ignorer) {}
+            try { 
+                if (rs != null){
+                    rs.close();
+                }
+                if(pst != null) {
+                    pst.close();
+                } 
+            }catch (SQLException ignorer) {}
         }
         return max;
     }
 
     public void updateRang(int id, int nouveauRang) {
         String sql = "UPDATE " + DBManager.TABLE_NAME + " SET rang = ? WHERE id = ?";
-        PreparedStatement ps = null;
+        PreparedStatement pst = null;
         try {
-            ps = this.connection.prepareStatement(sql);
-            ps.setInt(1, nouveauRang);
-            ps.setInt(2, id);
-            ps.executeUpdate();
+            pst = this.connection.prepareStatement(sql);
+            pst.setInt(1, nouveauRang);
+            pst.setInt(2, id);
+            pst.executeUpdate();
         } catch (SQLException e) {
             ErrorManager.showError("Erreur lors de la mise à jour du rang.");
         } finally {
-            try { if (ps != null) ps.close(); } catch (SQLException ignorer) {}
+            try { 
+                if(pst != null) {
+                    pst.close();
+                } 
+            }catch (SQLException ignorer) {}
         }
     }
 
     public ModelRappel getRappelParRang(int rang) {
         String sql = "SELECT * FROM " + DBManager.TABLE_NAME + " WHERE rang = ?";
-        PreparedStatement ps = null;
+        PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            ps = this.connection.prepareStatement(sql);
-            ps.setInt(1, rang);
-            rs = ps.executeQuery();
+            pst = this.connection.prepareStatement(sql);
+            pst.setInt(1, rang);
+            rs = pst.executeQuery();
             if (rs.next()) {
                 return new ModelRappel(
                     rs.getInt(1),
@@ -183,8 +210,14 @@ public class ModelRappelDAO {
         } catch (SQLException e) {
             ErrorManager.showError("Erreur lors de la récupération par rang.");
         } finally {
-            try { if (rs != null) rs.close(); } catch (SQLException ignored) {}
-            try { if (ps != null) ps.close(); } catch (SQLException ignored) {}
+            try { 
+                if (rs != null){
+                    rs.close();
+                }
+                if(pst != null) {
+                    pst.close();
+                } 
+            }catch (SQLException ignorer) {}
         }
         return null;
     }
@@ -204,8 +237,14 @@ public class ModelRappelDAO {
         } catch (SQLException e) {
             ErrorManager.showError("Erreur lors de la réorganisation des rangs.");
         } finally {
-            try { if (rs != null) rs.close(); } catch (SQLException ignored) {}
-            try { if (pst != null) pst.close(); } catch (SQLException ignored) {}
+            try { 
+                if (rs != null){
+                    rs.close();
+                }
+                if(pst != null) {
+                    pst.close();
+                } 
+            }catch (SQLException ignorer) {}
         }
     }
 

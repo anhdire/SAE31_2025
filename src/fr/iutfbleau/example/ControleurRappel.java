@@ -133,26 +133,12 @@ public class ControleurRappel {
         this.afficherListe();
         ErrorManager.showInfo("Le rappel a été ajouté avec succès !");        
     }
-
-    public void deplacerRappelVersHaut(ModelRappel r) {
-        if (r.getRang() <= 0) return; // il est deja en haut
-    
-        int rangActuel = r.getRang();
-        int rangVoisin = rangActuel - 1;
-    
-        ModelRappel voisin = dao.getRappelParRang(rangVoisin);
-        if (voisin != null) {
-            dao.updateRang(r.getId(), rangVoisin);
-            dao.updateRang(voisin.getId(), rangActuel);
-            afficherListe();
-        }
-    }
-    
+   
 
     /**
      * Modifie un rappel existant et rafraîchit la liste.
      * @param r le rappel à modifier
-     */
+    */
     public void modifierRappel(ModelRappel r) {
         this.dao.modifierRappel(r);
         this.listeInitialisee = false;
@@ -205,16 +191,20 @@ public class ControleurRappel {
     }
 
 
-    /**
-     * Supprime tous les ActionListener attachés à un bouton.
-     *
-     * @param bouton Le bouton à nettoyer
-     */
-    public void resetListeners(JButton bouton) {
-        for (ActionListener al : bouton.getActionListeners()) {
-            bouton.removeActionListener(al);
+    public void deplacerRappelVersHaut(ModelRappel r) {
+        if (r.getRang() <= 0) return; // il est deja en haut
+    
+        int rangActuel = r.getRang();
+        int rangVoisin = rangActuel - 1;
+    
+        ModelRappel voisin = dao.getRappelParRang(rangVoisin);
+        if (voisin != null) {
+            dao.updateRang(r.getId(), rangVoisin);
+            dao.updateRang(voisin.getId(), rangActuel);
+            afficherListe();
         }
     }
+
 
     /**
      * Déplace un rappel vers le haut ou le bas dans la liste.
@@ -246,7 +236,15 @@ public class ControleurRappel {
     }
 
 
-
-
+    /**
+     * Supprime tous les ActionListener attachés à un bouton.
+     *
+     * @param bouton Le bouton à nettoyer
+     */
+    public void resetListeners(JButton bouton) {
+        for (ActionListener al : bouton.getActionListeners()) {
+            bouton.removeActionListener(al);
+        }
+    }
 
 }
