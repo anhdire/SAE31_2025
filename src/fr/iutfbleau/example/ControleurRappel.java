@@ -64,11 +64,10 @@ public class ControleurRappel {
             listeInitialisee = true;
 
         } catch (SQLException e) {
-            String message = """
-                Impossible de charger les rappels :
-                    \t- Vérifiez que votre connexion internet fonctionne, et réessayez dans quelques instants.\n
-                L'application Va se fermer
-                    """;
+            String message = 
+            "Impossible de charger les rappels :"+
+            "\t- Vérifiez que votre connexion internet fonctionne, et réessayez dans quelques instants.\n"+
+            "L'application Va se fermer";
             ErrorManager.showError(message);
             System.exit(1);
         }
