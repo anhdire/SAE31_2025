@@ -7,6 +7,9 @@ LIB   = lib/mariadb-java-client-3.5.6.jar
 
 PKG_PATH = fr/iutfbleau/example
 MAIN_CLASS = fr.iutfbleau.example.App
+FATJAR = Papillon-FAT.jar
+TMPDIR = tmpjar
+
 
 # corection du bug de classpath
 ifeq ($(OS),Windows_NT)
@@ -93,6 +96,19 @@ jar: all
 
 run: jar
 	$(JAVA) -cp "Papillon.jar:$(LIB)" $(MAIN_CLASS)
+
+fatjar: jar
+	@echo "Création du jar avec le driver MariaDB... JAR"
+	rm -rf $(TMPDIR)
+	mkdir $(TMPDIR)
+	cd $(TMPDIR) && jar xf ../Papillon.jar
+	cd $(TMPDIR) && jar xf ../$(LIB)
+	cd $(TMPDIR) && $(JAR) cfe ../$(FATJAR) $(MAIN_CLASS) .
+	rm -rf $(TMPDIR)
+	@echo "L'operation is good"
+
+runfatjar: fatjar
+	$(JAVA) -jar Papillon-Fat.jar
 
 runnotjar: all
 	$(JAVA) -cp "$(LIB)$(SEP)$(BIN)" $(MAIN_CLASS)

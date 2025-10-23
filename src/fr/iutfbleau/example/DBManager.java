@@ -54,7 +54,6 @@ public class DBManager {
         try {
             if (this.connection != null && !this.connection.isClosed()) {
                 this.connection.close();
-                System.out.println("Connexion fermée proprement.");
             }
         } catch (SQLException e) {
             ErrorManager.showError("Erreur lors de la fermeture de la connexion.");
