@@ -4,9 +4,10 @@ import java.awt.event.*;
 /**
  * Écouteur pour le bouton de modification d'un rappel.
  * Valide les données saisies et met à jour le rappel dans la base de données.
- * @author Ayoub ANHDIRE
+ * @author Ayoub ANHDIRE, Algassimou Pellel DIALLO , Youness BOULALAM
  * @version 1.0
  */
+
 public class ListenerModifieBD implements ActionListener {
 	private ControleurRappel c;
 	private VueMainFrame v;
@@ -25,7 +26,6 @@ public class ListenerModifieBD implements ActionListener {
      * Gère l'action de confirmation des modifications.
      * Vérifie les champs, affiche un avertissement en cas d'erreur,
      * et transmet les données modifiées au contrôleur.
-     *
      * @param e l'événement déclenché par l'action utilisateur
      */
 	@Override
@@ -33,7 +33,7 @@ public class ListenerModifieBD implements ActionListener {
 		boolean b = true;
 		String mess = "Veuillez corriger les points suivants : \n";
 
-        // 
+        // verifier que le bouton correspondant est bien celui de la modification
 		if(!e.getActionCommand().equals("Confirmer les modifications")){
 			return;
 		}
