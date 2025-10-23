@@ -62,7 +62,7 @@ public class ListenerBtn implements ActionListener {
                 controleur.supprimerRappel(r.getId());
             }
             else {
-                //System.out.println("Action non reconnue : " + action);
+                // je fais rien
             }
         }
     }

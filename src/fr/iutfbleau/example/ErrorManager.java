@@ -2,6 +2,7 @@ package fr.iutfbleau.example;
 
 import javax.swing.JOptionPane;
 
+
 /**
  * Classe utilitaire pour gérer l'affichage des messages d'erreur,
  * d'information et de confirmation dans l'interface graphique.

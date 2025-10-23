@@ -21,8 +21,12 @@ all: $(BIN)/$(PKG_PATH)/App.class
 $(BIN):
 	@mkdir -p $(BIN)
 
-#   CLASSES SANS DÉPENDANCES
-$(BIN)/$(PKG_PATH)/DBManager.class: $(SRC)/$(PKG_PATH)/DBManager.java | $(BIN)
+  CLASSES SANS DÉPENDANCES
+$(BIN)/$(PKG_PATH)/ErrorManager.class: $(SRC)/$(PKG_PATH)/ErrorManager.java | $(BIN)
+	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
+
+$(BIN)/$(PKG_PATH)/DBManager.class: $(SRC)/$(PKG_PATH)/DBManager.java \
+		$(BIN)/$(PKG_PATH)/ErrorManager.java | $(BIN)
 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 $(BIN)/$(PKG_PATH)/ListenerFermeture.class: $(SRC)/$(PKG_PATH)/ListenerFermeture.java | $(BIN)
@@ -34,9 +38,6 @@ $(BIN)/$(PKG_PATH)/ComparateurRang.class: $(SRC)/$(PKG_PATH)/ComparateurRang.jav
 $(BIN)/$(PKG_PATH)/ModelRappel.class: $(SRC)/$(PKG_PATH)/ModelRappel.java | $(BIN)
 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
-$(BIN)/$(PKG_PATH)/ErrorManager.class: $(SRC)/$(PKG_PATH)/ErrorManager.java | $(BIN)
-	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
-
 
 #   CLASSES DU MODÈLE
 $(BIN)/$(PKG_PATH)/ModelRappelDAO.class: $(SRC)/$(PKG_PATH)/ModelRappelDAO.java \
@@ -45,8 +46,14 @@ $(BIN)/$(PKG_PATH)/ModelRappelDAO.class: $(SRC)/$(PKG_PATH)/ModelRappelDAO.java 
 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $<
 
 
-#   COMPILATION GROUPÉE DES VUES
 
+# $(BIN)/$(PKG_PATH)/ErrorManager.class \
+# $(BIN)/$(PKG_PATH)/DBManager.class \
+# 	$(SRC)/$(PKG_PATH)/ErrorManager.java : \
+# 	$(SRC)/$(PKG_PATH)/DBManager.java | $(BIN)
+# 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $(filter %.java,$^)
+
+#   COMPILATION GROUPÉE DES VUES
 $(BIN)/$(PKG_PATH)/VueMainFrame.class \
 $(BIN)/$(PKG_PATH)/VueListePanel.class \
 $(BIN)/$(PKG_PATH)/VueDetailPanel.class \
@@ -58,7 +65,6 @@ $(BIN)/$(PKG_PATH)/VueRappelModifPanel.class: \
 	$(SRC)/$(PKG_PATH)/VueRappelAddPanel.java \
 	$(SRC)/$(PKG_PATH)/VueRappelModifPanel.java \
 	$(BIN)/$(PKG_PATH)/ComparateurRang.class | $(BIN)
-	@echo "Compilation groupée des classes de la Vue..."
 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $(filter %.java,$^)
 
 
@@ -79,7 +85,6 @@ $(SRC)/$(PKG_PATH)/ListenerModifierRappel.java \
 $(SRC)/$(PKG_PATH)/ListenerModifieBD.java \
 $(BIN)/$(PKG_PATH)/ModelRappelDAO.class \
 $(BIN)/$(PKG_PATH)/ErrorManager.class | $(BIN)
-	@echo "Compilation groupée du contrôleur et des listeners..."
 	@$(JAVAC) -implicit:none -d $(BIN) -cp "$(BIN);$(LIB)" $(filter %.java,$^)
 
 
