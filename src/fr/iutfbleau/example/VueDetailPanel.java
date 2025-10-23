@@ -64,7 +64,7 @@ public class VueDetailPanel extends JPanel {
         btnRetour.setBackground(Color.BLACK);
         btnRetour.setForeground(Color.WHITE);
         btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnRetour.setFont(new Font("Arial", Font.PLAIN, 13));
+        btnRetour.setFont(new Font("Arial", Font.BOLD, 13));
         btnRetour.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
         titreLabel = new JLabel();
@@ -79,7 +79,7 @@ public class VueDetailPanel extends JPanel {
         contenuArea.setEditable(false);
         contenuArea.setLineWrap(true);
         contenuArea.setWrapStyleWord(true);
-        contenuArea.setFont(new Font("Arial", Font.PLAIN, 15));
+        contenuArea.setFont(new Font("Arial", Font.BOLD, 15));
         contenuArea.setBackground(new Color(250, 250, 250));
         contenuArea.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(220, 220, 220)),
@@ -89,9 +89,9 @@ public class VueDetailPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(contenuArea);
         scrollPane.setBorder(null);
 
-        // Bas : bouton tâche accomplie
-        btnMonter = new JButton("Tâche accomplie ⬆");
-        btnMonter.setActionCommand("suppression");
+        // Bas : bouton tâche monter ==> permet de changer le rang d'un RAPPEL
+        btnMonter = new JButton("Monter ⬆");
+        btnMonter.setActionCommand("Monter");
         btnMonter.setFocusPainted(false);
         btnMonter.setBackground(new Color(40, 167, 69));
         btnMonter.setForeground(Color.WHITE);
@@ -99,6 +99,18 @@ public class VueDetailPanel extends JPanel {
         btnMonter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnMonter.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         btnMonter.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //Haut : bouton tâche descendre ==> permet de changer le rang d'un RAPPEL
+        btnDescendre = new JButton("Descendre ⬇");
+        btnDescendre.setActionCommand("Descendre");
+        btnDescendre.setFocusPainted(false);
+        btnDescendre.setBackground(Color.RED);
+        btnDescendre.setForeground(Color.WHITE);
+        btnDescendre.setFont(new Font("Arial", Font.BOLD, 15));
+        btnDescendre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnDescendre.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        btnDescendre.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         // Labels supplémentaires
         idLabel = new JLabel();
@@ -125,7 +137,7 @@ public class VueDetailPanel extends JPanel {
         basPanel.setBackground(Color.WHITE);
 
         dateLabel = new JLabel();
-        dateLabel.setFont(new Font("Arial", Font.ITALIC, 13));
+        dateLabel.setFont(new Font("Arial", Font.BOLD, 13));
         dateLabel.setForeground(Color.GRAY);
         dateLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -158,17 +170,21 @@ public class VueDetailPanel extends JPanel {
         basPanel.add(buttonPanel, BorderLayout.EAST);
 
         JPanel zoneBas = new JPanel();
-        zoneBas.setLayout(new BoxLayout(zoneBas, BoxLayout.Y_AXIS));
+        FlowLayout fl = new FlowLayout(FlowLayout.CENTER);
+        //zoneBas.setLayout(new BoxLayout(zoneBas, BoxLayout.Y_AXIS));
+        zoneBas.setLayout(fl);
         zoneBas.setBackground(Color.WHITE);
 
         zoneBas.add(Box.createVerticalStrut(10));
         zoneBas.add(btnMonter);
+        zoneBas.add(btnDescendre);
         zoneBas.add(Box.createVerticalStrut(10));
         zoneBas.add(basPanel);
 
-        add(topPanel, BorderLayout.NORTH);
-        add(centerPanel, BorderLayout.CENTER);
-        add(zoneBas, BorderLayout.SOUTH);
+        add(topPanel,BorderLayout.NORTH);
+        add(centerPanel,BorderLayout.CENTER);
+        //add(zone_bouton,BorderLayout.CENTER);
+        add(zoneBas,BorderLayout.SOUTH);
     }
 
     /**
