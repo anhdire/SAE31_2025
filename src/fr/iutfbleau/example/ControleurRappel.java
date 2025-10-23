@@ -1,31 +1,41 @@
 package fr.iutfbleau.example;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
 
-
+/**
+ * Contrôleur de l'application de gestion des rappels.
+ */
 public class ControleurRappel {
     private VueMainFrame vue;
     private ModelRappelDAO dao;
     private boolean listeInitialisee = false;
 
 
+    /**
+     * Constructeur du contrôleur.
+     * @param d le DAO pour accéder à la base de données
+     * @param vue la vue principale de l'application
+     * @author Algassimou Pellel Diallo
+     * @version 1.0
+     */
     public ControleurRappel(ModelRappelDAO d, VueMainFrame vue) {
         this.dao = d;
         this.vue = vue;
 
         // Ajout des ecouteurs pour les boutons
+        this.vue.getFormModifPanel().getButtonRetour().addActionListener(new ListenerBtn(this));
         this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerBtn(this));
         this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerBtn(this));
         this.vue.getFormAjoutPanel().getButton().addActionListener(new ListenerAjoutBD(this, vue));
-      
-
+        this.vue.getFormModifPanel().getButtonModification().addActionListener(new ListenerModifieBD(this,vue));
 
         // afficher la liste des rappels au demarrage.
         this.initialiserListe();
         this.afficherListe();
-
 
         // Ajout des ecouteurs pour les boutons de changement de theme
         this.vue.getFormAjoutPanel().getTheme1().addActionListener(new ListenerTheme(this));
@@ -35,114 +45,151 @@ public class ControleurRappel {
         this.vue.getFormAjoutPanel().getTheme5().addActionListener(new ListenerTheme(this));    
     }
 
+    /**
+     * Initialise la liste des rappels depuis la base de données.
+     * Permet aussi d'optimiser le chargement des rappels, 
+     * En evitant de charger la liste des rappels a chaque fois.
+     */
     public void initialiserListe() {
         if (listeInitialisee) return;
         try {
             List<ModelRappel> rappels = dao.getAllRappels();
             vue.getListePanel().rafraichirListe(rappels);
 
-            // Attacher les listeners une seule fois au btn ...
+            // Ajout des ecouteurs pour les boutons de la liste des rappels (optimisation)
             for (JButton btn : vue.getListePanel().getButtonsRappels()) {
                 btn.addActionListener(new ListenerBtn(this));
             }
 
             listeInitialisee = true;
 
-        } catch (Exception e) {
-            String message = """
-                Impossible de charger les rappels :
-                    \t- Vérifiez que votre connexion internet fonctionne.
-                    \t- Vérifiez que le service de rappels est disponible.
-                    \t- Réessayez dans quelques instants.
-                    """;
+        } catch (SQLException e) {
+            String message = 
+            "Impossible de charger les rappels :"+
+            "\t- Vérifiez que votre connexion internet fonctionne, et réessayez dans quelques instants.\n"+
+            "L'application Va se fermer";
             ErrorManager.showError(message);
             System.exit(1);
         }
-}
+    }
 
-
-
+    /**
+     * Affiche le panel de la liste des rappels.
+     */
     public  void afficherListe() {
-
-        // ce code est a suprimer mais je fais les teste dabord 
-        // Gestion de erreur et communication graphique
-        // try {
-        //     List<ModelRappel> rappels = dao.getAllRappels();
-        //     vue.getListePanel().rafraichirListe(rappels);
-        //     // Ecouteur pour les boutons de la liste des rappels
-        //     for (JButton btn : this.vue.getListePanel().getButtonsRappels()) {
-        //     btn.addActionListener(new ListenerBtn(this));
-        // }
-        // } catch (Exception e) {
-        //     String message = """
-        //            Impossible de charger les rappels :
-        //             \t- Vérifiez que votre connexion internet fonctionne.
-        //             \t- Vérifiez que le service de rappels est disponible.
-        //             \t- Réessayez dans quelques instants.
-        //             """;
-        //     ErrorManager.showError(message);
-        //     // Fin du programme
-        //     System.exit(1);
-        //     return;
-        // }
         vue.showPanel("Liste");
     }
 
+    /**
+     * Affiche le formulaire de modification d'un rappel.
+     * @param r le rappel à modifier
+     */
     public void afficherFormModification(ModelRappel r) {
-        System.out.println(r.getDate());
+        
+        vue.getFormModifPanel().afficherRappelModif(r);
         vue.showPanel("FormModif");
     }
 
+    /**
+     * Affiche le formulaire d'ajout d'un nouveau rappel.
+     */
     public void afficherFormAjout() {
         vue.showPanel("FormAjout");
     }
 
+    /**
+     * Affiche les détails d'un rappel.
+     * @param r le rappel à afficher
+     */
     public void afficherDetail(ModelRappel r) {
         vue.getDetailPanel().afficherRappel(r);
         vue.showPanel("Detail");
 
+        // Evite redondance sur le Jdialog de confirmation et permet aussi de suprimer la redondance des listeners
+        this.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
+        this.resetListeners(this.vue.getDetailPanel().getBtnRetour());
+        this.resetListeners(this.vue.getDetailPanel().getBtnModifier());
+
+        // Rajout de un seul listner
         this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerBtn(this));
         this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerBtn(this));
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
-
-        // V1
-        // this.vue.getDetailPanel().getBtnRetour().addActionListener(new ListenerRetourListe(this));
-        // this.vue.getDetailPanel().getBtnModifier().addActionListener(new ListenerModifierRappel(this));
-        // this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerSupprimerRappel(this));
-
-      
     }
 
+    /**
+     * Ajoute un nouveau rappel et rafraîchit la liste.
+     * @param r le rappel à ajouter
+     */
     public void ajouterRappel(ModelRappel r) {
         this.dao.ajouterRappel(r);
-
         this.listeInitialisee = false;
         this.initialiserListe();
-        this.afficherListe();        
+        this.afficherListe();
+        ErrorManager.showInfo("Le rappel a été ajouté avec succès !");        
     }
 
+    /**
+     * Modifie un rappel existant et rafraîchit la liste.
+     * @param r le rappel à modifier
+     */
     public void modifierRappel(ModelRappel r) {
-      
+        this.dao.modifierRappel(r);
+        this.listeInitialisee = false;
+        this.initialiserListe();
+        this.afficherListe();
+        ErrorManager.showInfo("Le rappel a été modifié avec succès !");  
     }
+   
+    /**
+     * Supprime un rappel après confirmation de l'utilisateur.
+     * @param id l'identifiant du rappel à supprimer
+     */
     public void supprimerRappel(int id) {
+        // Avoir plusieur action listner sur btnsuprimer cause une redondance sur le Jdialog de confirmation 
+        this.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
+        this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
+        if (ErrorManager.confirm("Voulez-vous vraiment supprimer ce rappel ?")) {
+            dao.supprimerRappel(id);
+            this.listeInitialisee = false;
+            this.initialiserListe();
+            this.afficherListe();
+            ErrorManager.showInfo("Le rappel a été supprimé avec succès !");
+        }        
     }
 
+    /**
+     * Change le thème de couleur du formulaire d'ajout.
+     * @param i le numéro du thème (1 à 5)
+     */
     public void changerTheme(int i) {
-        //System.out.println("Changement de theme vers le theme " + i);
         if(i == 1){
-            this.vue.getFormAjoutPanel().setBackground(new Color(0xFFD6D6)); // Rouge
+            this.vue.getFormAjoutPanel().setBackground(new Color(255, 236, 236));  // Rouge
         }
         if(i == 2){
-			this.vue.getFormAjoutPanel().setBackground(new Color(0xFFF5CC)); // Jaune
+			this.vue.getFormAjoutPanel().setBackground(new Color(255, 249, 230));  // Jaune
         }
         if(i == 3){
-            this.vue.getFormAjoutPanel().setBackground(new Color(0xDFFFD6)); // Vert
+            this.vue.getFormAjoutPanel().setBackground(new Color(233, 255, 233));  // Vert
         }
         if(i == 4){
-            this.vue.getFormAjoutPanel().setBackground(new Color(0xD6E9FF)); // Bleu
+            this.vue.getFormAjoutPanel().setBackground(new Color(230, 240, 255));  // Bleu
         }
         if(i == 5){
-            this.vue.getFormAjoutPanel().setBackground(new Color(0xD0F0FD)); // Cyan
+            this.vue.getFormAjoutPanel().setBackground(new Color(240, 240, 240)); // Gris
         }
     }
+
+
+    /**
+     * Supprime tous les ActionListener attachés à un bouton.
+     *
+     * @param bouton Le bouton à nettoyer
+     */
+    public void resetListeners(JButton bouton) {
+        for (ActionListener al : bouton.getActionListeners()) {
+            bouton.removeActionListener(al);
+        }
+    }
+
+
 }

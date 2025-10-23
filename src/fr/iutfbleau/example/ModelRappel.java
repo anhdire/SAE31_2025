@@ -5,6 +5,8 @@ package fr.iutfbleau.example;
  * 
  * Un rappel contient un identifiant, un titre, un contenu (facultatif),
  * un thème, un rang et une date de création.
+ * @author Algassimou Pellel Diallo
+ * @version 1.1
  */
 public class ModelRappel {
 

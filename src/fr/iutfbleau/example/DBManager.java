@@ -1,37 +1,55 @@
 package fr.iutfbleau.example;
 
-import java.sql.*; // contient Connection, SQLException, DriverManager, etc.
+import java.sql.*;
 
+/**
+ * Gère la connexion à la base de données.
+ * @author Algassimou Pellel Diallo
+ * @version 1.0
+ */
 public class DBManager {
 
+    /** URL de connexion à la base de données */
     private static final String URL = "jdbc:mariadb://dwarves.iut-fbleau.fr/boulalam";
+
+    /** Identifiants de connexion */
     private static final String LOGIN = "boulalam";
     private static final String MDP = "azerty";
+
+    /** Nom du driver JDBC */
     public static final String DRIVER = "org.mariadb.jdbc.DRIVER";
+
+    /** Nom de la table utilisée */
     public static final String TABLE_NAME = "SAE31_2025_Rappel";
+
+    /** Connexion à la base de données */
     private Connection connection;
 
+    /**
+     * Constructeur qui établit la connexion à la base.
+     */
     public DBManager() {
         try {
-            // Ligne facultative
             Class.forName("org.mariadb.jdbc.Driver");
-      
             this.connection = DriverManager.getConnection(URL, LOGIN, MDP);
-            //System.out.println("Connexion établie avec la base de données.");
-    
         } catch (ClassNotFoundException e) {
-            System.err.println("Pilote JDBC MariaDB non trouvé !");
-            e.printStackTrace();
+            ErrorManager.showError("Erreur lors du chargement du pilote de base de données.");
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la connexion à la base de données !");
-            e.printStackTrace();
+            ErrorManager.showError("Impossible de se connecter à la base de données.\nVeuillez vérifier votre connexion ou réessayer plus tard.");
         }
     }
 
+    /**
+     * Retourne la connexion à la base de données.
+     * @return la connexion
+     */
     public Connection getConnection() {
         return this.connection;
     }
 
+    /**
+     * Ferme proprement la connexion.
+     */
     public void closeConnection() {
         try {
             if (this.connection != null && !this.connection.isClosed()) {
@@ -39,8 +57,7 @@ public class DBManager {
                 System.out.println("Connexion fermée proprement.");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorManager.showError("Erreur lors de la fermeture de la connexion.");
         }
     }
-
 }

@@ -2,11 +2,13 @@ package fr.iutfbleau.example;
 
 import javax.swing.JOptionPane;
 
+
 /**
  * Classe utilitaire pour gérer l'affichage des messages d'erreur,
  * d'information et de confirmation dans l'interface graphique.
  * 
- * @author Algassimou Pellel Diallo
+ * @author Algassimou Pellel Diallo, Youness BOULALAM
+ * @version 1.0
  */
 public class ErrorManager {
 

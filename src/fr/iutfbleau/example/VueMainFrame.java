@@ -8,7 +8,8 @@ import javax.swing.*;
  * Utilise un CardLayout pour afficher alternativement la liste des rappels,
  * le formulaire d'ajout/modification et la vue de détail.
  *
- * @author DIALLO Algassimou Pellel, ANHDIRE Ayoub, BOULALAM Younes
+ * @author DIALLO Algassimou Pellel, ANHDIRE Ayoub, BOULALAM Youness
+ * @version 1.0
  *
  */
 public class VueMainFrame extends JFrame {
@@ -44,8 +45,8 @@ public class VueMainFrame extends JFrame {
     private JPanel container;
 
 
-    public static final int WIDTH = 410;
-    public static final int HEIGHT = 400;
+    public static final int WIDTH = 415;
+    public static final int HEIGHT = 350;
 
 
     /**
@@ -76,6 +77,7 @@ public class VueMainFrame extends JFrame {
         container.add(listePanel, "Liste");
         container.add(formAjoutPanel, "FormAjout");
         container.add(detailPanel, "Detail");
+        container.add(formModifPanel, "FormModif");
 
         this.add(container);
     }
@@ -93,6 +95,8 @@ public class VueMainFrame extends JFrame {
             this.setTitle("Ajouter/Modifier un rappel");
         } else if (name.equals("Detail")) {
             this.setTitle("Détails du rappel");
+        }  else if(name.equals("FormModif")){
+            this.setTitle("Modifier un rappel");
         }
     }
 
