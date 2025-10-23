@@ -201,25 +201,6 @@ public class ControleurRappel {
         }
     }
 
-    /**
-     * Methode permettant de deplacer les rappels selon leur rang
-     * @param r ModelRappel permet de savoir le rang d'un rappel et d'autres choses
-     */
-
-    public void deplacerRappelVersHaut(ModelRappel r) {
-        if (r.getRang() <= 0) return; // il est deja en haut
-    
-        int rangActuel = r.getRang();
-        int rangVoisin = rangActuel - 1;
-    
-        ModelRappel voisin = dao.getRappelParRang(rangVoisin);
-        if (voisin != null) {
-            dao.updateRang(r.getId(), rangVoisin);
-            dao.updateRang(voisin.getId(), rangActuel);
-            afficherListe();
-        }
-    }
-
 
     /**
      * Déplace un rappel vers le haut ou le bas dans la liste.
@@ -235,7 +216,8 @@ public class ControleurRappel {
         }
 
         int rangActuel = courant.getRang();
-        int rangVoisin = versLeHaut ? rangActuel - 1 : rangActuel + 1;
+        // si a ? faire b sinon : c
+        int rangVoisin = versLeHaut ? rangActuel - 1 : rangActuel + 1; 
 
         ModelRappel voisin = dao.getRappelParRang(rangVoisin);
 

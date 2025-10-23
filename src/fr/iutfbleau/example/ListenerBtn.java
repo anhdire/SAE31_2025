@@ -62,19 +62,20 @@ public class ListenerBtn implements ActionListener {
                 ModelRappel r = (ModelRappel) btn.getClientProperty("rappel");
                 controleur.supprimerRappel(r.getId());
             }
-            else {
-                // je fais rien
-            }
-            if(action.equals("Monter")){
+            else if(action.equals("monter")){
                 ModelRappel r = (ModelRappel) btn.getClientProperty("rappel");
                 controleur.deplacerRappel(r.getId(),true);
 
-            }if(action.equals("Descendre")){
+            }
+            else if(action.equals("descendre")){
                 ModelRappel r = (ModelRappel) btn.getClientProperty("rappel");
                 controleur.deplacerRappel(r.getId(),false);
             }
-            
+            else {
+                // je fais rien
             }
         }
     }
+
+}
 

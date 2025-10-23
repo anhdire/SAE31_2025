@@ -90,9 +90,9 @@ public class VueDetailPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(contenuArea);
         scrollPane.setBorder(null);
 
-        // Bas : bouton tâche monter ==> permet de changer le rang d'un RAPPEL
-        btnMonter = new JButton("Monter ⬆");
-        btnMonter.setActionCommand("Monter");
+        // Bas : bouton tâche monter  permet de changer le rang d'un RAPPEL
+        btnMonter = new JButton("Monter");
+        btnMonter.setActionCommand("monter");
         btnMonter.setFocusPainted(false);
         btnMonter.setBackground(new Color(40, 167, 69));
         btnMonter.setForeground(Color.WHITE);
@@ -101,9 +101,9 @@ public class VueDetailPanel extends JPanel {
         btnMonter.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         btnMonter.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        //Haut : bouton tâche descendre ==> permet de changer le rang d'un RAPPEL
-        btnDescendre = new JButton("Descendre ⬇");
-        btnDescendre.setActionCommand("Descendre");
+        //Haut : bouton tâche descendre  permet de changer le rang d'un RAPPEL
+        btnDescendre = new JButton("Descendre");
+        btnDescendre.setActionCommand("descendre");
         btnDescendre.setFocusPainted(false);
         btnDescendre.setBackground(Color.RED);
         btnDescendre.setForeground(Color.WHITE);

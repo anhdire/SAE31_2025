@@ -71,7 +71,7 @@ $(BIN)/$(PKG_PATH)/VueRappelAddPanel.class \
 $(BIN)/$(PKG_PATH)/VueRappelModifPanel.class \
 $(BIN)/$(PKG_PATH)/ErrorManager.class | $(BIN)
 	@echo "Compilation groupée du contrôleur et des listeners..."
-	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" \ 
+	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" \
 	$(SRC)/$(PKG_PATH)/ControleurRappel.java \
 	$(SRC)/$(PKG_PATH)/ListenerBtn.java \
 	$(SRC)/$(PKG_PATH)/ListenerAjoutBD.java \
