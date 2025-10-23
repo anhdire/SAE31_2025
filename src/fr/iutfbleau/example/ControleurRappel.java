@@ -8,10 +8,21 @@ import javax.swing.JButton;
 
 /**
  * Contrôleur de l'application de gestion des rappels.
+ * @author Algassimou Pellel Diallo , Anhdire Ayoub , Boulalam Youness
+ * @version 1.0
  */
 public class ControleurRappel {
+    /**
+     * Classe ou toutes les vues de l'application sont présentes
+    */
+    
     private VueMainFrame vue;
+    /**
+     * permettre de faire appel aux fonction de cette classe pour ensuite les donner à la BD
+    */
+    
     private ModelRappelDAO dao;
+
     private boolean listeInitialisee = false;
 
 
@@ -19,14 +30,14 @@ public class ControleurRappel {
      * Constructeur du contrôleur.
      * @param d le DAO pour accéder à la base de données
      * @param vue la vue principale de l'application
-     * @author Algassimou Pellel Diallo
-     * @version 1.0
      */
     public ControleurRappel(ModelRappelDAO d, VueMainFrame vue) {
         this.dao = d;
         this.vue = vue;
 
         // Ajout des ecouteurs pour les boutons
+        this.vue.getDetailPanel().getBtnMonter().addActionListener(new ListenerBtn(this));
+        this.vue.getDetailPanel().getBtnDescendre().addActionListener(new ListenerBtn(this));
         this.vue.getFormModifPanel().getButtonRetour().addActionListener(new ListenerBtn(this));
         this.vue.getListePanel().getButtonAdd().addActionListener(new ListenerBtn(this));
         this.vue.getFormAjoutPanel().getButtonBack().addActionListener(new ListenerBtn(this));
@@ -133,26 +144,12 @@ public class ControleurRappel {
         this.afficherListe();
         ErrorManager.showInfo("Le rappel a été ajouté avec succès !");        
     }
-
-    public void deplacerRappelVersHaut(ModelRappel r) {
-        if (r.getRang() <= 0) return; // il est deja en haut
-    
-        int rangActuel = r.getRang();
-        int rangVoisin = rangActuel - 1;
-    
-        ModelRappel voisin = dao.getRappelParRang(rangVoisin);
-        if (voisin != null) {
-            dao.updateRang(r.getId(), rangVoisin);
-            dao.updateRang(voisin.getId(), rangActuel);
-            afficherListe();
-        }
-    }
-    
+   
 
     /**
      * Modifie un rappel existant et rafraîchit la liste.
      * @param r le rappel à modifier
-     */
+    */
     public void modifierRappel(ModelRappel r) {
         this.dao.modifierRappel(r);
         this.listeInitialisee = false;
@@ -167,7 +164,7 @@ public class ControleurRappel {
      */
 
     public void supprimerRappel(int id) {
-        // Avoir plusieur action listner sur btnsuprimer cause une redondance sur le Jdialog de confirmation 
+        // Avoir plusieur action Listener sur btnsuprimer cause une redondance sur le Jdialog de confirmation 
         this.resetListeners(this.vue.getDetailPanel().getBtnSupprimer());
         this.vue.getDetailPanel().getBtnSupprimer().addActionListener(new ListenerBtn(this));
         
@@ -204,17 +201,25 @@ public class ControleurRappel {
         }
     }
 
-
     /**
-     * Supprime tous les ActionListener attachés à un bouton.
-     *
-     * @param bouton Le bouton à nettoyer
+     * Methode permettant de deplacer les rappels selon leur rang
+     * @param r ModelRappel permet de savoir le rang d'un rappel et d'autres choses
      */
-    public void resetListeners(JButton bouton) {
-        for (ActionListener al : bouton.getActionListeners()) {
-            bouton.removeActionListener(al);
+
+    public void deplacerRappelVersHaut(ModelRappel r) {
+        if (r.getRang() <= 0) return; // il est deja en haut
+    
+        int rangActuel = r.getRang();
+        int rangVoisin = rangActuel - 1;
+    
+        ModelRappel voisin = dao.getRappelParRang(rangVoisin);
+        if (voisin != null) {
+            dao.updateRang(r.getId(), rangVoisin);
+            dao.updateRang(voisin.getId(), rangActuel);
+            afficherListe();
         }
     }
+
 
     /**
      * Déplace un rappel vers le haut ou le bas dans la liste.
@@ -246,7 +251,23 @@ public class ControleurRappel {
     }
 
 
+    /**
+     * Supprime tous les ActionListener attachés à un bouton.
+     *
+     * @param bouton Le bouton à nettoyer
+     */
+    public void resetListeners(JButton bouton) {
+        for (ActionListener al : bouton.getActionListeners()) {
+            bouton.removeActionListener(al);
+        }
+    }
 
-
+    /**
+     * Methode permettant de retourner ModelRappelDAO
+     * @return ModelRappelDAO retourne un ModelRappelDAO
+    */
+    public ModelRappelDAO getDao(){
+        return this.dao;
+    }
 
 }

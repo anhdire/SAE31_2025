@@ -84,14 +84,13 @@ public class VueMainFrame extends JFrame {
 
     /**
      * Affiche la carte identifiée par name et met à jour le titre de la fenêtre.
-     *
      * @param name identifiant de la carte ("Liste", "Form" ou "Detail")
      */
     public void showPanel(String name) {
         cardLayout.show(container, name);
         if (name.equals("Liste")) {
             this.setTitle("Liste des rappels");
-        } else if (name.equals("Form")) {
+        } else if (name.equals("FormAjout")) {
             this.setTitle("Ajouter/Modifier un rappel");
         } else if (name.equals("Detail")) {
             this.setTitle("Détails du rappel");
@@ -102,7 +101,6 @@ public class VueMainFrame extends JFrame {
 
     /**
      * Retourne le panel de détail.
-     *
      * @return instance de VueDetailPanel
      */
     public VueDetailPanel getDetailPanel() {
@@ -111,7 +109,6 @@ public class VueMainFrame extends JFrame {
 
     /**
      * Retourne le panel de liste.
-     *
      * @return instance de VueListePanel
      */
     public VueListePanel getListePanel() {
@@ -120,7 +117,6 @@ public class VueMainFrame extends JFrame {
 
     /**
      * Retourne le panel de formulaire d'ajout/modification.
-     *
      * @return instance de VueRappelAddPanel
      */
     public VueRappelAddPanel getFormAjoutPanel() {
@@ -129,7 +125,6 @@ public class VueMainFrame extends JFrame {
 
     /**
      * Retourne le panel de formulaire de modification.
-     *
      * @return instance de VueRappelModifPanel
      */
     public VueRappelModifPanel getFormModifPanel() {
@@ -138,8 +133,7 @@ public class VueMainFrame extends JFrame {
 
     /**
      * Retourne le CardLayout utilisé pour la fenêtre.
-     *
-     * @return CardLayout principal
+     *  @return CardLayout principal
      */
     public CardLayout getCartes() {
         return this.cardLayout;
@@ -147,11 +141,9 @@ public class VueMainFrame extends JFrame {
 
     /**
      * Retourne le conteneur principal qui contient les cartes.
-     *
      * @return JPanel conteneur
      */
     public JPanel getPanel() {
-
         return this.container;
     }
 }

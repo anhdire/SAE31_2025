@@ -7,7 +7,7 @@ import javax.swing.*;
  * Panel qui affiche les détails d’un rappel sélectionné.
  * Il montre le titre, le contenu, la date de création, le thème, le rang, l'id
  * et propose des boutons pour modifier, supprimer ou revenir.
- * @author Algassimou Pellel Diallo
+ * @author Algassimou Pellel Diallo, Anhdire Ayoub,Boulalam Youness
  * @version 1.5
  */
 public class VueDetailPanel extends JPanel {
@@ -39,8 +39,13 @@ public class VueDetailPanel extends JPanel {
     /** Bouton pour revenir à la liste */
     private JButton btnRetour;
 
-    /** Bouton pour marquer une tâche comme accomplie */
-    private JButton btnTacheAccomplie;
+    /** Bouton pour permettre d'augmenter le rang d'une tache*/
+    
+    private JButton btnMonter;
+    /**
+     * Bouton pour permettre de descendre le rang d'une tache
+    */
+    private JButton btnDescendre;
 
     /**
      * Constructeur qui initialise tous les éléments graphiques de la vue détail.
@@ -60,11 +65,11 @@ public class VueDetailPanel extends JPanel {
         btnRetour.setBackground(Color.BLACK);
         btnRetour.setForeground(Color.WHITE);
         btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnRetour.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        btnRetour.setFont(new Font("Arial", Font.BOLD, 13));
         btnRetour.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
         titreLabel = new JLabel();
-        titreLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        titreLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titreLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         topPanel.add(btnRetour, BorderLayout.EAST);
@@ -75,35 +80,47 @@ public class VueDetailPanel extends JPanel {
         contenuArea.setEditable(false);
         contenuArea.setLineWrap(true);
         contenuArea.setWrapStyleWord(true);
-        contenuArea.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        contenuArea.setFont(new Font("Arial", Font.BOLD, 15));
         contenuArea.setBackground(new Color(250, 250, 250));
         contenuArea.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(220, 220, 220)),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        BorderFactory.createLineBorder(new Color(220, 220, 220)),
+        BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ));
 
         JScrollPane scrollPane = new JScrollPane(contenuArea);
         scrollPane.setBorder(null);
 
-        // Bas : bouton tâche accomplie
-        btnTacheAccomplie = new JButton("Tâche accomplie");
-        btnTacheAccomplie.setActionCommand("suppression");
-        btnTacheAccomplie.setFocusPainted(false);
-        btnTacheAccomplie.setBackground(new Color(40, 167, 69));
-        btnTacheAccomplie.setForeground(Color.WHITE);
-        btnTacheAccomplie.setFont(new Font("SansSerif", Font.BOLD, 15));
-        btnTacheAccomplie.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnTacheAccomplie.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        btnTacheAccomplie.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Bas : bouton tâche monter ==> permet de changer le rang d'un RAPPEL
+        btnMonter = new JButton("Monter ⬆");
+        btnMonter.setActionCommand("Monter");
+        btnMonter.setFocusPainted(false);
+        btnMonter.setBackground(new Color(40, 167, 69));
+        btnMonter.setForeground(Color.WHITE);
+        btnMonter.setFont(new Font("Arial", Font.BOLD, 13));
+        btnMonter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnMonter.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        btnMonter.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //Haut : bouton tâche descendre ==> permet de changer le rang d'un RAPPEL
+        btnDescendre = new JButton("Descendre ⬇");
+        btnDescendre.setActionCommand("Descendre");
+        btnDescendre.setFocusPainted(false);
+        btnDescendre.setBackground(Color.RED);
+        btnDescendre.setForeground(Color.WHITE);
+        btnDescendre.setFont(new Font("Arial", Font.BOLD, 13));
+        btnDescendre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnDescendre.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        btnDescendre.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         // Labels supplémentaires
         idLabel = new JLabel();
         themeLabel = new JLabel();
         rangLabel = new JLabel();
 
-        idLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        themeLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        rangLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        idLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+        themeLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+        rangLabel.setFont(new Font("Arial", Font.PLAIN, 13));
 
         JPanel infoPanel = new JPanel(new GridLayout(3, 1));
         infoPanel.setBackground(Color.WHITE);
@@ -121,7 +138,7 @@ public class VueDetailPanel extends JPanel {
         basPanel.setBackground(Color.WHITE);
 
         dateLabel = new JLabel();
-        dateLabel.setFont(new Font("SansSerif", Font.ITALIC, 13));
+        dateLabel.setFont(new Font("Arial", Font.BOLD, 13));
         dateLabel.setForeground(Color.GRAY);
         dateLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -136,7 +153,7 @@ public class VueDetailPanel extends JPanel {
         btnModifier.setBackground(Color.BLACK);
         btnModifier.setForeground(Color.WHITE);
         btnModifier.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnModifier.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        btnModifier.setFont(new Font("Arial", Font.BOLD, 13));
         btnModifier.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
         btnSupprimer.setActionCommand("supression");
@@ -144,7 +161,7 @@ public class VueDetailPanel extends JPanel {
         btnSupprimer.setBackground(new Color(200, 0, 0));
         btnSupprimer.setForeground(Color.WHITE);
         btnSupprimer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnSupprimer.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        btnSupprimer.setFont(new Font("Arial", Font.BOLD, 13));
         btnSupprimer.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
         buttonPanel.add(btnModifier);
@@ -157,25 +174,30 @@ public class VueDetailPanel extends JPanel {
         zoneBas.setLayout(new BoxLayout(zoneBas, BoxLayout.Y_AXIS));
         zoneBas.setBackground(Color.WHITE);
 
+        JPanel panneau = new JPanel(new FlowLayout(FlowLayout.CENTER,10,0));
+        panneau.setBackground(Color.WHITE);
+        panneau.add(btnMonter);
+        panneau.add(btnDescendre);
+
         zoneBas.add(Box.createVerticalStrut(10));
-        zoneBas.add(btnTacheAccomplie);
+        zoneBas.add(panneau);
         zoneBas.add(Box.createVerticalStrut(10));
         zoneBas.add(basPanel);
 
-        add(topPanel, BorderLayout.NORTH);
-        add(centerPanel, BorderLayout.CENTER);
-        add(zoneBas, BorderLayout.SOUTH);
+        add(topPanel,BorderLayout.NORTH);
+        add(centerPanel,BorderLayout.CENTER);
+        add(zoneBas,BorderLayout.SOUTH);
     }
 
     /**
      * Affiche les informations du rappel dans les champs de la vue.
-     *
      * @param r Le rappel à afficher
      */
     public void afficherRappel(ModelRappel r) {
         this.btnModifier.putClientProperty("rappel", r);
         this.btnSupprimer.putClientProperty("rappel", r);
-
+        this.btnMonter.putClientProperty("rappel", r);
+        this.btnDescendre.putClientProperty("rappel", r);
         titreLabel.setText(r.getTitre());
         contenuArea.setText(r.getContenu());
         dateLabel.setText("Créé le : " + r.getDate());
@@ -187,16 +209,47 @@ public class VueDetailPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Methode permettant de retourner le bouton Modifier
+     * @return JButton retourne un bouton
+    */
+    
     public JButton getBtnModifier() { 
         return btnModifier; 
     }
+    
+    /** 
+     * Methode permettant de retourner le bouton Supprimer
+     * @return JButton retourne un bouton
+     */
+
     public JButton getBtnSupprimer() { 
         return btnSupprimer; 
     }
+
+    /**
+     * Methode permettant de retourner le bouton Retour
+     * @return JButton retourne un bouton
+    */
+
     public JButton getBtnRetour() {
         return btnRetour; 
     }
-    public JButton getBtnTacheAccomplie() { 
-        return btnTacheAccomplie; 
+    /**
+     * Methode permettant de retourner le bouton Monter
+     * @return JButton retourne un bouton
+    */
+    
+    public JButton getBtnMonter() { 
+        return btnMonter; 
+    }
+
+    /**
+     * Methode permettant de retourner le bouton Descendre
+     * @return JButton retourne un bouton
+    */
+    
+    public JButton getBtnDescendre(){
+        return btnDescendre;
     }
 }

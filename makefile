@@ -28,9 +28,6 @@ $(BIN)/$(PKG_PATH)/ListenerFermeture.class: $(SRC)/$(PKG_PATH)/ListenerFermeture
 $(BIN)/$(PKG_PATH)/ErrorManager.class: $(SRC)/$(PKG_PATH)/ErrorManager.java | $(BIN)
 	$(JAVAC) -d $(BIN) -cp "$(LIB)" $<
 
-$(BIN)/$(PKG_PATH)/ComparateurRang.class: $(SRC)/$(PKG_PATH)/ComparateurRang.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(LIB):$(BIN)" $<
-
 $(BIN)/$(PKG_PATH)/DBManager.class: $(SRC)/$(PKG_PATH)/DBManager.java $(BIN)/$(PKG_PATH)/ErrorManager.class | $(BIN)
 	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
 
@@ -50,8 +47,7 @@ $(SRC)/$(PKG_PATH)/VueMainFrame.java \
 $(SRC)/$(PKG_PATH)/VueListePanel.java \
 $(SRC)/$(PKG_PATH)/VueDetailPanel.java \
 $(SRC)/$(PKG_PATH)/VueRappelAddPanel.java \
-$(SRC)/$(PKG_PATH)/VueRappelModifPanel.java \
-$(SRC)/$(PKG_PATH)/ComparateurRang.java | $(BIN)
+$(SRC)/$(PKG_PATH)/VueRappelModifPanel.java | $(BIN)
 	@echo "Compilation groupée des classes Vue..."
 	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $^
 

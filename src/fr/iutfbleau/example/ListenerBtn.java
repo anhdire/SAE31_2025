@@ -4,9 +4,9 @@ import java.awt.event.*;
 import javax.swing.JButton;
 
 /**
- * Classe pour l'ecouteur generique pour les boutons de l'application.
+ * Classe pour l'écouteur générique pour les boutons de l'application.
  * Déclenche des actions en fonction de la commande associée au bouton.
- * @author Algassimou Pellel Diallo
+ * @author Algassimou Pellel Diallo, Anhdire Ayoub , Boulalam Youness
  * @version 1.0
  */
 public class ListenerBtn implements ActionListener {
@@ -27,7 +27,7 @@ public class ListenerBtn implements ActionListener {
     }
 
     /**
-     * Methode de gestion les différentes actions selon le bouton cliqué.
+     * Méthode de gestion des différentes actions selon le bouton cliqué.
      * Déclenche les actions du contrôleur en fonction de la commande du bouton :
      * ajouter, modifier, retour, détail, vueajouter, suppression.
      *
@@ -65,6 +65,16 @@ public class ListenerBtn implements ActionListener {
             else {
                 // je fais rien
             }
+            if(action.equals("Monter")){
+                ModelRappel r = (ModelRappel) btn.getClientProperty("rappel");
+                controleur.deplacerRappel(r.getId(),true);
+
+            }if(action.equals("Descendre")){
+                ModelRappel r = (ModelRappel) btn.getClientProperty("rappel");
+                controleur.deplacerRappel(r.getId(),false);
+            }
+            
+            }
         }
     }
-}
+

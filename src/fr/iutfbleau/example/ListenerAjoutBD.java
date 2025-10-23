@@ -5,10 +5,10 @@ import java.awt.event.*;
 /**
  * Écouteur pour le bouton "Ajouter ce rappel".
  * Récupère les données du formulaire, les valide, puis déclenche l'ajout dans la base de données.
- * @author Ayoub ANHDIRE
+ * @author Ayoub ANHDIRE , Diallo Algassimou Pellel , Boulalam Youness
  * @version 1.0
  */
-public class ListenerAjoutBD implements ActionListener {
+public class ListenerAjoutBD implements ActionListener{
 
     /** Référence vers le contrôleur principal */
     private ControleurRappel control;
@@ -41,27 +41,14 @@ public class ListenerAjoutBD implements ActionListener {
 
         String titre = vmr.getFormAjoutPanel().getLabel();
         String contenu = vmr.getFormAjoutPanel().getContenu();
-        String rankStr = vmr.getFormAjoutPanel().getRank();
-        int rang = 0;
+  
+        int rang = -1;
         int theme = vmr.getFormAjoutPanel().getThemeChoisi();
 
         // Vérification du titre
         if (titre == null || titre.isEmpty() || titre.equals("Nom : ")) {
             valide = false;
             message += "\t- Le titre du rappel est vide.\n";
-        }
-
-        // Vérification du rang
-        if (rankStr == null || rankStr.isEmpty() || rankStr.equals("Rang : ")) {
-            valide = false;
-            message += "\t- Le rang doit être renseigné.\n";
-        } else {
-            try {
-                rang = Integer.parseInt(rankStr);
-            } catch (NumberFormatException ex) {
-                valide = false;
-                message += "\t- Le rang doit être un nombre entier.\n";
-            }
         }
 
         // Vérification du thème

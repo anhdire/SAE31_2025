@@ -4,7 +4,7 @@ import java.sql.*;
 
 /**
  * Gère la connexion à la base de données.
- * @author Algassimou Pellel Diallo
+ * @author Algassimou Pellel Diallo, Anhdire Ayoub, Boulalam Youness
  * @version 1.0
  */
 public class DBManager {

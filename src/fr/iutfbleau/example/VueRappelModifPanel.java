@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 /**
  * Vue permettant à l'utilisateur de modifier les données du Rappel
- * @author Ayoub ANHDIRE
+ * @author Ayoub ANHDIRE, DIALLO Algassimou Pellel, BOULALAM Youness
  * @version 1.0
  */
 
@@ -24,12 +24,6 @@ public class VueRappelModifPanel extends JPanel{
      * il pourra ainsi soit le modifier ou le laisset tel quel
     */
     private JTextArea modifierContent;
-    /**
-     * permet à l'utilisateur de se souvenir du rang qu'il a mis
-     * il pourra ainsi le changer selon si ce rang a changé au cours du temps
-     * est ce qu'il est devenu plus important ou au contraire a perdu en importance au cours du temps
-    */
-    private JTextField modifierRank;
     /**
      * Bouton permettant a l'utilisateur de changer de theme 
     */
@@ -76,23 +70,25 @@ public class VueRappelModifPanel extends JPanel{
 
     public VueRappelModifPanel(){
         super();
-        GridLayout page_gestion = new GridLayout(6,1,0,5);
+        GridLayout page_gestion = new GridLayout(5,1,0,5);
         super.setLayout(page_gestion);
-        Font f = new Font("SansSerif",Font.BOLD,22);
+        Font f = new Font("Arial",Font.BOLD,20);
+        Font ff = new Font("Arial",Font.BOLD,13);
         this.modifierRappel = new JLabel("Modifier un Rappel");
         this.modifierRappel.setFont(f);
         this.modifierRappel.setForeground(Color.RED);
         this.modifierRappel.setHorizontalAlignment(JLabel.CENTER);
         this.modifierTitle = new JTextField();
+        this.modifierTitle.setFont(ff);
         this.modifierContent = new JTextArea(50,50);
         modifierContent.setLineWrap(true);
+        modifierContent.setFont(ff);
         JScrollPane scroll = new JScrollPane(modifierContent);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        this.modifierRank = new JTextField();
         super.add(modifierRappel);
         super.add(modifierTitle); 
         super.add(scroll);
-        super.add(modifierRank);
+        //super.add(modifierRank);
         GridLayout grrrrrr = new GridLayout(1,5,5,5);
         JPanel panel = new JPanel();
         panel.setLayout(grrrrrr);
@@ -118,10 +114,14 @@ public class VueRappelModifPanel extends JPanel{
         JPanel jp = new JPanel();
         jp.setLayout(gr);
         this.confirmModification = new JButton("Confirmer les modifications");
-        confirmModification.setBackground(new Color(39,245,173));
+        confirmModification.setBackground(new Color(39,200,245));
+        confirmModification.setForeground(Color.WHITE);
+        confirmModification.setFont(ff);
         this.getBacktoHome = new JButton("Revenir à l'accueil");
         getBacktoHome.setActionCommand("retour");
-        getBacktoHome.setBackground(new Color(237,69,90));
+        getBacktoHome.setBackground(new Color(0x3A3A3A));
+        getBacktoHome.setForeground(Color.WHITE);
+        confirmModification.setFont(ff);
         jp.add(confirmModification);
         jp.add(getBacktoHome);
         super.add(jp);
@@ -129,25 +129,29 @@ public class VueRappelModifPanel extends JPanel{
 
     /**
      * Methode permettant à l'utilisateur de savoir les données
-     * elle lui permet de savoir les données qu'il avait mis lors de la creation du rappel
-     * @param r permet la recuperation de ces données
-     * @return initialises les champs de texte crées plus haut
+     * elle lui permet de savoir les données qu'il avait mis lors de la création du rappel
+     * @param r permet la récupération de ces données
+     * @return initialisés les champs de texte crées plus haut
     */
 
     public void afficherRappelModif(ModelRappel r){
         this.idRappel = r.getId();
         modifierTitle.setText(r.getTitre());
         modifierContent.setText(r.getContenu());
-        modifierRank.setText(String.valueOf(r.getRang()));
     }
 
-
+    /**
+     * Methode permettant de vider les champs et zone de textes
+    */
     public void viderChamps(){
         modifierTitle.setText("");
         modifierContent.setText("");
-        modifierRank.setText("");
     }
-
+    /**
+     * Methode permettant de récupérer le nouveau theme chosit par l'utilisateur
+     * @return int un numero de theme(entre 1 et 5)
+    */
+    
     public int getnewThemeChoisi() {
         ButtonModel selected = this.bg.getSelection();
         if (selected == null) {
@@ -162,20 +166,23 @@ public class VueRappelModifPanel extends JPanel{
             return 0;
         }
     }
-
+    /** @return le bouton theme 1 */
     public JCheckBox getT1(){
         return this.one_color;
     }
-
+    /** @return le bouton theme 2 */
     public JCheckBox getT2(){
         return this.two_color;
     }
+    /** @return le bouton theme 3 */
     public JCheckBox getT3(){
         return this.three_color;
     }
+    /** @return le bouton theme 4 */
     public JCheckBox getT4(){
         return this.four_color;
     }
+    /** @return le bouton theme 5 */
     public JCheckBox getT5(){
         return this.five_color;
     }
@@ -196,8 +203,8 @@ public class VueRappelModifPanel extends JPanel{
         return this.getBacktoHome;
     }
     /**
-     * Permet de recuperer ce que l'utilisateur écrit : le titre
-     * @return String retourne ce qu'il écrit sous forme de chaine de caractères
+     * Permet de récupérer ce que l'utilisateur écrit : le titre
+     * @return String retourne ce qu'il écrit sous forme de chaîne de caractères
     */
     
     public String getnewTitle(){
@@ -206,20 +213,12 @@ public class VueRappelModifPanel extends JPanel{
     }
 
     /**
-     * permet de recupérer ce que l'utilisateur écrit : le contenu
+     * permet de récupérer ce que l'utilisateur écrit : le contenu
      * @return String retourne ce qu'il écrit sous forme de de chaine de caracteres
     */
 
     public String getnewContent(){
         return this.modifierContent.getText();
-    }
-    /**
-     * permet de recupérer ce que l'utilisateur écrit : le rang
-     * @return String retourne ce qu'il écrit sous forme de caracteres
-    */
-
-    public String getnewRank(){
-        return this.modifierRank.getText();
     }
 
     /**
@@ -229,4 +228,5 @@ public class VueRappelModifPanel extends JPanel{
     public int getIdRappel() {
         return this.idRappel;
     }
+
 }
