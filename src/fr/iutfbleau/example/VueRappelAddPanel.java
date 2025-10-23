@@ -14,7 +14,6 @@ public class VueRappelAddPanel extends JPanel {
     private JLabel etiquette_add;
     private JLabel etiquette_add_title;
     private JLabel etiquette_add_content;
-    private JLabel etiquette_add_rank;
     private JTextField titre_add;
     private JTextArea contenu_add;
 

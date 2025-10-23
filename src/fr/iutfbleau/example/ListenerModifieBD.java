@@ -30,7 +30,6 @@ public class ListenerModifieBD implements ActionListener {
      */
 	@Override
 	public void actionPerformed(ActionEvent e){
-		int rang=0;
 		boolean b = true;
 		String mess = "Veuillez corriger les points suivants : \n";
 
