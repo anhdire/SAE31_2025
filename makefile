@@ -20,22 +20,22 @@ all: $(BIN)/$(PKG_PATH)/App.class
 
 
 $(BIN):
-	mkdir -p $(BIN)
+	@mkdir -p $(BIN)
 
 $(BIN)/$(PKG_PATH)/ListenerFermeture.class: $(SRC)/$(PKG_PATH)/ListenerFermeture.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
 
 $(BIN)/$(PKG_PATH)/ErrorManager.class: $(SRC)/$(PKG_PATH)/ErrorManager.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(LIB)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(LIB)" $<
 
 $(BIN)/$(PKG_PATH)/DBManager.class: $(SRC)/$(PKG_PATH)/DBManager.java $(BIN)/$(PKG_PATH)/ErrorManager.class | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
 
 $(BIN)/$(PKG_PATH)/ModelRappel.class: $(SRC)/$(PKG_PATH)/ModelRappel.java | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
 
 $(BIN)/$(PKG_PATH)/ModelRappelDAO.class: $(SRC)/$(PKG_PATH)/ModelRappelDAO.java $(BIN)/$(PKG_PATH)/ModelRappel.class $(BIN)/$(PKG_PATH)/DBManager.class | $(BIN)
-	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
 
 
 $(BIN)/$(PKG_PATH)/VueMainFrame.class \
@@ -47,9 +47,8 @@ $(SRC)/$(PKG_PATH)/VueMainFrame.java \
 $(SRC)/$(PKG_PATH)/VueListePanel.java \
 $(SRC)/$(PKG_PATH)/VueDetailPanel.java \
 $(SRC)/$(PKG_PATH)/VueRappelAddPanel.java \
-$(SRC)/$(PKG_PATH)/VueRappelModifPanel.java | $(BIN)
-	@echo "Compilation groupée des classes Vue..."
-	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $^
+$(SRC)/$(PKG_PATH)/VueRappelModifPanel.java
+	@$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $^
 
 # Compilation du controleur et des listner  ne pas utiliser le $^ sinon ça marche pas 
 $(BIN)/$(PKG_PATH)/ControleurRappel.class \
@@ -70,8 +69,7 @@ $(BIN)/$(PKG_PATH)/VueDetailPanel.class \
 $(BIN)/$(PKG_PATH)/VueRappelAddPanel.class \
 $(BIN)/$(PKG_PATH)/VueRappelModifPanel.class \
 $(BIN)/$(PKG_PATH)/ErrorManager.class | $(BIN)
-	@echo "Compilation groupée du contrôleur et des listeners..."
-	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" \
+	@$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" \
 	$(SRC)/$(PKG_PATH)/ControleurRappel.java \
 	$(SRC)/$(PKG_PATH)/ListenerBtn.java \
 	$(SRC)/$(PKG_PATH)/ListenerAjoutBD.java \
@@ -86,13 +84,11 @@ $(BIN)/$(PKG_PATH)/App.class: $(SRC)/$(PKG_PATH)/App.java \
 	$(BIN)/$(PKG_PATH)/ErrorManager.class \
 	$(BIN)/$(PKG_PATH)/DBManager.class \
 	$(BIN)/$(PKG_PATH)/ListenerFermeture.class | $(BIN)
-	@echo "Compilation de la classe principale App..."
-	$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
+	@$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
 
 
 jar: all
 	$(JAR) cvfe Papillon.jar $(MAIN_CLASS) -C $(BIN) .
-	@echo "Papillon.jar créé avec succès."
 
 
 run: jar
