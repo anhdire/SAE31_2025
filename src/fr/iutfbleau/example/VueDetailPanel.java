@@ -180,8 +180,6 @@ public class VueDetailPanel extends JPanel {
         panneau.add(btnDescendre);
 
         zoneBas.add(Box.createVerticalStrut(10));
-        //zoneBas.add(btnMonter);
-        //zoneBas.add(btnDescendre);
         zoneBas.add(panneau);
         zoneBas.add(Box.createVerticalStrut(10));
         zoneBas.add(basPanel);
@@ -193,7 +191,6 @@ public class VueDetailPanel extends JPanel {
 
     /**
      * Affiche les informations du rappel dans les champs de la vue.
-     *
      * @param r Le rappel à afficher
      */
     public void afficherRappel(ModelRappel r) {
@@ -211,16 +208,47 @@ public class VueDetailPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Methode permettant de retourner le bouton Modifier
+     * @return JButton retourne un bouton
+    */
+    
     public JButton getBtnModifier() { 
         return btnModifier; 
     }
+    
+    /** 
+     * Methode permettant de retourner le bouton Supprimer
+     * @return JButton retourne un bouton
+     */
+
     public JButton getBtnSupprimer() { 
         return btnSupprimer; 
     }
+
+    /**
+     * Methode permettant de retourner le bouton Retour
+     * @return JButton retourne un bouton
+    */
+
     public JButton getBtnRetour() {
         return btnRetour; 
     }
+    /**
+     * Methode permettant de retourner le bouton Monter
+     * @return JButton retourne un bouton
+    */
+    
     public JButton getBtnMonter() { 
         return btnMonter; 
+    }
+
+    /**
+     * Methode permettant de retourner le bouton Descendre
+     * @return JButton retourne un bouton
+    */
+    
+    public JButton getBtnDescendre(){
+        return btnDescendre;
     }
 }

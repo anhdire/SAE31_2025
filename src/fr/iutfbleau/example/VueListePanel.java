@@ -8,7 +8,7 @@ import javax.swing.border.*;
 /**
  * VueListePanel représente l'écran affichant la liste des rappels.
  * Il contient des cartes pour chaque rappel et un bouton pour en ajouter un nouveau.
- * @author Algassimou Pellel DIALLO
+ * @author Algassimou Pellel DIALLO, Ayoub ANHDIRE , Youness BOULALAM
  * @version 1.5
  */
 public class VueListePanel extends JPanel {
@@ -62,7 +62,6 @@ public class VueListePanel extends JPanel {
 
     /**
      * Met à jour les cartes affichées avec une nouvelle liste de rappels.
-     *
      * @param rappels liste des rappels à afficher
      */
     public void rafraichirListe(List<ModelRappel> rappels) {
@@ -149,7 +148,6 @@ public class VueListePanel extends JPanel {
 
     /**
      * Retourne une couleur correspondant à un thème donné.
-     *
      * @param theme numéro de thème
      * @return couleur associée
      */
