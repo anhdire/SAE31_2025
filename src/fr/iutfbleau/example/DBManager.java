@@ -1,7 +1,7 @@
 package fr.iutfbleau.example;
 
 import java.sql.*;
-import fr.iutfbleau.example.ErrorManager;
+
 /**
  * Gère la connexion à la base de données.
  * @author Algassimou Pellel Diallo
