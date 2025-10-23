@@ -37,13 +37,12 @@ public class ModelRappelDAO {
             pst.setInt(4, r.getRang());
             pst.executeUpdate();
         } catch (SQLException e) {
-            ErrorManager.showError("""
-                Une erreur est survenue pendant l'ajout du rappel.
-
-                Recommandations :
-                \t- Vérifiez votre connexion internet.
-                \t- Essayez de relancer l'application si le problème persiste.
-            """);
+            ErrorManager.showError(
+                "Une erreur est survenue pendant l'ajout du rappel." +
+                "Recommandations :"+
+                "\t- Vérifiez votre connexion internet."+
+                "\t- Essayez de relancer l'application si le problème persiste."
+            );
         } finally {
             try {
                 if (pst != null) pst.close();
@@ -64,12 +63,11 @@ public class ModelRappelDAO {
             pst.setInt(1, id);
             pst.executeUpdate();
         } catch (SQLException e) {
-            ErrorManager.showError("""
-                Impossible de supprimer le rappel.
-                Recommandations :
-                \t- Fermez puis rouvrez la fiche du rappel et réessayez.
-                \t- Si le problème persiste, redémarrez l'application.
-            """);
+            ErrorManager.showError(
+                "Impossible de supprimer le rappel."+
+                "Recommandations : "+
+                "\t- Fermez puis rouvrez la fiche du rappel et réessayez."+
+                "\t- Si le problème persiste, redémarrez l'application.");
         } finally {
             try {
                 if (pst != null) pst.close();
@@ -168,13 +166,13 @@ public class ModelRappelDAO {
             pst.setInt(5, r.getId());
             pst.executeUpdate();
         } catch (SQLException e) {
-            ErrorManager.showError("""
-                Impossible de mettre à jour le rappel.
-                Recommandations :
-                \t- Vérifiez votre connexion internet.
-                \t- Réessayez après quelques instants.
-                \t- Si le problème persiste, redémarrez l'application.
-            """);
+            ErrorManager.showError(
+                "Impossible de mettre à jour le rappel."+
+                "Recommandations :"+
+                "\t- Vérifiez votre connexion internet."+
+                "\t- Réessayez après quelques instants."+
+                "\t- Si le problème persiste, redémarrez l'application."
+            );
         } finally {
             try {
                 if (pst != null) pst.close();
