@@ -37,7 +37,8 @@ public class ListenerBtn implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
 
-        if (source instanceof JButton btn) {
+        if (source instanceof JButton) {
+            JButton btn = (JButton) source;
             String action = btn.getActionCommand();
 
             if (action.equals("ajouter")) {
