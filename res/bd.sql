@@ -42,11 +42,11 @@ CREATE TABLE `SAE31_2025_Rappel` (
 -- Donne de teste
 
 INSERT INTO `SAE31_2025_Rappel` (`Id`, `Titre`, `Contenu`, `Theme`, `Rang`) VALUES
-(1, 'Test', 'Ceci est un test', 1, 1),
-(2, 'Acheter du lait', 'Avant 18h', 2, 2),
-(3, 'Réviser SAE 3.1', 'Diagrammes UML à finir', 3, 5),
-(4, 'Appeler Luc', NULL, 4, 1),
-(5, 'Faire les courses', 'Ne pas oublier le pain', 5, 3);
+(1, 'Test', 'Ceci est un test', 1, 0),
+(2, 'Acheter du lait', 'Avant 18h', 2, 1),
+(3, 'Réviser SAE 3.1', 'Diagrammes UML à finir', 3, 2),
+(4, 'Appeler Luc', NULL, 4, 3),
+(5, 'Faire les courses', 'Ne pas oublier le pain', 5, 4);
 
 --
 -- Index pour les tables déchargées
