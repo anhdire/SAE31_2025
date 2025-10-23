@@ -139,14 +139,12 @@ public class VueRappelModifPanel extends JPanel{
         this.idRappel = r.getId();
         modifierTitle.setText(r.getTitre());
         modifierContent.setText(r.getContenu());
-        //modifierRank.setText(String.valueOf(r.getRang()));
     }
 
 
     public void viderChamps(){
         modifierTitle.setText("");
         modifierContent.setText("");
-        //modifierRank.setText("");
     }
 
     public int getnewThemeChoisi() {
@@ -222,4 +220,5 @@ public class VueRappelModifPanel extends JPanel{
     public int getIdRappel() {
         return this.idRappel;
     }
+
 }

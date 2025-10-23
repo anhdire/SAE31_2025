@@ -247,4 +247,9 @@ public class ControleurRappel {
         }
     }
 
+
+    public ModelRappelDAO getDao(){
+        return this.dao;
+    }
+
 }

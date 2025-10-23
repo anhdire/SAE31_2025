@@ -40,8 +40,7 @@ public class ListenerModifieBD implements ActionListener {
 		}
 
 		String newTitle = v.getFormModifPanel().getnewTitle();
-		String newwContent = v.getFormModifPanel().getnewContent();
-		//String newRank = v.getFormModifPanel().getnewRank();
+		String newContent = v.getFormModifPanel().getnewContent();
 		int newTheme = v.getFormModifPanel().getnewThemeChoisi();
 
 		// Verification du nouveau titre
@@ -65,9 +64,23 @@ public class ListenerModifieBD implements ActionListener {
         // Récupération de l'ID du rappel en cours de modification
         int idRappel = v.getFormModifPanel().getIdRappel();
 
-        // Création du rappel modifié et envoi au contrôleur
-        ModelRappel mr = new ModelRappel(idRappel, newTitle, newwContent, newTheme, 0, null);
-        c.modifierRappel(mr);
-        v.getFormModifPanel().viderChamps();
+        // On récupère le rappel actuel pour garder son rang
+		ModelRappel ancien = c.getDao().getOneRappel(idRappel);
+		if (ancien == null) {
+			ErrorManager.showError("Le rappel sélectionné n'existe plus.");
+			return;
+		}
+
+		// Création du rappel modifié avec son rang d’origine
+		ModelRappel mr = new ModelRappel(
+			idRappel,
+			newTitle,
+			newContent,
+			newTheme,
+			ancien.getRang(), 
+			null
+		);
+		c.modifierRappel(mr);
+		v.getFormModifPanel().viderChamps();
 	}
 }
