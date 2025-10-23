@@ -41,7 +41,7 @@ public class ListenerAjoutBD implements ActionListener {
 
         String titre = vmr.getFormAjoutPanel().getLabel();
         String contenu = vmr.getFormAjoutPanel().getContenu();
-        String rankStr = vmr.getFormAjoutPanel().getRank();
+        //String rankStr = vmr.getFormAjoutPanel().getRank();
         int rang = 0;
         int theme = vmr.getFormAjoutPanel().getThemeChoisi();
 
@@ -51,7 +51,7 @@ public class ListenerAjoutBD implements ActionListener {
             message += "\t- Le titre du rappel est vide.\n";
         }
 
-        // Vérification du rang
+        /*Vérification du rang
         if (rankStr == null || rankStr.isEmpty() || rankStr.equals("Rang : ")) {
             valide = false;
             message += "\t- Le rang doit être renseigné.\n";
@@ -63,6 +63,7 @@ public class ListenerAjoutBD implements ActionListener {
                 message += "\t- Le rang doit être un nombre entier.\n";
             }
         }
+        */
 
         // Vérification du thème
         if (theme < 1) {
@@ -77,7 +78,7 @@ public class ListenerAjoutBD implements ActionListener {
         }
 
         // Si tout est valide, créer et ajouter le rappel
-        ModelRappel mr = new ModelRappel(-1, titre, contenu, theme, rang, null);
+        ModelRappel mr = new ModelRappel(-1, titre, contenu, theme, 0, null);
         control.ajouterRappel(mr);
         vmr.getFormAjoutPanel().viderChamps();
     }

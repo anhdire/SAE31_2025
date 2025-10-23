@@ -41,26 +41,13 @@ public class ListenerModifieBD implements ActionListener {
 
 		String newTitle = v.getFormModifPanel().getnewTitle();
 		String newwContent = v.getFormModifPanel().getnewContent();
-		String newRank = v.getFormModifPanel().getnewRank();
+		//String newRank = v.getFormModifPanel().getnewRank();
 		int newTheme = v.getFormModifPanel().getnewThemeChoisi();
 
 		// Verification du nouveau titre
 		if (newTitle == null || newTitle.isEmpty() || newTitle.equals("Nom : ")) {
             b = false;
             mess += "\t- Le titre du rappel est vide.\n";
-        }
-
-         // Vérification du rang
-        if (newRank == null || newRank.isEmpty() || newRank.equals("Rang : ")) {
-            b = false;
-            mess += "\t- Le rang doit être renseigné.\n";
-        } else {
-            try {
-                rang = Integer.parseInt(newRank);
-            } catch (NumberFormatException ex) {
-                b = false;
-                mess += "\t- Le rang doit être un nombre entier.\n";
-            }
         }
 
         // Verification du theme 
@@ -79,7 +66,7 @@ public class ListenerModifieBD implements ActionListener {
         int idRappel = v.getFormModifPanel().getIdRappel();
 
         // Création du rappel modifié et envoi au contrôleur
-        ModelRappel mr = new ModelRappel(idRappel, newTitle, newwContent, newTheme, rang, null);
+        ModelRappel mr = new ModelRappel(idRappel, newTitle, newwContent, newTheme, 0, null);
         c.modifierRappel(mr);
         v.getFormModifPanel().viderChamps();
 	}

@@ -40,7 +40,11 @@ public class VueDetailPanel extends JPanel {
     private JButton btnRetour;
 
     /** Bouton pour marquer une tâche comme accomplie */
-    private JButton btnTacheAccomplie;
+    private JButton btnMonter;
+    /**
+     * Bouton pour permettre de descendre le rang d'une tache
+    */
+    private JButton btnDescendre;
 
     /**
      * Constructeur qui initialise tous les éléments graphiques de la vue détail.
@@ -60,11 +64,11 @@ public class VueDetailPanel extends JPanel {
         btnRetour.setBackground(Color.BLACK);
         btnRetour.setForeground(Color.WHITE);
         btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnRetour.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        btnRetour.setFont(new Font("Arial", Font.PLAIN, 13));
         btnRetour.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
         titreLabel = new JLabel();
-        titreLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        titreLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titreLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         topPanel.add(btnRetour, BorderLayout.EAST);
@@ -75,7 +79,7 @@ public class VueDetailPanel extends JPanel {
         contenuArea.setEditable(false);
         contenuArea.setLineWrap(true);
         contenuArea.setWrapStyleWord(true);
-        contenuArea.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        contenuArea.setFont(new Font("Arial", Font.PLAIN, 15));
         contenuArea.setBackground(new Color(250, 250, 250));
         contenuArea.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(220, 220, 220)),
@@ -86,24 +90,24 @@ public class VueDetailPanel extends JPanel {
         scrollPane.setBorder(null);
 
         // Bas : bouton tâche accomplie
-        btnTacheAccomplie = new JButton("Tâche accomplie");
-        btnTacheAccomplie.setActionCommand("suppression");
-        btnTacheAccomplie.setFocusPainted(false);
-        btnTacheAccomplie.setBackground(new Color(40, 167, 69));
-        btnTacheAccomplie.setForeground(Color.WHITE);
-        btnTacheAccomplie.setFont(new Font("SansSerif", Font.BOLD, 15));
-        btnTacheAccomplie.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnTacheAccomplie.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        btnTacheAccomplie.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnMonter = new JButton("Tâche accomplie ⬆");
+        btnMonter.setActionCommand("suppression");
+        btnMonter.setFocusPainted(false);
+        btnMonter.setBackground(new Color(40, 167, 69));
+        btnMonter.setForeground(Color.WHITE);
+        btnMonter.setFont(new Font("Arial", Font.BOLD, 15));
+        btnMonter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnMonter.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        btnMonter.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Labels supplémentaires
         idLabel = new JLabel();
         themeLabel = new JLabel();
         rangLabel = new JLabel();
 
-        idLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        themeLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        rangLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        idLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+        themeLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+        rangLabel.setFont(new Font("Arial", Font.PLAIN, 13));
 
         JPanel infoPanel = new JPanel(new GridLayout(3, 1));
         infoPanel.setBackground(Color.WHITE);
@@ -121,7 +125,7 @@ public class VueDetailPanel extends JPanel {
         basPanel.setBackground(Color.WHITE);
 
         dateLabel = new JLabel();
-        dateLabel.setFont(new Font("SansSerif", Font.ITALIC, 13));
+        dateLabel.setFont(new Font("Arial", Font.ITALIC, 13));
         dateLabel.setForeground(Color.GRAY);
         dateLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -136,7 +140,7 @@ public class VueDetailPanel extends JPanel {
         btnModifier.setBackground(Color.BLACK);
         btnModifier.setForeground(Color.WHITE);
         btnModifier.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnModifier.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        btnModifier.setFont(new Font("Arial", Font.PLAIN, 13));
         btnModifier.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
         btnSupprimer.setActionCommand("supression");
@@ -144,7 +148,7 @@ public class VueDetailPanel extends JPanel {
         btnSupprimer.setBackground(new Color(200, 0, 0));
         btnSupprimer.setForeground(Color.WHITE);
         btnSupprimer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnSupprimer.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        btnSupprimer.setFont(new Font("Arial", Font.PLAIN, 13));
         btnSupprimer.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
         buttonPanel.add(btnModifier);
@@ -158,7 +162,7 @@ public class VueDetailPanel extends JPanel {
         zoneBas.setBackground(Color.WHITE);
 
         zoneBas.add(Box.createVerticalStrut(10));
-        zoneBas.add(btnTacheAccomplie);
+        zoneBas.add(btnMonter);
         zoneBas.add(Box.createVerticalStrut(10));
         zoneBas.add(basPanel);
 
@@ -196,7 +200,7 @@ public class VueDetailPanel extends JPanel {
     public JButton getBtnRetour() {
         return btnRetour; 
     }
-    public JButton getBtnTacheAccomplie() { 
-        return btnTacheAccomplie; 
+    public JButton getBtnMonter() { 
+        return btnMonter; 
     }
 }

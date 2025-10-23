@@ -25,12 +25,6 @@ public class VueRappelModifPanel extends JPanel{
     */
     private JTextArea modifierContent;
     /**
-     * permet à l'utilisateur de se souvenir du rang qu'il a mis
-     * il pourra ainsi le changer selon si ce rang a changé au cours du temps
-     * est ce qu'il est devenu plus important ou au contraire a perdu en importance au cours du temps
-    */
-    private JTextField modifierRank;
-    /**
      * Bouton permettant a l'utilisateur de changer de theme 
     */
     private JCheckBox one_color;
@@ -76,23 +70,26 @@ public class VueRappelModifPanel extends JPanel{
 
     public VueRappelModifPanel(){
         super();
-        GridLayout page_gestion = new GridLayout(6,1,0,5);
+        GridLayout page_gestion = new GridLayout(5,1,0,5);
         super.setLayout(page_gestion);
-        Font f = new Font("SansSerif",Font.BOLD,22);
+        Font f = new Font("Arial",Font.BOLD,20);
+        Font ff = new Font("Arial",Font.BOLD,13);
         this.modifierRappel = new JLabel("Modifier un Rappel");
         this.modifierRappel.setFont(f);
         this.modifierRappel.setForeground(Color.RED);
         this.modifierRappel.setHorizontalAlignment(JLabel.CENTER);
         this.modifierTitle = new JTextField();
+        this.modifierTitle.setFont(ff);
         this.modifierContent = new JTextArea(50,50);
         modifierContent.setLineWrap(true);
+        modifierContent.setFont(ff);
         JScrollPane scroll = new JScrollPane(modifierContent);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        this.modifierRank = new JTextField();
+        //this.modifierRank = new JTextField();
         super.add(modifierRappel);
         super.add(modifierTitle); 
         super.add(scroll);
-        super.add(modifierRank);
+        //super.add(modifierRank);
         GridLayout grrrrrr = new GridLayout(1,5,5,5);
         JPanel panel = new JPanel();
         panel.setLayout(grrrrrr);
@@ -118,10 +115,14 @@ public class VueRappelModifPanel extends JPanel{
         JPanel jp = new JPanel();
         jp.setLayout(gr);
         this.confirmModification = new JButton("Confirmer les modifications");
-        confirmModification.setBackground(new Color(39,245,173));
+        confirmModification.setBackground(new Color(39,200,245));
+        confirmModification.setForeground(Color.WHITE);
+        confirmModification.setFont(ff);
         this.getBacktoHome = new JButton("Revenir à l'accueil");
         getBacktoHome.setActionCommand("retour");
-        getBacktoHome.setBackground(new Color(237,69,90));
+        getBacktoHome.setBackground(new Color(0x3A3A3A));
+        getBacktoHome.setForeground(Color.WHITE);
+        confirmModification.setFont(ff);
         jp.add(confirmModification);
         jp.add(getBacktoHome);
         super.add(jp);
@@ -138,14 +139,14 @@ public class VueRappelModifPanel extends JPanel{
         this.idRappel = r.getId();
         modifierTitle.setText(r.getTitre());
         modifierContent.setText(r.getContenu());
-        modifierRank.setText(String.valueOf(r.getRang()));
+        //modifierRank.setText(String.valueOf(r.getRang()));
     }
 
 
     public void viderChamps(){
         modifierTitle.setText("");
         modifierContent.setText("");
-        modifierRank.setText("");
+        //modifierRank.setText("");
     }
 
     public int getnewThemeChoisi() {
@@ -212,14 +213,6 @@ public class VueRappelModifPanel extends JPanel{
 
     public String getnewContent(){
         return this.modifierContent.getText();
-    }
-    /**
-     * permet de recupérer ce que l'utilisateur écrit : le rang
-     * @return String retourne ce qu'il écrit sous forme de caracteres
-    */
-
-    public String getnewRank(){
-        return this.modifierRank.getText();
     }
 
     /**
