@@ -4,4 +4,4 @@ build/
 Papillon.jar
 Papillon-FAT.jar
 temp/*.java
-
+docjava/

@@ -1,7 +1,9 @@
 JAVAC = javac
+JAVADOC = javadoc
 JAVA  = java
 JAR   = jar
 SRC   = src
+DOC   = docjava
 BIN   = build
 LIB   = lib/mariadb-java-client-3.5.6.jar
 
@@ -24,6 +26,9 @@ all: $(BIN)/$(PKG_PATH)/App.class
 
 $(BIN):
 	@mkdir -p $(BIN)
+
+$(DOC):
+	@mkdir -p $(DOC)
 
 $(BIN)/$(PKG_PATH)/ListenerFermeture.class: $(SRC)/$(PKG_PATH)/ListenerFermeture.java | $(BIN)
 	@$(JAVAC) -d $(BIN) -cp "$(LIB)$(SEP)$(BIN)" $<
@@ -98,23 +103,30 @@ run: jar
 	$(JAVA) -cp "Papillon.jar:$(LIB)" $(MAIN_CLASS)
 
 fatjar: jar
-	@echo "Création du jar avec le driver MariaDB... JAR"
+	echo "Création du jar avec le driver MariaDB... JAR"
 	@rm -rf $(TMPDIR)
 	@mkdir $(TMPDIR)
-	cd $(TMPDIR) && jar xf ../Papillon.jar
-	cd $(TMPDIR) && jar xf ../$(LIB)
-	cd $(TMPDIR) && $(JAR) cfe ../$(FATJAR) $(MAIN_CLASS) .
-	rm -rf $(TMPDIR)
-	@echo "L'operation is good"
+	@cd $(TMPDIR) && jar xf ../Papillon.jar
+	@cd $(TMPDIR) && jar xf ../$(LIB)
+	@cd $(TMPDIR) && $(JAR) cfe ../$(FATJAR) $(MAIN_CLASS) .
+	@rm -rf $(TMPDIR)
+	echo "L'operation is good"
+
+doc: $(DOC)
+	@echo "Génération de la documentation java..."
+	$(JAVADOC) -d $(DOC) -cp "$(LIB)" -sourcepath $(SRC) fr.iutfbleau.example
+	@echo "Documentation générée dans le dossier 'doc/'."
 
 runfatjar: fatjar
 	$(JAVA) -jar Papillon-Fat.jar
+
+
 
 runnotjar: all
 	$(JAVA) -cp "$(LIB)$(SEP)$(BIN)" $(MAIN_CLASS)
 
 
 clean:
-	rm -rf $(BIN) Papillon.jar
+	rm -rf $(BIN) Papillon.jar Papillon-FAT.jar
 	@echo "Dossier build et jar nettoyés."
 
