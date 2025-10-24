@@ -115,7 +115,7 @@ fatjar: jar
 doc: $(DOC)
 	@echo "Génération de la documentation java..."
 	$(JAVADOC) -d $(DOC) -cp "$(LIB)" -sourcepath $(SRC) fr.iutfbleau.example
-	@echo "Documentation générée dans le dossier 'doc/'."
+	@echo "Documentation générée dans le dossier '$(DOC)/' ."
 
 runfatjar: fatjar
 	$(JAVA) -jar Papillon-Fat.jar
@@ -127,6 +127,6 @@ runnotjar: all
 
 
 clean:
-	rm -rf $(BIN) Papillon.jar Papillon-FAT.jar
+	rm -rf $(BIN) $(DOC) Papillon.jar Papillon-FAT.jar
 	@echo "Dossier build et jar nettoyés."
 
