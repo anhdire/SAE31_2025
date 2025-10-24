@@ -100,7 +100,7 @@ jar: all
 
 
 run: jar
-	$(JAVA) -cp "Papillon.jar:$(LIB)" $(MAIN_CLASS)
+	$(JAVA) -cp "Papillon.jar$(SEP)$(LIB)" $(MAIN_CLASS)
 
 fatjar: jar
 	echo "Création du jar avec le driver MariaDB... JAR"
